@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/onboarding_navigation"
+    app:startDestination="@id/onBoardingFragment">
+    <fragment
+        android:id="@+id/onBoardingFragment"
+        android:name="com.capstone.didow.UI.onBoarding.OnBoardingFragment"
+        android:label="on_boarding_fragment"
+        tools:layout="@layout/on_boarding_fragment" >
+        <action
+            android:id="@+id/action_onBoardingFragment_to_featuresFragment"
+            app:destination="@id/featuresFragment" />
+        <action
+            android:id="@+id/action_onBoardingFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/featuresFragment"
+        android:name="com.capstone.didow.UI.onBoarding.FeaturesFragment"
+        android:label="fragment_features"
+        tools:layout="@layout/fragment_features" >
+        <action
+            android:id="@+id/action_featuresFragment_to_assessmentStartFragment"
+            app:destination="@id/assessmentStartFragment" />
+        <action
+            android:id="@+id/action_featuresFragment_to_exerciseActivity"
+            app:destination="@id/exerciseActivity" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.capstone.didow.UI.login.LoginFragment"
+        android:label="login_fragment"
+        tools:layout="@layout/login_fragment" >
+        <action
+            android:id="@+id/action_loginFragment_to_registerFragment"
+            app:destination="@id/registerFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/assessmentStartFragment"
+        android:name="com.capstone.didow.UI.onBoarding.AssessmentStartFragment"
+        android:label="fragment_assessment_start"
+        tools:layout="@layout/fragment_assessment_start" >
+        <action
+            android:id="@+id/action_assessmentStartFragment_to_exerciseActivity"
+            app:destination="@id/exerciseActivity" />
+    </fragment>
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.capstone.didow.UI.register.RegisterFragment"
+        android:label="register_fragment"
+        tools:layout="@layout/register_fragment" >
+        <action
+            android:id="@+id/action_registerFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <activity
+        android:id="@+id/exerciseActivity"
+        android:name="com.capstone.didow.UI.ExerciseActivity"
+        android:label="activity_exercise"
+        tools:layout="@layout/activity_exercise" />
+</navigation>

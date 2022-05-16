@@ -10,6 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Didow">
         <activity
+            android:name=".UI.ExerciseActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UI.OnBoarding"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

@@ -3,7 +3,16 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/ARIF/MBKM/Capstone/Didow/app/src/main/res/layout/activity_exercise.xml" value="0.3625" />
+        <entry key="..\:/ARIF/MBKM/Capstone/Didow/app/src/main/res/layout/activity_login.xml" value="0.3484375" />
         <entry key="..\:/ARIF/MBKM/Capstone/Didow/app/src/main/res/layout/activity_main.xml" value="0.3625" />
+        <entry key="..\:/ARIF/MBKM/Capstone/Didow/app/src/main/res/layout/activity_on_boarding.xml" value="0.3625" />
+        <entry key="..\:/ARIF/MBKM/Capstone/Didow/app/src/main/res/layout/fragment_assessment_report.xml" value="0.3625" />
+        <entry key="..\:/ARIF/MBKM/Capstone/Didow/app/src/main/res/layout/fragment_assessment_start.xml" value="0.3625" />
+        <entry key="..\:/ARIF/MBKM/Capstone/Didow/app/src/main/res/layout/fragment_features.xml" value="0.3625" />
+        <entry key="..\:/ARIF/MBKM/Capstone/Didow/app/src/main/res/layout/login_fragment.xml" value="0.3625" />
+        <entry key="..\:/ARIF/MBKM/Capstone/Didow/app/src/main/res/layout/on_boarding_fragment.xml" value="0.5" />
+        <entry key="..\:/ARIF/MBKM/Capstone/Didow/app/src/main/res/layout/register_fragment.xml" value="0.3625" />
       </map>
     </option>
   </component>

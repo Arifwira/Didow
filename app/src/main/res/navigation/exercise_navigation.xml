@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/exercise_navigation"
+    app:startDestination="@id/exerciseFragment">
+
+    <fragment
+        android:id="@+id/assessmentReportFragment"
+        android:name="com.capstone.didow.UI.onBoarding.AssessmentReportFragment"
+        android:label="fragment_assessment_report"
+        tools:layout="@layout/fragment_assessment_report" >
+        <action
+            android:id="@+id/action_assessmentReportFragment_to_registerFragment2"
+            app:destination="@id/registerFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/assessmentCompleteFragment"
+        android:name="com.capstone.didow.UI.onBoarding.AssessmentCompleteFragment"
+        android:label="fragment_assessment_complete"
+        tools:layout="@layout/fragment_assessment_complete" >
+        <action
+            android:id="@+id/action_assessmentCompleteFragment_to_assessmentReportFragment"
+            app:destination="@id/assessmentReportFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/exerciseFragment"
+        android:name="com.capstone.didow.UI.exercise.ExerciseFragment"
+        android:label="exercise_fragment"
+        tools:layout="@layout/exercise_fragment" >
+        <action
+            android:id="@+id/action_exerciseFragment_to_exerciseMultipleChoiceFragment"
+            app:destination="@id/exerciseMultipleChoiceFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/exerciseHandWritingFragment"
+        android:name="com.capstone.didow.UI.exercise.ExerciseHandWritingFragment"
+        android:label="exercise_hand_writing_fragment"
+        tools:layout="@layout/exercise_hand_writing_fragment" >
+        <action
+            android:id="@+id/action_exerciseHandWritingFragment_to_assessmentCompleteFragment"
+            app:destination="@id/assessmentCompleteFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/exerciseWordsScrambleFragment"
+        android:name="com.capstone.didow.UI.exercise.ExerciseWordsScrambleFragment"
+        android:label="exercise_words_scramble_fragment"
+        tools:layout="@layout/exercise_words_scramble_fragment" >
+        <action
+            android:id="@+id/action_exerciseWordsScrambleFragment_to_exerciseHandWritingFragment"
+            app:destination="@id/exerciseHandWritingFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/exerciseMultipleChoiceFragment"
+        android:name="com.capstone.didow.UI.exercise.ExerciseMultipleChoiceFragment"
+        android:label="exercise_multiple_choice_fragment"
+        tools:layout="@layout/exercise_multiple_choice_fragment" >
+        <action
+            android:id="@+id/action_exerciseMultipleChoiceFragment_to_exerciseWordsScrambleFragment"
+            app:destination="@id/exerciseWordsScrambleFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/registerFragment2"
+        android:name="com.capstone.didow.UI.register.RegisterFragment"
+        android:label="register_fragment"
+        tools:layout="@layout/register_fragment" />
+
+</navigation>

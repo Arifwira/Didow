@@ -1,12 +1,15 @@
 package com.capstone.didow
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.capstone.didow.UI.OnBoarding
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        //sasasas
+        startActivity(Intent(this, OnBoarding::class.java))
+        finish()
     }
 }
