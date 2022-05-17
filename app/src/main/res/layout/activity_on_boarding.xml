@@ -7,7 +7,7 @@
     tools:context=".UI.OnBoarding">
 
     <fragment
-        android:id="@+id/container"
+        android:id="@+id/container_onBoarding"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

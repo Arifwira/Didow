@@ -7,8 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.capstone.didow.R
+import com.capstone.didow.databinding.AvatarFragmentBinding
+import com.capstone.didow.databinding.ProfileFragmentBinding
 
 class AvatarFragment : Fragment() {
+
+    private var _binding : AvatarFragmentBinding? = null
+    private val binding get() = _binding!!
 
     companion object {
         fun newInstance() = AvatarFragment()
@@ -20,13 +25,29 @@ class AvatarFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.avatar_fragment, container, false)
+        _binding = AvatarFragmentBinding.inflate(inflater,container,false)
+        return binding.root
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.apply {
+            simpanAva.setOnClickListener {
+                parentFragmentManager.beginTransaction().replace(R.id.container_main,ProfileFragment()).commit()
+            }
+        }
+    }
+
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(AvatarViewModel::class.java)
         // TODO: Use the ViewModel
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 
 }

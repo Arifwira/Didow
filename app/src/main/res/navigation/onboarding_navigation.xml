@@ -15,6 +15,11 @@
         <action
             android:id="@+id/action_onBoardingFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_onBoardingFragment_to_registerFragment"
+            app:destination="@id/registerFragment"
+            app:popUpTo="@id/registerFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/featuresFragment"
@@ -27,6 +32,9 @@
         <action
             android:id="@+id/action_featuresFragment_to_exerciseActivity"
             app:destination="@id/exerciseActivity" />
+        <action
+            android:id="@+id/action_featuresFragment_to_onBoardingFragment2"
+            app:destination="@id/onBoardingFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
@@ -36,6 +44,9 @@
         <action
             android:id="@+id/action_loginFragment_to_registerFragment"
             app:destination="@id/registerFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_mainActivity"
+            app:destination="@id/mainActivity" />
     </fragment>
     <fragment
         android:id="@+id/assessmentStartFragment"
@@ -53,11 +64,18 @@
         tools:layout="@layout/register_fragment" >
         <action
             android:id="@+id/action_registerFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <activity
         android:id="@+id/exerciseActivity"
         android:name="com.capstone.didow.UI.ExerciseActivity"
         android:label="activity_exercise"
         tools:layout="@layout/activity_exercise" />
+    <activity
+        android:id="@+id/mainActivity"
+        android:name="com.capstone.didow.MainActivity"
+        android:label="activity_main"
+        tools:layout="@layout/activity_main" />
 </navigation>

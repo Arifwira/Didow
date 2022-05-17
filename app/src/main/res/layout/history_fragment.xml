@@ -8,6 +8,13 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Hello" />
+        android:text="ini Riwayat" />
+    <TextView
+        android:id="@+id/riwayat_01"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:text="contoh riwayat"
+        android:gravity="center"
+        android:layout_gravity="center"/>
 
 </FrameLayout>

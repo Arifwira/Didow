@@ -6,10 +6,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import com.capstone.didow.R
+import com.capstone.didow.databinding.ExerciseHandWritingFragmentBinding
+import com.capstone.didow.databinding.ExerciseWordsScrambleFragmentBinding
 
 class ExerciseHandWritingFragment : Fragment() {
-
+    private var _binding: ExerciseHandWritingFragmentBinding? = null
+    private val binding get() = _binding!!
     companion object {
         fun newInstance() = ExerciseHandWritingFragment()
     }
@@ -20,7 +24,8 @@ class ExerciseHandWritingFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.exercise_hand_writing_fragment, container, false)
+        _binding= ExerciseHandWritingFragmentBinding.inflate(inflater,container,false)
+        return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -29,4 +34,15 @@ class ExerciseHandWritingFragment : Fragment() {
         // TODO: Use the ViewModel
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.lanjut.setOnClickListener{
+            it.findNavController().navigate(R.id.action_exerciseHandWritingFragment_to_assessmentCompleteFragment)
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding=null
+    }
 }

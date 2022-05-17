@@ -3,11 +3,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UI.exercise.ExerciseFragment">
+    tools:context=".UI.profile.EditProfile">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Ini Latihan " />
+        android:text="ini edit Profile" />
+    <Button
+        android:id="@+id/simpan"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:text="simpan"
+        android:layout_gravity="center"/>
 
 </FrameLayout>
