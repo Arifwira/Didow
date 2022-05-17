@@ -8,31 +8,94 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/orange_bg">
 
-        <TextView
-            android:id="@+id/textView"
+        <ImageView
+            android:id="@+id/imageView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Ini OnBoarding" />
-
-        <Button
-            android:id="@+id/tur"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:text="mulai tur"
-            app:layout_constraintBottom_toTopOf="@+id/login"
+            android:scaleType="fitXY"
+            android:src="@drawable/background"
+            android:translationZ="0dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <TextView
+            android:id="@+id/Heading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            android:text="Selamat Datang!"
+            android:textAlignment="center"
+            android:textSize="34sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/Body"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Didow adalah temanmu untuk belajar membaca. Mari belajar bersama!"
+            android:textAlignment="center"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="@+id/Heading"
+            app:layout_constraintStart_toStartOf="@+id/Heading"
+            app:layout_constraintTop_toBottomOf="@+id/Heading" />
+
         <Button
-            android:id="@+id/login"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:text="login"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:id="@+id/start_tour"
+            android:layout_width="200dp"
+            android:layout_height="60dp"
+            android:layout_marginBottom="32dp"
+            android:backgroundTint="@color/black"
+            android:text="mulai tur"
+            app:cornerRadius="50dp"
+            app:layout_constraintBottom_toTopOf="@+id/pernah"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/pernah"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Sudah pernah menggunakan?"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toTopOf="@+id/login"
+            app:layout_constraintEnd_toEndOf="@+id/start_tour"
+            app:layout_constraintStart_toStartOf="@+id/start_tour" />
+
+        <Button
+            android:id="@+id/login"
+            android:layout_width="200dp"
+            android:layout_height="60dp"
+            android:layout_marginBottom="30dp"
+            android:backgroundTint="@android:color/transparent"
+            android:elevation="0dp"
+            android:textColor="@color/black"
+            android:text="login"
+            app:cornerRadius="50dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:strokeColor="#393939"
+
+            app:strokeWidth="2dp" />
+
+        <ImageView
+            android:id="@+id/headIcon"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="32dp"
+            android:src="@drawable/iconhead"
+            app:layout_constraintBottom_toTopOf="@+id/start_tour"
+            app:layout_constraintEnd_toEndOf="@+id/Body"
+            app:layout_constraintStart_toStartOf="@+id/Body"
+            app:layout_constraintTop_toBottomOf="@+id/Body" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

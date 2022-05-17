@@ -32,7 +32,7 @@ class OnBoardingFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.tur.setOnClickListener {
+        binding.startTour.setOnClickListener {
             it.findNavController().navigate(R.id.action_onBoardingFragment_to_featuresFragment)
         }
         binding.login.setOnClickListener{
