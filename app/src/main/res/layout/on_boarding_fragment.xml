@@ -12,13 +12,35 @@
         android:background="@color/orange_bg">
 
         <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="fitXY"
-            android:src="@drawable/background"
-            android:translationZ="0dp"
+            android:id="@+id/bgLeaves1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/leaves03"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+        <ImageView
+            android:id="@+id/bgLeaves2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/leaves03"
+            android:alpha="0"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+        <ImageView
+            android:id="@+id/bottomLeaves"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/leaves01"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <ImageView
+            android:id="@+id/topLeaves"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/leaves02"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -31,6 +53,7 @@
             android:textAlignment="center"
             android:textSize="34sp"
             android:textStyle="bold"
+            android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -42,6 +65,7 @@
             android:text="Didow adalah temanmu untuk belajar membaca. Mari belajar bersama!"
             android:textAlignment="center"
             android:textSize="14sp"
+            android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="@+id/Heading"
             app:layout_constraintStart_toStartOf="@+id/Heading"
             app:layout_constraintTop_toBottomOf="@+id/Heading" />
@@ -53,6 +77,7 @@
             android:layout_marginBottom="32dp"
             android:backgroundTint="@color/black"
             android:text="mulai tur"
+            android:textColor="@color/white"
             app:cornerRadius="50dp"
             app:layout_constraintBottom_toTopOf="@+id/pernah"
             app:layout_constraintEnd_toEndOf="parent"
@@ -64,6 +89,7 @@
             android:layout_height="wrap_content"
             android:text="Sudah pernah menggunakan?"
             android:textAlignment="center"
+            android:textColor="@color/black"
             app:layout_constraintBottom_toTopOf="@+id/login"
             app:layout_constraintEnd_toEndOf="@+id/start_tour"
             app:layout_constraintStart_toStartOf="@+id/start_tour" />
@@ -73,16 +99,15 @@
             android:layout_width="200dp"
             android:layout_height="60dp"
             android:layout_marginBottom="30dp"
-            android:backgroundTint="@android:color/transparent"
-            android:elevation="0dp"
-            android:textColor="@color/black"
+            android:backgroundTint="@color/orange_bg"
             android:text="login"
+            android:textColor="@color/black"
             app:cornerRadius="50dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:strokeColor="#393939"
-
+            android:stateListAnimator="@null"
             app:strokeWidth="2dp" />
 
         <ImageView
