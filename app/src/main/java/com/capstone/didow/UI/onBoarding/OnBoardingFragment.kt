@@ -57,8 +57,8 @@ class OnBoardingFragment : Fragment() {
     }
 
     private fun playAnimation() {
-        val bg =  ObjectAnimator.ofFloat(binding.bgLeaves2, View.ALPHA, 1f).setDuration(1500)
-
+        val bgLeaves2 =  ObjectAnimator.ofFloat(binding.bgLeaves2, View.ALPHA, 1f).setDuration(1500)
+        val bgLeaves3 =  ObjectAnimator.ofFloat(binding.bgLeaves3, View.ALPHA, 1f).setDuration(1500)
         ObjectAnimator.ofFloat(binding.headIcon, View.TRANSLATION_X, -50f, 50f).apply {
             duration = 3000
             repeatCount = ObjectAnimator.INFINITE
@@ -93,7 +93,18 @@ class OnBoardingFragment : Fragment() {
             repeatMode = ObjectAnimator.RESTART
         }
 
-        val bg_Y2 = ObjectAnimator.ofFloat(binding.bgLeaves2, View.TRANSLATION_Y, 350f, -350f).apply {
+        val bg_Y2 = ObjectAnimator.ofFloat(binding.bgLeaves2, View.TRANSLATION_Y, -350f, 350f).apply {
+            duration = 1500
+            repeatCount = ObjectAnimator.INFINITE
+            repeatMode = ObjectAnimator.REVERSE
+        }
+
+        val bg_X3 = ObjectAnimator.ofFloat(binding.bgLeaves3, View.TRANSLATION_X, -1050f, 1050f).apply {
+            duration = 3000
+            repeatCount = ObjectAnimator.INFINITE
+            repeatMode = ObjectAnimator.RESTART
+        }
+        val bg_Y3 = ObjectAnimator.ofFloat(binding.bgLeaves3, View.TRANSLATION_Y, 350f, -350f).apply {
             duration = 1500
             repeatCount = ObjectAnimator.INFINITE
             repeatMode = ObjectAnimator.REVERSE
@@ -136,12 +147,16 @@ class OnBoardingFragment : Fragment() {
         val bg2 = AnimatorSet().apply {
             playTogether(bg_X2,bg_Y2)
         }
+        val bg3 = AnimatorSet().apply {
+            playTogether(bg_X3,bg_Y3)
+        }
 
         AnimatorSet().apply {
             playTogether(topLeaves,bg1)
-            play(bottomLeaves).after(750)
-            play(bg2).after(1500)
-            playTogether(bg2,bg)
+            play(bg3).after(750)
+            playTogether(bg3,bgLeaves3,bottomLeaves)
+            play(bg2).after(2000)
+            playTogether(bg2,bgLeaves2)
             start()
         }
     }
