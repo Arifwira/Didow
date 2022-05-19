@@ -31,6 +31,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
         <ImageView
             android:id="@+id/bgLeaves3"
             android:layout_width="wrap_content"
@@ -41,6 +42,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
         <ImageView
             android:id="@+id/bottomLeaves"
             android:layout_width="wrap_content"
@@ -64,9 +66,9 @@
             android:layout_marginTop="100dp"
             android:text="Selamat Datang!"
             android:textAlignment="center"
+            android:textColor="@color/black"
             android:textSize="34sp"
             android:textStyle="bold"
-            android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -77,21 +79,19 @@
             android:layout_height="wrap_content"
             android:text="Didow adalah temanmu untuk belajar membaca. Mari belajar bersama!"
             android:textAlignment="center"
-            android:textSize="14sp"
             android:textColor="@color/black"
+            android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="@+id/Heading"
             app:layout_constraintStart_toStartOf="@+id/Heading"
             app:layout_constraintTop_toBottomOf="@+id/Heading" />
 
         <Button
             android:id="@+id/start_tour"
-            android:layout_width="200dp"
-            android:layout_height="60dp"
-            android:layout_marginBottom="32dp"
+            style="@style/ButtonGeneral"
+            android:layout_marginBottom="30dp"
             android:backgroundTint="@color/black"
             android:text="mulai tur"
             android:textColor="@color/white"
-            app:cornerRadius="50dp"
             app:layout_constraintBottom_toTopOf="@+id/pernah"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -109,18 +109,16 @@
 
         <Button
             android:id="@+id/login"
-            android:layout_width="200dp"
-            android:layout_height="60dp"
+            style="@style/ButtonGeneral"
             android:layout_marginBottom="30dp"
             android:backgroundTint="@color/orange_bg"
+            android:stateListAnimator="@null"
             android:text="login"
             android:textColor="@color/black"
-            app:cornerRadius="50dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:strokeColor="#393939"
-            android:stateListAnimator="@null"
             app:strokeWidth="2dp" />
 
         <ImageView
