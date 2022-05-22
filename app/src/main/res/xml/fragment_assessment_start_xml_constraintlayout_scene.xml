@@ -96,7 +96,8 @@
             android:layout_marginBottom="16dp"
             motion:layout_constraintBottom_toTopOf="@+id/kembaliAssesment"
             android:alpha="0"
-            motion:layout_constraintStart_toStartOf="parent" >
+            motion:layout_constraintStart_toStartOf="parent"
+            android:scaleX="-1">
             <CustomAttribute
                 motion:attributeName="alpha"
                 motion:customFloatValue="1" />
