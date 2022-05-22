@@ -6,23 +6,122 @@
     android:layout_height="match_parent"
     tools:context=".UI.onBoarding.AssessmentStartFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.constraintlayout.motion.widget.MotionLayout
+        android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Ini Mulai Assessment Awal" />
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:background="@color/orange_bg"
+        app:layoutDescription="@xml/fragment_assessment_start_xml_constraintlayout_scene">
 
-        <Button
-            android:id="@+id/mulai"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:text="mulai"
+        <ImageView
+            android:id="@+id/bgLeaves1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/leaves03"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            tools:layout_editor_absoluteY="520dp" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/bgLeaves2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:alpha="0"
+            android:src="@drawable/leaves03"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/bgLeaves3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:alpha="0"
+            android:src="@drawable/leaves03"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/bottomLeaves"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/leaves01"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <ImageView
+            android:id="@+id/topLeaves"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/leaves02"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/HeadingAsessment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mengapa perlu\nasesmen awal?"
+            android:textAlignment="viewStart"
+            android:textColor="@color/black"
+            android:textSize="34sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/deskribsi"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/mulaiAsessment"
+            style="@style/ButtonGeneral"
+            android:layout_marginBottom="78dp"
+            android:alpha="0"
+            android:backgroundTint="@color/black"
+            android:text="mulai"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/kembaliAssesment"
+            style="@style/ButtonGeneral"
+            android:alpha="0"
+            android:backgroundTint="@color/orange_bg"
+            android:stateListAnimator="@null"
+            android:text="kembali"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toTopOf="@+id/mulaiAsessment"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:strokeColor="#393939"
+            app:strokeWidth="2dp" />
+
+        <TextView
+            android:id="@+id/deskribsi"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:alpha="0"
+            android:text="Disini kamu akan belajar membaca secara bertahap mulai dari kata yang sederhana hingga yang lebih rumit."
+            android:textAlignment="viewStart"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toTopOf="@+id/animasi"
+            app:layout_constraintStart_toStartOf="@+id/HeadingAsessment" />
+
+        <ImageView
+            android:id="@+id/animasi"
+            android:layout_width="150dp"
+            android:layout_height="250dp"
+            android:layout_marginBottom="16dp"
+            android:alpha="0"
+            app:layout_constraintBottom_toTopOf="@+id/kembaliAssesment"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:src="@tools:sample/avatars" />
+    </androidx.constraintlayout.motion.widget.MotionLayout>
 </FrameLayout>
