@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <!-- drawable/volume_up.xml -->
+        <shape android:shape="rectangle">
+            <corners android:radius="8dp"/>
+            <solid android:color="#F44D6E"/>
+            <size android:height="176dp" android:width="176dp"/>
+        </shape>
+    </item>
+    <item android:drawable="@drawable/ic_baseline_volume_up" android:height="72dp"
+        android:width="72dp" android:gravity="center"/>
+</layer-list>

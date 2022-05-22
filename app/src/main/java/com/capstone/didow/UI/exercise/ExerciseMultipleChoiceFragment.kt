@@ -1,15 +1,19 @@
 package com.capstone.didow.UI.exercise
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.capstone.didow.R
 import com.capstone.didow.databinding.ExerciseMultipleChoiceFragmentBinding
-import com.capstone.didow.databinding.RegisterFragmentBinding
+import com.google.android.flexbox.*
+
 
 class ExerciseMultipleChoiceFragment : Fragment() {
 
@@ -22,6 +26,9 @@ class ExerciseMultipleChoiceFragment : Fragment() {
 
     private lateinit var viewModel: ExerciseMultipleChoiceViewModel
 
+    private lateinit var adapter: ExerciseMultipleChoiceAdapter
+    private val listMultipleChoiceOption = ArrayList<MultipleChoice>()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -32,6 +39,16 @@ class ExerciseMultipleChoiceFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
+        binding.rvPilgan.setHasFixedSize(true)
+        listMultipleChoiceOption.addAll(listMultipleChoiceOptions)
+        showRecyclerViewList()
+
+        playSound()
+        openGuide()
+        useHint()
+
         binding.lanjut.setOnClickListener {
             it.findNavController().navigate(R.id.action_exerciseMultipleChoiceFragment_to_exerciseWordsScrambleFragment)
         }
@@ -41,6 +58,63 @@ class ExerciseMultipleChoiceFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(ExerciseMultipleChoiceViewModel::class.java)
         // TODO: Use the ViewModel
+    }
+
+    private val listMultipleChoiceOptions: ArrayList<MultipleChoice>
+    get(){
+        val dataOption = resources.getStringArray(R.array.multiple_choice_option)
+        Log.d("Option-1", dataOption[0])
+        Log.d("Option-2", dataOption[1])
+        Log.d("Option-3", dataOption[2])
+        Log.d("Option-4", dataOption[3])
+
+        val listMultipleChoiceOption = ArrayList<MultipleChoice>()
+        for (i in dataOption.indices) {
+            val option = MultipleChoice(dataOption[i])
+            listMultipleChoiceOption.add(option)
+        }
+        return listMultipleChoiceOption
+    }
+
+    private fun openGuide(){
+        binding.btnGuide.setOnClickListener {
+            Toast.makeText(this@ExerciseMultipleChoiceFragment.context,
+                "You open the Guidebook", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun playSound(){
+        binding.btnPlay.setOnClickListener {
+            Toast.makeText(this@ExerciseMultipleChoiceFragment.context,
+                "You play the sound", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun useHint(){
+        binding.btnHint.setOnClickListener {
+            Toast.makeText(this@ExerciseMultipleChoiceFragment.context,
+                "You use hint", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+
+    private fun showRecyclerViewList(){
+        binding.apply {
+            val layoutManager = FlexboxLayoutManager(this@ExerciseMultipleChoiceFragment.context)
+            layoutManager.flexDirection = FlexDirection.COLUMN
+            layoutManager.justifyContent = JustifyContent.SPACE_EVENLY
+            layoutManager.alignItems = AlignItems.CENTER
+            rvPilgan.layoutManager = layoutManager
+            adapter = ExerciseMultipleChoiceAdapter(listMultipleChoiceOption)
+            rvPilgan.adapter = adapter
+
+            adapter.setOnItemClickCallback(object: ExerciseMultipleChoiceAdapter.OnItemClickCallback {
+                override fun onItemClicked(data: MultipleChoice) {
+                    Toast.makeText(this@ExerciseMultipleChoiceFragment.context,
+                        "Anda memilih ${data.option}",Toast.LENGTH_SHORT).show()
+                }
+            })
+        }
     }
 
 
