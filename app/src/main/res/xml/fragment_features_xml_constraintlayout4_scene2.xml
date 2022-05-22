@@ -150,8 +150,8 @@
         <Constraint
             android:id="@+id/readingAnimation"
             motion:layout_constraintEnd_toEndOf="parent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="200dp"
+            android:layout_height="300dp"
             motion:layout_constraintBottom_toTopOf="@id/HeadingLatihan"
             motion:layout_constraintStart_toStartOf="parent"
             motion:transitionEasing="linear"
@@ -253,17 +253,8 @@
         <Constraint
             android:id="@+id/readingAnimation"
             motion:layout_constraintEnd_toEndOf="parent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            motion:transitionEasing="linear"
-            motion:layout_constraintBottom_toTopOf="@id/JenisLatihan"
-            android:layout_marginBottom="16dp"
-            motion:layout_constraintStart_toStartOf="parent" />
-        <Constraint
-            android:id="@+id/readingAnimation"
-            motion:layout_constraintEnd_toEndOf="parent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="200dp"
+            android:layout_height="300dp"
             motion:transitionEasing="linear"
             motion:layout_constraintBottom_toTopOf="@id/JenisLatihan"
             android:layout_marginBottom="16dp"

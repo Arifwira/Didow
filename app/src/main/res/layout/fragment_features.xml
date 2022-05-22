@@ -173,7 +173,7 @@
             style="@style/ButtonGeneral"
             android:backgroundTint="@color/orange_bg"
             android:stateListAnimator="@null"
-            android:text="lewati"
+            android:text="Lanjut ke asesmen"
             android:textColor="@color/black"
             app:layout_constraintBottom_toTopOf="@+id/coba"
             app:layout_constraintStart_toEndOf="parent"
@@ -185,7 +185,7 @@
             style="@style/ButtonGeneral"
             android:layout_marginBottom="32dp"
             android:backgroundTint="@color/black"
-            android:text="coba"
+            android:text="coba sampel"
             android:textColor="@color/white"
             app:layout_constraintBottom_toTopOf="@+id/menu2"
             app:layout_constraintStart_toEndOf="parent" />
@@ -206,7 +206,7 @@
 
         <ImageView
             android:id="@+id/readingAnimation"
-            android:layout_width="wrap_content"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
 
             app:layout_constraintBottom_toTopOf="@+id/kembali"
