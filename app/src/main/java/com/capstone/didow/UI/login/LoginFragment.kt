@@ -46,8 +46,8 @@ class LoginFragment : Fragment() {
         binding.masuk.setOnClickListener{
             it.findNavController().navigate(R.id.action_loginFragment_to_mainActivity)
         }
-        binding.toad.setBackgroundResource(R.drawable.toad_animation)
-        readAnimation = binding.toad.background as AnimationDrawable
+        binding.paw.setBackgroundResource(R.drawable.paw_animation)
+        readAnimation = binding.paw.background as AnimationDrawable
         readAnimation.start()
         playAnimation()
     }
@@ -59,6 +59,13 @@ class LoginFragment : Fragment() {
     private fun playAnimation() {
         val bgLeaves2 =  ObjectAnimator.ofFloat(binding.bgLeaves2, View.ALPHA, 1f).setDuration(1500)
         val bgLeaves3 =  ObjectAnimator.ofFloat(binding.bgLeaves3, View.ALPHA, 1f).setDuration(1500)
+        val pawalpha = ObjectAnimator.ofFloat(binding.paw, View.ALPHA, 1f).setDuration(300)
+        val login = ObjectAnimator.ofFloat(binding.HeadingLogin, View.ALPHA, 1f).setDuration(300)
+        val desclogin = ObjectAnimator.ofFloat(binding.loginDesc, View.ALPHA, 1f).setDuration(300)
+        val email = ObjectAnimator.ofFloat(binding.editTextTextEmailAddress, View.ALPHA, 1f).setDuration(300)
+        val password = ObjectAnimator.ofFloat(binding.editTextTextPassword, View.ALPHA, 1f).setDuration(300)
+        val masuk = ObjectAnimator.ofFloat(binding.masuk, View.ALPHA, 1f).setDuration(300)
+        val daftar = ObjectAnimator.ofFloat(binding.Daftar, View.ALPHA, 1f).setDuration(300)
 
         val bg_X1 = ObjectAnimator.ofFloat(binding.bgLeaves1, View.TRANSLATION_X, -1050f, 1050f).apply {
             duration = 3000
@@ -120,6 +127,10 @@ class LoginFragment : Fragment() {
                 repeatMode = ObjectAnimator.REVERSE
             }
 
+        val paw = ObjectAnimator.ofFloat(binding.paw,View.TRANSLATION_Y,1000f,0f).apply {
+            duration = 700
+        }
+
         val topLeaves = AnimatorSet().apply {
             playTogether(top_X, top_Y)
         }
@@ -135,9 +146,14 @@ class LoginFragment : Fragment() {
         val bg3 = AnimatorSet().apply {
             playTogether(bg_X3,bg_Y3)
         }
+        val text = AnimatorSet().apply {
+            playSequentially(login,desclogin,email,password,masuk,daftar)
+        }
 
         AnimatorSet().apply {
-            playTogether(topLeaves,bg1)
+            playTogether(topLeaves,bg1,text)
+            play(pawalpha).after(text)
+            playTogether(paw,pawalpha)
             play(bg3).after(750)
             playTogether(bg3,bgLeaves3,bottomLeaves)
             play(bg2).after(2000)
