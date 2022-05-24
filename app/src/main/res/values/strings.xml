@@ -11,4 +11,13 @@
         <item>duku</item>
         <item>puqu</item>
     </string-array>
+
+    <string-array name="word_scramble_option">
+        <item>Q</item>
+        <item>K</item>
+        <item>U</item>
+        <item>B</item>
+        <item>U</item>
+        <item>P</item>
+    </string-array>
 </resources>
