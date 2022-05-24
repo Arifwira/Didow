@@ -3,7 +3,8 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="soal">Kata apa yang baru saja kamu dengar?</string>
-
+    <string name="camera">Kamera</string>
+    <string name="gallery">Album</string>
 
     <string-array name="multiple_choice_option">
         <item>buku</item>
