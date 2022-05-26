@@ -1,5 +1,6 @@
 package com.capstone.didow.UI.home
 
+import android.animation.ObjectAnimator
 import android.content.Intent
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -28,6 +29,7 @@ class HomeFragment : Fragment() {
     ): View? {
         _binding = HomeFragmentBinding.inflate(inflater,container,false)
         return binding.root
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -38,12 +40,26 @@ class HomeFragment : Fragment() {
 
             }
         }
+        playAnimation()
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
         // TODO: Use the ViewModel
+    }
+
+    private fun playAnimation(){
+        ObjectAnimator.ofFloat(binding.play,View.SCALE_X,1f,1.1f).apply {
+            duration = 1500
+            repeatCount = ObjectAnimator.INFINITE
+            repeatMode = ObjectAnimator.REVERSE
+        }.start()
+        ObjectAnimator.ofFloat(binding.play,View.SCALE_Y,1f,1.1f).apply {
+            duration = 1500
+            repeatCount = ObjectAnimator.INFINITE
+            repeatMode = ObjectAnimator.REVERSE
+        }.start()
     }
 
 }
