@@ -2,13 +2,17 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
         <shape android:shape="oval">
+            <solid android:color="@color/black"/>
+        </shape>
+    </item>
+    <item android:left="2dp" android:top="2dp" android:bottom="2dp" android:right="2dp">
+        <shape android:shape="oval">
             <solid android:color="@color/orange_bg"/>
         </shape>
     </item>
-    <item
-        android:drawable="@drawable/ic_play" />
-    <item
-        android:drawable="@drawable/ic_baseline_play_arrow_24"
-
-        />
+    <item android:left="20dp" android:right="20dp" android:top="20dp" android:bottom="20dp">
+        <shape android:shape="oval">
+            <solid android:color="@color/reddish"/>
+        </shape>
+    </item>
 </layer-list>
