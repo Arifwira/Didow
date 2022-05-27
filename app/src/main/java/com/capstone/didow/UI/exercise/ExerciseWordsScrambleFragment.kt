@@ -103,7 +103,7 @@ class ExerciseWordsScrambleFragment : Fragment() {
 
     private fun showRecyclerViewList(){
         binding.apply{
-            val layoutManager = FlexboxLayoutManager(this@ExerciseWordsScrambleFragment.context)
+            val layoutManager = FlexboxLayoutManager(activity)
             layoutManager.flexDirection = FlexDirection.ROW
             layoutManager.justifyContent = JustifyContent.SPACE_AROUND
             layoutManager.alignItems = AlignItems.CENTER

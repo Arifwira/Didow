@@ -9,7 +9,6 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.capstone.didow.R
 import com.capstone.didow.databinding.ExerciseMultipleChoiceFragmentBinding
 import com.google.android.flexbox.*
@@ -100,7 +99,7 @@ class ExerciseMultipleChoiceFragment : Fragment() {
 
     private fun showRecyclerViewList(){
         binding.apply {
-            val layoutManager = FlexboxLayoutManager(this@ExerciseMultipleChoiceFragment.context)
+            val layoutManager = FlexboxLayoutManager(activity)
             layoutManager.flexDirection = FlexDirection.COLUMN
             layoutManager.justifyContent = JustifyContent.SPACE_EVENLY
             layoutManager.alignItems = AlignItems.CENTER
