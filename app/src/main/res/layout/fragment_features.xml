@@ -12,39 +12,208 @@
         android:layout_height="match_parent"
         android:text="Ini penjelasan Fitur" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.constraintlayout.motion.widget.MotionLayout
+        android:id="@+id/constraintLayout4"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <Button
-            android:id="@+id/kembali"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:text="kembali"
-            app:layout_constraintBottom_toTopOf="@+id/lewati"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.501"
-            app:layout_constraintStart_toStartOf="parent" />
+        android:layout_height="match_parent"
+        android:background="@color/orange_bg"
+        app:layoutDescription="@xml/fragment_features_xml_constraintlayout4_scene2">
 
-        <Button
-            android:id="@+id/lewati"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:text="lewati"
-            app:layout_constraintBottom_toTopOf="@+id/coba"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.501"
-            app:layout_constraintStart_toStartOf="parent" />
 
-        <Button
-            android:id="@+id/coba"
+
+        <ImageView
+            android:id="@+id/bgLeaves1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/leaves03"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:text="coba"
-            tools:layout_editor_absoluteX="112dp"
-            tools:layout_editor_absoluteY="375dp" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/bgLeaves2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:alpha="0"
+            android:src="@drawable/leaves03"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/bgLeaves3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:alpha="0"
+            android:src="@drawable/leaves03"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/bottomLeaves"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/leaves01"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <ImageView
+            android:id="@+id/topLeaves"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/leaves02"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/HeadingLatihan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Latihan\nBertahap"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="34sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/JenisLatihan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Jenis Latihan\nBervariasi"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="34sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="parent" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:text="Disini kamu akan belajar membaca secara bertahap mulai dari kata yang sederhana hingga yang lebih rumit."
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintStart_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/HeadingLatihan" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:text="Terdapat beberapa variasi latihan yang dapat kamu pilih sesuai kebutuhanmu"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintStart_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/HeadingLatihan" />
+        <TextView
+            android:id="@+id/hidden"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:text="hidden"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:alpha="0"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <androidx.constraintlayout.utils.widget.ImageFilterView
+            android:id="@+id/menu1"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="16dp"
+            app:altSrc="@drawable/circle_full"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/guideline2"
+            app:srcCompat="@drawable/circle"
+            app:tint="@color/black" />
+
+        <androidx.constraintlayout.utils.widget.ImageFilterView
+            android:id="@+id/menu2"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginBottom="16dp"
+            app:altSrc="@drawable/circle_full"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guideline2"
+            app:srcCompat="@drawable/circle"
+            app:tint="@color/black" />
+
+        <Button
+            android:id="@+id/kembali"
+            style="@style/ButtonGeneral"
+            android:layout_height="60dp"
+            android:layout_marginBottom="32dp"
+            android:height="60dp"
+            android:backgroundTint="@color/orange_bg"
+            android:stateListAnimator="@null"
+            android:text="kembali"
+            android:translationZ="90dp"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toTopOf="@+id/menu1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:strokeColor="#393939"
+            app:strokeWidth="2dp" />
+
+        <Button
+            android:id="@+id/lewati"
+            style="@style/ButtonGeneral"
+            android:backgroundTint="@color/orange_bg"
+            android:stateListAnimator="@null"
+            android:text="Lanjut ke asesmen"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toTopOf="@+id/coba"
+            app:layout_constraintStart_toEndOf="parent"
+            app:strokeColor="#393939"
+            app:strokeWidth="2dp" />
+
+        <Button
+            android:id="@+id/coba"
+            style="@style/ButtonGeneral"
+            android:layout_marginBottom="32dp"
+            android:backgroundTint="@color/black"
+            android:text="coba sampel"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toTopOf="@+id/menu2"
+            app:layout_constraintStart_toEndOf="parent" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_end="139dp" />
+
+        <ImageView
+            android:id="@+id/readingAnimation"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+
+            app:layout_constraintBottom_toTopOf="@+id/kembali"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.motion.widget.MotionLayout>
 
 </FrameLayout>

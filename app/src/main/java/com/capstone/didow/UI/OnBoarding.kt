@@ -2,6 +2,7 @@ package com.capstone.didow.UI
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
@@ -17,7 +18,9 @@ class OnBoarding : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityOnBoardingBinding.inflate(layoutInflater)
+        supportActionBar?.hide()
         setContentView(binding?.root)
+
         val intent = getIntent().extras?.getString("TARGET")
         Log.i("TEST","$intent")
         if (intent=="RegisterFragment") {

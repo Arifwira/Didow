@@ -8,30 +8,130 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/orange_bg">
+
+        <ImageView
+            android:id="@+id/bgLeaves1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/leaves03"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/bgLeaves2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:alpha="0"
+            android:src="@drawable/leaves03"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/bgLeaves3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:alpha="0"
+            android:src="@drawable/leaves03"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/bottomLeaves"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/leaves01"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <ImageView
+            android:id="@+id/topLeaves"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/leaves02"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Ini OnBoarding" />
+            android:id="@+id/Heading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            android:text="Selamat Datang!"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="34sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/Body"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Didow adalah temanmu untuk belajar membaca. Mari belajar bersama!"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="@+id/Heading"
+            app:layout_constraintStart_toStartOf="@+id/Heading"
+            app:layout_constraintTop_toBottomOf="@+id/Heading" />
 
         <Button
-            android:id="@+id/tur"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:id="@+id/start_tour"
+            style="@style/ButtonGeneral"
+            android:layout_marginBottom="30dp"
+            android:backgroundTint="@color/black"
             android:text="mulai tur"
-            app:layout_constraintBottom_toTopOf="@+id/login"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toTopOf="@+id/pernah"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/pernah"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Sudah pernah menggunakan?"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toTopOf="@+id/login"
+            app:layout_constraintEnd_toEndOf="@+id/start_tour"
+            app:layout_constraintStart_toStartOf="@+id/start_tour" />
 
         <Button
             android:id="@+id/login"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            style="@style/ButtonGeneral"
+            android:layout_marginBottom="30dp"
+            android:backgroundTint="@color/orange_bg"
+            android:stateListAnimator="@null"
             android:text="login"
+            android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:strokeColor="#393939"
+            app:strokeWidth="2dp" />
+
+        <ImageView
+            android:id="@+id/headIcon"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="32dp"
+            android:src="@drawable/iconhead"
+            app:layout_constraintBottom_toTopOf="@+id/start_tour"
+            app:layout_constraintEnd_toEndOf="@+id/Body"
+            app:layout_constraintStart_toStartOf="@+id/Body"
+            app:layout_constraintTop_toBottomOf="@+id/Body" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
