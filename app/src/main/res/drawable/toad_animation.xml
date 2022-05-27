@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/toad1" android:duration="100" />
+    <item android:drawable="@drawable/toad2" android:duration="100"/>
+    <item android:drawable="@drawable/toad3" android:duration="100"/>
+    <item android:drawable="@drawable/toad4" android:duration="500"/>
+    <item android:drawable="@drawable/toad3" android:duration="100"/>
+    <item android:drawable="@drawable/toad2" android:duration="100"/>
+    <item android:drawable="@drawable/toad1" android:duration="100"/>
+    <item android:drawable="@drawable/toad5" android:duration="100"/>
+    <item android:drawable="@drawable/toad6" android:duration="100"/>
+    <item android:drawable="@drawable/toad7" android:duration="500"/>
+    <item android:drawable="@drawable/toad6" android:duration="100"/>
+    <item android:drawable="@drawable/toad5" android:duration="100"/>
+</animation-list>
