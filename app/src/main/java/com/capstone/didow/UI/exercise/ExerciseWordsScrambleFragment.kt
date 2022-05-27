@@ -67,6 +67,7 @@ class ExerciseWordsScrambleFragment : Fragment() {
 
 
         binding.rvWordScramble.setHasFixedSize(true)
+        listWordScrambleOption.clear()
         listWordScrambleOption.addAll(listWordScrambleArray)
         adapter = ExerciseWordsScrambleAdapter(listWordScrambleOption)
         showRecyclerViewList()

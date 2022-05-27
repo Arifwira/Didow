@@ -41,6 +41,7 @@ class ExerciseMultipleChoiceFragment : Fragment() {
 
 
         binding.rvPilgan.setHasFixedSize(true)
+        listMultipleChoiceOption.clear()
         listMultipleChoiceOption.addAll(listMultipleChoiceOptions)
         showRecyclerViewList()
 
