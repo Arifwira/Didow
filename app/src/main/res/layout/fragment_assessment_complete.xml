@@ -7,25 +7,58 @@
     tools:context=".UI.onBoarding.AssessmentCompleteFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Yeay!
-Kamu berhasil menyelesaikan
-asesmen awal" />
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <Button
-            android:id="@+id/lanjut"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:text="Lihat Hasil"
-            app:layout_constraintBottom_toBottomOf="parent"
+        <ImageView
+            android:id="@+id/ivComplete"
+            android:layout_width="150dp"
+            android:layout_height="250dp"
+            android:layout_marginTop="88dp"
+            android:src="@drawable/girl_reading"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            tools:layout_editor_absoluteY="520dp" />
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TextView
+            android:id="@+id/tvCompleteTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Yeay!"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="36sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/ivComplete"
+            app:layout_constraintStart_toStartOf="@+id/ivComplete"
+            app:layout_constraintTop_toBottomOf="@+id/ivComplete" />
+
+        <TextView
+            android:id="@+id/tvCompleteSubTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Kamu berhasil menyelesaikan\nasesmen awal"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="@+id/tvCompleteTitle"
+            app:layout_constraintStart_toStartOf="@+id/tvCompleteTitle"
+            app:layout_constraintTop_toBottomOf="@+id/tvCompleteTitle" />
+
+        <Button
+            android:id="@+id/lanjut"
+            android:layout_width="240dp"
+            android:layout_height="48dp"
+            android:layout_marginBottom="72dp"
+            android:backgroundTint="#FFBB37"
+            android:text="Lihat Hasil"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

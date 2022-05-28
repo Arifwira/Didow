@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-parcelize'
 }
 
 android {
@@ -48,4 +49,8 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
     implementation 'androidx.navigation:navigation-fragment-ktx:2.4.2'
     implementation 'androidx.navigation:navigation-ui-ktx:2.4.2'
+    implementation 'com.google.android.flexbox:flexbox:3.0.0'
+
+    //Implementation for pie chart
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 }

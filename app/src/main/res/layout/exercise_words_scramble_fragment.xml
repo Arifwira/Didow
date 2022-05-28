@@ -6,22 +6,107 @@
     android:layout_height="match_parent"
     tools:context=".UI.exercise.ExerciseWordsScrambleFragment">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Ini Word Scramble" />
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <Button
-            android:id="@+id/lanjut"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:text="Lanjut"
-            app:layout_constraintBottom_toBottomOf="parent"
+        <TextView
+            android:id="@+id/tvNomorSoal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="2/10"
+            android:paddingLeft="32dp"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp"
+            android:paddingRight="32dp"
+            android:background="@drawable/rounded_corner_view"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.capstone.didow.UI.custom.GuideButton
+            android:id="@+id/btnGuide"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/guide_custom_button"
+            app:layout_constraintBottom_toBottomOf="@+id/tvNomorSoal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tvNomorSoal" />
+
+        <com.capstone.didow.UI.custom.SpeakerButton
+            android:id="@+id/btnPlay"
+            android:layout_width="176dp"
+            android:layout_height="176dp"
+            android:layout_marginTop="32dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            tools:layout_editor_absoluteY="520dp" />
+            app:layout_constraintTop_toBottomOf="@+id/tvNomorSoal" />
+
+        <TextView
+            android:id="@+id/tvSoal"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:text="@string/soal"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnHint" />
+
+        <Button
+            android:id="@+id/btnHint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="16dp"
+            android:backgroundTint="#FFBB37"
+            android:padding="8dp"
+            android:text="Hint"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnPlay" />
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvWordScramble"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="64dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="64dp"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toTopOf="@id/lanjut"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvSoal"
+            app:layout_constraintVertical_bias="0.0"
+            tools:listitem="@layout/words_scramble_option" />
+
+        <Button
+            android:id="@+id/lanjut"
+            android:layout_width="240dp"
+            android:layout_height="48dp"
+            android:layout_marginBottom="16dp"
+            android:backgroundTint="#FFBB37"
+            android:text="Lanjut"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

@@ -2,4 +2,64 @@
     <string name="app_name">Didow</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="soal">Kata apa yang baru saja kamu dengar?</string>
+    <string name="camera">Kamera</string>
+    <string name="gallery">Album</string>
+    <string name="lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas elementum, dolor non suscipit tincidunt, tellus elit pulvinar metus, nec sodales odio est id est. Ut vitae sem consequat, porta felis eu, condimentum ante. Phasellus imperdiet, eros et lacinia lobortis, nunc nibh vehicula enim, a elementum nunc arcu scelerisque eros. Nunc interdum vulputate nisi sit amet finibus. Fusce eu nisl a mi ornare lacinia. Aliquam eu tellus volutpat, varius tortor eu, pretium elit. Nunc mattis hendrerit tellus. Phasellus aliquam odio non feugiat sodales. Praesent finibus lectus et augue placerat, a semper turpis dictum. Sed fringilla sodales ante ac molestie.</string>
+
+    <string-array name="multiple_choice_option">
+        <item>buku</item>
+        <item>puku</item>
+        <item>duku</item>
+        <item>puqu</item>
+    </string-array>
+
+    <string-array name="word_scramble_option">
+        <item>Q</item>
+        <item>K</item>
+        <item>U</item>
+        <item>B</item>
+        <item>U</item>
+        <item>P</item>
+    </string-array>
+    
+    <string-array name="date_array">
+        <item>31–12–2021</item>
+        <item>31–12–2021</item>
+        <item>31–12–2021</item>
+        <item>31–12–2021</item>
+        <item>31–12–2021</item>
+        <item>31–12–2021</item>
+    </string-array>
+    
+    <string-array name="count_suku_kata">
+        <item>4</item>
+        <item>4</item>
+        <item>3</item>
+        <item>3</item>
+        <item>2</item>
+        <item>2</item>
+    </string-array>
+
+    <string-array name="jenis_soal">
+        <item>Auto</item>
+        <item>Custom</item>
+        <item>Auto</item>
+        <item>Custom</item>
+        <item>Auto</item>
+        <item>Custom</item>
+    </string-array>
+
+    <integer-array name="nomor_soal">
+        <item>3</item>
+        <item>5</item>
+        <item>7</item>
+    </integer-array>
+
+    <string-array name="detail_description">
+        <item>Deskripsi Halaman No 3</item>
+        <item>Deskripsi Halaman No 5</item>
+        <item>Deskripsi Halaman No 7</item>
+    </string-array>
+
 </resources>
