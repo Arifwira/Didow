@@ -9,9 +9,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import androidx.viewbinding.ViewBindings
 import com.capstone.didow.R
 import com.capstone.didow.UI.ExerciseActivity
 import com.capstone.didow.databinding.HomeFragmentBinding
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class HomeFragment : Fragment() {
 
@@ -41,6 +45,7 @@ class HomeFragment : Fragment() {
 
             }
         }
+        selectMode()
         playAnimation()
     }
 
@@ -61,5 +66,12 @@ class HomeFragment : Fragment() {
             repeatCount = ObjectAnimator.INFINITE
             repeatMode = ObjectAnimator.REVERSE
         }.start()
+    }
+
+    private fun selectMode(){
+        val bottomSheetDialogFragment = ModeSettingFragment()
+        binding.btnModeSetting.setOnClickListener {
+            bottomSheetDialogFragment.show(childFragmentManager, "Mode Setting Dialog")
+        }
     }
 }
