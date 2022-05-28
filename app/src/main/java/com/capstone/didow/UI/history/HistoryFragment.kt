@@ -6,10 +6,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.util.Pair
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.capstone.didow.R
 import com.capstone.didow.databinding.HistoryFragmentBinding
 import com.capstone.didow.databinding.HomeFragmentBinding
+import com.google.android.material.datepicker.MaterialDatePicker
 
 class HistoryFragment : Fragment() {
 
@@ -41,6 +43,7 @@ class HistoryFragment : Fragment() {
         listHistory.addAll(listHistoryOptions)
 
         showRecyclerViewHistory()
+        datePicker()
     }
 
     private val listHistoryOptions: ArrayList<History>
@@ -71,6 +74,16 @@ class HistoryFragment : Fragment() {
             })
         }
 
+    }
+
+    private fun datePicker(){
+        var datePicker = MaterialDatePicker.Builder.dateRangePicker().setSelection(Pair.create(
+            MaterialDatePicker.thisMonthInUtcMilliseconds(),
+            MaterialDatePicker.todayInUtcMilliseconds())).build()
+        binding.btnCalendar.setOnClickListener {
+            datePicker.show(childFragmentManager, "Tag_picker")
+            datePicker.addOnPositiveButtonClickListener { binding.tvDatePicker.text = datePicker.headerText }
+        }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

@@ -72,13 +72,14 @@
             app:layout_constraintTop_toBottomOf="@id/recomContainer">
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/tvDatePicker"
                 android:layout_width="280dp"
                 android:layout_height="48dp"
                 android:layout_marginStart="8dp"
                 android:background="@drawable/date_background"
                 android:gravity="center_vertical"
                 android:hint="Select date"
+                android:textColor="@color/black"
                 android:padding="12dp"
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"
