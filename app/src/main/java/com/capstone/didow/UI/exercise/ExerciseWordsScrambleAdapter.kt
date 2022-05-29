@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.capstone.didow.databinding.WordsScrambleOptionBinding
 
-class ExerciseWordsScrambleAdapter(private val listWordScramble: ArrayList<WordScramble>): RecyclerView.Adapter<ExerciseWordsScrambleAdapter.ViewHolder>() {
+class ExerciseWordsScrambleAdapter(private val listWordScramble: ArrayList<String>): RecyclerView.Adapter<ExerciseWordsScrambleAdapter.ViewHolder>() {
 
     private lateinit var onItemClickCallback: OnItemClickCallback
 
@@ -22,7 +22,7 @@ class ExerciseWordsScrambleAdapter(private val listWordScramble: ArrayList<WordS
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val (wordScramble) = listWordScramble[position]
+        val wordScramble = listWordScramble[position]
         Log.d("Word Scramble", listWordScramble.size.toString())
 
         holder.apply {
@@ -37,6 +37,6 @@ class ExerciseWordsScrambleAdapter(private val listWordScramble: ArrayList<WordS
     override fun getItemCount(): Int = listWordScramble.size
 
     interface OnItemClickCallback{
-        fun onItemClicked(data: WordScramble)
+        fun onItemClicked(data: String)
     }
 }

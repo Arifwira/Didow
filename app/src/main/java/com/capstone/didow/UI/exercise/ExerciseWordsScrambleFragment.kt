@@ -7,10 +7,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.capstone.didow.R
 import com.capstone.didow.databinding.ExerciseWordsScrambleFragmentBinding
+import com.capstone.didow.entities.QuestionHandwriting
+import com.capstone.didow.entities.QuestionMultipleChoice
+import com.capstone.didow.entities.QuestionScrambleWords
 import com.google.android.flexbox.AlignItems
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
@@ -25,10 +31,11 @@ class ExerciseWordsScrambleFragment : Fragment() {
     }
 
     private lateinit var viewModel: ExerciseWordsScrambleViewModel
+    private val exerciseViewModel: ExerciseViewModel by activityViewModels()
 
     private lateinit var adapter: ExerciseWordsScrambleAdapter
 
-    private val listWordScrambleOption = ArrayList<WordScramble>()
+    private val listWordScrambleOption = ArrayList<String>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,41 +51,54 @@ class ExerciseWordsScrambleFragment : Fragment() {
         // TODO: Use the ViewModel
     }
 
-    private val listWordScrambleArray: ArrayList<WordScramble>
-    get(){
-        val dataWordScrambleOption = resources.getStringArray(R.array.word_scramble_option)
-        Log.d("Option-1", dataWordScrambleOption[0])
-        Log.d("Option-2", dataWordScrambleOption[1])
-        Log.d("Option-3", dataWordScrambleOption[2])
-        Log.d("Option-4", dataWordScrambleOption[3])
-        Log.d("Option-5", dataWordScrambleOption[4])
-        Log.d("Option-6", dataWordScrambleOption[5])
-
-        val tempListWordScrambleOption = ArrayList<WordScramble>()
-        for (i in dataWordScrambleOption.indices){
-            val option = WordScramble(dataWordScrambleOption[i])
-            tempListWordScrambleOption.add(option)
-        }
-        return tempListWordScrambleOption
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-        binding.rvWordScramble.setHasFixedSize(true)
-        listWordScrambleOption.clear()
-        listWordScrambleOption.addAll(listWordScrambleArray)
-        adapter = ExerciseWordsScrambleAdapter(listWordScrambleOption)
         showRecyclerViewList()
+        binding.rvWordScramble.setHasFixedSize(true)
 
         playSound()
         useHint()
         openGuide()
         binding.lanjut.setOnClickListener {
-            it.findNavController()
-                .navigate(R.id.action_exerciseWordsScrambleFragment_to_exerciseHandWritingFragment)
+            exerciseViewModel.nextQuestion()
         }
+
+        exerciseViewModel.currentQuestion.observe(viewLifecycleOwner, Observer {
+            Log.d("ganti", it.word)
+            when (it) {
+                is QuestionMultipleChoice -> {
+                    findNavController().navigate(R.id.action_exerciseWordsScrambleFragment_to_exerciseMultipleChoiceFragment)
+                }
+                is QuestionScrambleWords -> {
+                    Log.d("scramble", it.letters.toString())
+                    listWordScrambleOption.clear()
+                    listWordScrambleOption.addAll(it.letters)
+                    adapter = ExerciseWordsScrambleAdapter(listWordScrambleOption)
+                    binding.rvWordScramble.adapter = adapter
+                }
+                is QuestionHandwriting -> {
+                    findNavController().navigate(R.id.action_exerciseWordsScrambleFragment_to_exerciseHandWritingFragment)
+                }
+            }
+        })
+
+        exerciseViewModel.isRetry.observe(viewLifecycleOwner, Observer {
+            if (it) {
+                Toast.makeText(this.context,
+                    "Maaf jawaban kamu salah, silahkan untuk jawab ulang.", Toast.LENGTH_SHORT).show()
+            }
+        })
+
+        exerciseViewModel.isFinished.observe(viewLifecycleOwner, Observer {
+            if (it) {
+                when (exerciseViewModel.getExerciseCategory()) {
+                    "auto" -> findNavController().navigate(R.id.action_exerciseWordsScrambleFragment_to_exerciseCompleteFragment)
+                    "custom" -> findNavController().navigate(R.id.action_exerciseWordsScrambleFragment_to_exerciseCompleteFragment)
+                    "assessment" -> findNavController().navigate(R.id.action_exerciseWordsScrambleFragment_to_assessmentCompleteFragment)
+                }
+            }
+        })
     }
 
     private fun playSound(){
@@ -109,15 +129,7 @@ class ExerciseWordsScrambleFragment : Fragment() {
             layoutManager.justifyContent = JustifyContent.SPACE_AROUND
             layoutManager.alignItems = AlignItems.CENTER
             rvWordScramble.layoutManager = layoutManager
-            rvWordScramble.adapter =  adapter
         }
-
-        adapter.setOnItemClickCallback(object: ExerciseWordsScrambleAdapter.OnItemClickCallback{
-            override fun onItemClicked(data: WordScramble) {
-                Toast.makeText(this@ExerciseWordsScrambleFragment.context, "Anda memilih ${data.wordScramble}",
-                    Toast.LENGTH_SHORT).show()
-            }
-        })
     }
 
     override fun onDestroy() {
