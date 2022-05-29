@@ -2,15 +2,22 @@ package com.capstone.didow.UI.exercise
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.capstone.didow.R
 import com.capstone.didow.databinding.ExerciseHandWritingFragmentBinding
 import com.capstone.didow.databinding.ExerciseWordsScrambleFragmentBinding
+import com.capstone.didow.entities.QuestionHandwriting
+import com.capstone.didow.entities.QuestionMultipleChoice
+import com.capstone.didow.entities.QuestionScrambleWords
 
 class ExerciseHandWritingFragment : Fragment() {
     private var _binding: ExerciseHandWritingFragmentBinding? = null
@@ -20,6 +27,7 @@ class ExerciseHandWritingFragment : Fragment() {
     }
 
     private lateinit var viewModel: ExerciseHandWritingViewModel
+    private val exerciseViewModel: ExerciseViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -53,8 +61,40 @@ class ExerciseHandWritingFragment : Fragment() {
         }
 
         binding.lanjut.setOnClickListener{
-            it.findNavController().navigate(R.id.action_exerciseHandWritingFragment_to_assessmentCompleteFragment)
+            exerciseViewModel.nextQuestion()
         }
+
+        exerciseViewModel.currentQuestion.observe(viewLifecycleOwner, Observer {
+            Log.d("ganti", it.word)
+            when (it) {
+                is QuestionMultipleChoice -> {
+                    findNavController().navigate(R.id.action_exerciseHandWritingFragment_to_exerciseMultipleChoiceFragment)
+                }
+                is QuestionScrambleWords -> {
+                    findNavController().navigate(R.id.action_exerciseHandWritingFragment_to_exerciseWordsScrambleFragment)
+                }
+                is QuestionHandwriting -> {
+
+                }
+            }
+        })
+
+        exerciseViewModel.isRetry.observe(viewLifecycleOwner, Observer {
+            if (it) {
+                Toast.makeText(this@ExerciseHandWritingFragment.context,
+                    "Maaf jawaban kamu salah, silahkan untuk jawab ulang.", Toast.LENGTH_SHORT).show()
+            }
+        })
+
+        exerciseViewModel.isFinished.observe(viewLifecycleOwner, Observer {
+            if (it) {
+                when (exerciseViewModel.getExerciseCategory()) {
+                    "auto" -> findNavController().navigate(R.id.action_exerciseHandWritingFragment_to_exerciseCompleteFragment)
+                    "custom" -> findNavController().navigate(R.id.action_exerciseHandWritingFragment_to_exerciseCompleteFragment)
+                    "assessment" -> findNavController().navigate(R.id.action_exerciseHandWritingFragment_to_assessmentCompleteFragment)
+                }
+            }
+        })
     }
 
     private fun openGuide(){

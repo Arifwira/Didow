@@ -1,14 +1,16 @@
 package com.capstone.didow.UI.exercise
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.addCallback
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import com.capstone.didow.R
+import com.capstone.didow.databinding.ExerciseFragmentBinding
+import com.capstone.didow.entities.*
 
 class ExerciseFragment : Fragment() {
 
@@ -16,45 +18,36 @@ class ExerciseFragment : Fragment() {
         fun newInstance() = ExerciseFragment()
     }
 
-    private lateinit var viewModel: ExerciseViewModel
+    private val viewModel: ExerciseViewModel by activityViewModels()
+    private var _binding: ExerciseFragmentBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.exercise_fragment, container, false)
+        _binding = ExerciseFragmentBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val callback = requireActivity().onBackPressedDispatcher.addCallback(this) {
-            Log.d("BACKPRESS", "Fragment back pressed invoked")
-        }
-        callback
+        val category = this.activity?.intent?.getStringExtra("category")
+        viewModel.init(category!!)
+        viewModel.isLoaded.observe(viewLifecycleOwner, Observer {
+            if (it) {
+                viewModel.startExercise()
+                when (viewModel.currentQuestion.value) {
+                    is QuestionMultipleChoice -> {
+                        findNavController().navigate(R.id.action_exerciseFragment_to_exerciseMultipleChoiceFragment)
+                    }
+                    is QuestionScrambleWords -> {
+                        findNavController().navigate(R.id.action_exerciseMultipleChoiceFragment_to_exerciseWordsScrambleFragment)
+                    }
+                    is QuestionHandwriting -> {
+                        findNavController().navigate(R.id.action_exerciseMultipleChoiceFragment_to_exerciseHandWritingFragment)
+                    }
+                }
+            }
+        })
     }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(ExerciseViewModel::class.java)
-    }
-//    override fun onAttach(context: Context) {
-//        super.onAttach(context)
-//        requireActivity()
-//            .onBackPressedDispatcher
-//            .addCallback(this, object : OnBackPressedCallback(true) {
-//                override fun handleOnBackPressed() {
-//                    Log.d("BACKPRESS", "Fragment back pressed invoked")
-//                    // Do custom work here
-//
-//                    // if you want onBackPressed() to be called as normal afterwards
-//                    if (isEnabled) {
-//                        isEnabled = false
-//                        requireActivity().onBackPressed()
-//                    }
-//                }
-//            }
-//            )
-//    }
-
-
-}

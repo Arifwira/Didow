@@ -5,8 +5,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.capstone.didow.databinding.MultipleChoiceOptionBinding
+import kotlin.String
 
-class ExerciseMultipleChoiceAdapter(private val listOption: ArrayList<MultipleChoice>): RecyclerView.Adapter<ExerciseMultipleChoiceAdapter.ViewHolder>() {
+class ExerciseMultipleChoiceAdapter(private val listOption: ArrayList<String>): RecyclerView.Adapter<ExerciseMultipleChoiceAdapter.ViewHolder>() {
 
     private lateinit var onItemClickCallback: OnItemClickCallback
 
@@ -22,7 +23,7 @@ class ExerciseMultipleChoiceAdapter(private val listOption: ArrayList<MultipleCh
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val(option) = listOption[position]
+        val option = listOption[position]
         Log.d("Option", option)
         holder.apply {
             binding.btnOption.text = option
@@ -36,6 +37,6 @@ class ExerciseMultipleChoiceAdapter(private val listOption: ArrayList<MultipleCh
     override fun getItemCount(): Int = listOption.size
 
     interface OnItemClickCallback{
-        fun onItemClicked(data: MultipleChoice)
+        fun onItemClicked(data: String)
     }
 }

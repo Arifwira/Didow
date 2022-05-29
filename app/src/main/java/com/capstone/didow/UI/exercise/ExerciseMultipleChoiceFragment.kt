@@ -10,11 +10,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.capstone.didow.R
 import com.capstone.didow.databinding.ExerciseMultipleChoiceFragmentBinding
+import com.capstone.didow.entities.QuestionHandwriting
+import com.capstone.didow.entities.QuestionMultipleChoice
+import com.capstone.didow.entities.QuestionScrambleWords
 import com.google.android.flexbox.*
+import kotlin.String
 
 
 class ExerciseMultipleChoiceFragment : Fragment() {
@@ -27,9 +33,10 @@ class ExerciseMultipleChoiceFragment : Fragment() {
     }
 
     private lateinit var viewModel: ExerciseMultipleChoiceViewModel
+    private val exerciseViewModel: ExerciseViewModel by activityViewModels()
 
     private lateinit var adapter: ExerciseMultipleChoiceAdapter
-    private val listMultipleChoiceOption = ArrayList<MultipleChoice>()
+    private val listMultipleChoiceOption = ArrayList<String>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,8 +51,6 @@ class ExerciseMultipleChoiceFragment : Fragment() {
 
 
         binding.rvPilgan.setHasFixedSize(true)
-        listMultipleChoiceOption.clear()
-        listMultipleChoiceOption.addAll(listMultipleChoiceOptions)
         showRecyclerViewList()
 
         playSound()
@@ -53,30 +58,51 @@ class ExerciseMultipleChoiceFragment : Fragment() {
         useHint()
 
         binding.lanjut.setOnClickListener {
-            it.findNavController().navigate(R.id.action_exerciseMultipleChoiceFragment_to_exerciseWordsScrambleFragment)
+            exerciseViewModel.nextQuestion()
         }
-    }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(ExerciseMultipleChoiceViewModel::class.java)
-        // TODO: Use the ViewModel
-    }
+        exerciseViewModel.currentQuestion.observe(viewLifecycleOwner, Observer {
+            Log.d("ganti", it.word)
+            when (it) {
+                is QuestionMultipleChoice -> {
+                    listMultipleChoiceOption.clear()
+                    listMultipleChoiceOption.addAll(it.choices)
+                    adapter = ExerciseMultipleChoiceAdapter(listMultipleChoiceOption)
+                    binding.rvPilgan.adapter = adapter
+                    adapter.setOnItemClickCallback(object: ExerciseMultipleChoiceAdapter.OnItemClickCallback {
+                        override fun onItemClicked(data: String) {
+                            val isCorrect = exerciseViewModel.answer(data)
+                            Log.d("isCorrect", isCorrect.toString())
+                            Toast.makeText(this@ExerciseMultipleChoiceFragment.context,
+                                "Anda $isCorrect",Toast.LENGTH_SHORT).show()
+                        }
+                    })
+                }
+                is QuestionScrambleWords -> {
+                    findNavController().navigate(R.id.action_exerciseMultipleChoiceFragment_to_exerciseWordsScrambleFragment)
+                }
+                is QuestionHandwriting -> {
+                    findNavController().navigate(R.id.action_exerciseMultipleChoiceFragment_to_exerciseHandWritingFragment)
+                }
+            }
+        })
 
-    private val listMultipleChoiceOptions: ArrayList<MultipleChoice>
-    get(){
-        val dataOption = resources.getStringArray(R.array.multiple_choice_option)
-        Log.d("Option-1", dataOption[0])
-        Log.d("Option-2", dataOption[1])
-        Log.d("Option-3", dataOption[2])
-        Log.d("Option-4", dataOption[3])
+        exerciseViewModel.isRetry.observe(viewLifecycleOwner, Observer {
+            if (it) {
+                Toast.makeText(this.context,
+                    "Maaf jawaban kamu salah, silahkan untuk jawab ulang.", Toast.LENGTH_SHORT).show()
+            }
+        })
 
-        val listMultipleChoiceOption = ArrayList<MultipleChoice>()
-        for (i in dataOption.indices) {
-            val option = MultipleChoice(dataOption[i])
-            listMultipleChoiceOption.add(option)
-        }
-        return listMultipleChoiceOption
+        exerciseViewModel.isFinished.observe(viewLifecycleOwner, Observer {
+            if (it) {
+                when (exerciseViewModel.getExerciseCategory()) {
+                    "auto" -> findNavController().navigate(R.id.action_exerciseMultipleChoiceFragment_to_exerciseCompleteFragment)
+                    "custom" -> findNavController().navigate(R.id.action_exerciseMultipleChoiceFragment_to_exerciseCompleteFragment)
+                    "assessment" -> findNavController().navigate(R.id.action_exerciseMultipleChoiceFragment_to_assessmentCompleteFragment)
+                }
+            }
+        })
     }
 
     private fun openGuide(){
@@ -114,15 +140,6 @@ class ExerciseMultipleChoiceFragment : Fragment() {
             layoutManager.justifyContent = JustifyContent.SPACE_EVENLY
             layoutManager.alignItems = AlignItems.CENTER
             rvPilgan.layoutManager = layoutManager
-            adapter = ExerciseMultipleChoiceAdapter(listMultipleChoiceOption)
-            rvPilgan.adapter = adapter
-
-            adapter.setOnItemClickCallback(object: ExerciseMultipleChoiceAdapter.OnItemClickCallback {
-                override fun onItemClicked(data: MultipleChoice) {
-                    Toast.makeText(this@ExerciseMultipleChoiceFragment.context,
-                        "Anda memilih ${data.option}",Toast.LENGTH_SHORT).show()
-                }
-            })
         }
     }
 

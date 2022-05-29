@@ -41,8 +41,9 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
             play.setOnClickListener {
-                startActivity(Intent(activity, ExerciseActivity::class.java))
-
+                val intent = Intent(activity, ExerciseActivity::class.java)
+                intent.putExtra("category", "auto")
+                startActivity(intent)
             }
         }
         selectMode()
