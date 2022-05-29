@@ -36,9 +36,7 @@ class ExerciseFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(ExerciseViewModel::class.java)
-
     }
-
 //    override fun onAttach(context: Context) {
 //        super.onAttach(context)
 //        requireActivity()
