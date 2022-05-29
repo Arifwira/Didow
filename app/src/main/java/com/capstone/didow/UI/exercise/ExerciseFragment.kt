@@ -51,3 +51,4 @@ class ExerciseFragment : Fragment() {
             }
         })
     }
+}
