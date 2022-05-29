@@ -1,5 +1,8 @@
 package com.capstone.didow.UI.exercise
 
+import android.app.Dialog
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -117,9 +120,15 @@ class ExerciseMultipleChoiceFragment : Fragment() {
     }
 
     private fun useHint(){
+        var args = Bundle()
+        args.putString("hint", "_U_U")
+        args.putString("imageUrl", "https://tafsirweb.com/wp-content/uploads/2018/09/book-open-icon.png")
+        val popupHintFragment = PopupHintFragment()
         binding.btnHint.setOnClickListener {
-            Toast.makeText(this@ExerciseMultipleChoiceFragment.context,
-                "You use hint", Toast.LENGTH_SHORT).show()
+//            Toast.makeText(this@ExerciseMultipleChoiceFragment.context,
+//                "You use hint", Toast.LENGTH_SHORT).show()
+            popupHintFragment.arguments = args
+            popupHintFragment.show(childFragmentManager, "PopUpHintDialog Fragment")
         }
     }
 
@@ -133,7 +142,6 @@ class ExerciseMultipleChoiceFragment : Fragment() {
             rvPilgan.layoutManager = layoutManager
         }
     }
-
 
     override fun onDestroy() {
         super.onDestroy()
