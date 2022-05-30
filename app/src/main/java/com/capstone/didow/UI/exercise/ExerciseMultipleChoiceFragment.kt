@@ -37,11 +37,13 @@ class ExerciseMultipleChoiceFragment : Fragment() {
         fun newInstance() = ExerciseMultipleChoiceFragment()
     }
 
-    private lateinit var viewModel: ExerciseMultipleChoiceViewModel
     private val exerciseViewModel: ExerciseViewModel by activityViewModels()
 
     private lateinit var adapter: ExerciseMultipleChoiceAdapter
     private val listMultipleChoiceOption = ArrayList<String>()
+
+    private var hintImg : String? = null
+    private var hintHangman : String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -59,16 +61,16 @@ class ExerciseMultipleChoiceFragment : Fragment() {
 
         playSound()
         openGuide()
-        useHint()
-
         binding.lanjut.setOnClickListener {
             exerciseViewModel.nextQuestion()
         }
 
         exerciseViewModel.currentQuestion.observe(viewLifecycleOwner, Observer {
             Log.d("ganti", it.word)
+            Log.d("hintImg from observe", it.hintImg)
             when (it) {
                 is QuestionMultipleChoice -> {
+                    hintImg = it.hintImg
                     listMultipleChoiceOption.clear()
                     listMultipleChoiceOption.addAll(it.choices)
                     adapter = ExerciseMultipleChoiceAdapter(listMultipleChoiceOption)
@@ -81,6 +83,7 @@ class ExerciseMultipleChoiceFragment : Fragment() {
                                 "Anda $isCorrect",Toast.LENGTH_SHORT).show()
                         }
                     })
+                    useHint()
                 }
                 is QuestionScrambleWords -> {
                     findNavController().navigate(R.id.action_exerciseMultipleChoiceFragment_to_exerciseWordsScrambleFragment)
@@ -130,12 +133,12 @@ class ExerciseMultipleChoiceFragment : Fragment() {
 
     private fun useHint(){
         var args = Bundle()
-        args.putString("hint", "_U_U")
-        args.putString("imageUrl", "https://tafsirweb.com/wp-content/uploads/2018/09/book-open-icon.png")
+        args.putString("hint", hintHangman)
+        args.putString("imageUrl", hintImg.toString())
+        Log.d("image argument be", hintImg.toString())
+
         val popupHintFragment = PopupHintFragment()
         binding.btnHint.setOnClickListener {
-//            Toast.makeText(this@ExerciseMultipleChoiceFragment.context,
-//                "You use hint", Toast.LENGTH_SHORT).show()
             popupHintFragment.arguments = args
             popupHintFragment.show(childFragmentManager, "PopUpHintDialog Fragment")
         }
