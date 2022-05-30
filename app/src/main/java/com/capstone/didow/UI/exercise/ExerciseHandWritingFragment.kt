@@ -29,6 +29,9 @@ class ExerciseHandWritingFragment : Fragment() {
     private lateinit var viewModel: ExerciseHandWritingViewModel
     private val exerciseViewModel: ExerciseViewModel by activityViewModels()
 
+    private var hintImg: String? = null
+    private var hintHangman: String? = null
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -74,7 +77,12 @@ class ExerciseHandWritingFragment : Fragment() {
                     findNavController().navigate(R.id.action_exerciseHandWritingFragment_to_exerciseWordsScrambleFragment)
                 }
                 is QuestionHandwriting -> {
+                    Log.d("Hangman List", it.hintHangman.toString())
+                    this.hintImg = it.hintImg
+                    Log.d("Hint hangman should be", hintHangman.toString())
+                    this.hintHangman = it.hintHangman.joinToString(" ")
 
+                    useHint()
                 }
             }
         })
@@ -113,8 +121,17 @@ class ExerciseHandWritingFragment : Fragment() {
 
     private fun useHint(){
         binding.btnHint.setOnClickListener {
-            Toast.makeText(this@ExerciseHandWritingFragment.context,
-                "You use hint", Toast.LENGTH_SHORT).show()
+            var args = Bundle()
+            args.putString("hint", hintHangman)
+            Log.d("hint hangman must", hintHangman.toString())
+            args.putString("imageUrl", hintImg.toString())
+            Log.d("image argument be", hintImg.toString())
+
+            val popupHintFragment = PopupHintFragment()
+            binding.btnHint.setOnClickListener {
+                popupHintFragment.arguments = args
+                popupHintFragment.show(childFragmentManager, "PopUpHintDialog Fragment")
+            }
         }
     }
 

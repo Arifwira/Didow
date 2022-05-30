@@ -35,6 +35,9 @@ class ExerciseWordsScrambleFragment : Fragment() {
 
     private lateinit var adapter: ExerciseWordsScrambleAdapter
 
+    private var hintImg : String? = null
+    private var hintHangman : String? = null
+
     private val listWordScrambleOption = ArrayList<String>()
 
     override fun onCreateView(
@@ -58,7 +61,6 @@ class ExerciseWordsScrambleFragment : Fragment() {
         binding.rvWordScramble.setHasFixedSize(true)
 
         playSound()
-        useHint()
         openGuide()
         binding.lanjut.setOnClickListener {
             exerciseViewModel.nextQuestion()
@@ -72,10 +74,15 @@ class ExerciseWordsScrambleFragment : Fragment() {
                 }
                 is QuestionScrambleWords -> {
                     Log.d("scramble", it.letters.toString())
+                    Log.d("Hangman List", it.hintHangman.toString())
+                    hintHangman = it.hintHangman.joinToString(" ")
+                    hintImg = it.hintImg
+                    Log.d("Hint hangman should be", hintHangman.toString())
                     listWordScrambleOption.clear()
                     listWordScrambleOption.addAll(it.letters)
                     adapter = ExerciseWordsScrambleAdapter(listWordScrambleOption)
                     binding.rvWordScramble.adapter = adapter
+                    useHint()
                 }
                 is QuestionHandwriting -> {
                     findNavController().navigate(R.id.action_exerciseWordsScrambleFragment_to_exerciseHandWritingFragment)
@@ -115,10 +122,19 @@ class ExerciseWordsScrambleFragment : Fragment() {
         }
     }
 
-    private fun useHint(){
+    private fun useHint() {
         binding.btnHint.setOnClickListener {
-            Toast.makeText(this@ExerciseWordsScrambleFragment.context,
-                "You use hint", Toast.LENGTH_SHORT).show()
+            var args = Bundle()
+            args.putString("hint", hintHangman)
+            Log.d("hint hangman must", hintHangman.toString())
+            args.putString("imageUrl", hintImg.toString())
+            Log.d("image argument be", hintImg.toString())
+
+            val popupHintFragment = PopupHintFragment()
+            binding.btnHint.setOnClickListener {
+                popupHintFragment.arguments = args
+                popupHintFragment.show(childFragmentManager, "PopUpHintDialog Fragment")
+            }
         }
     }
 
