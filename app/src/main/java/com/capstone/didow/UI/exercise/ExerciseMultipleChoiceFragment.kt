@@ -4,6 +4,7 @@ import android.app.Dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.speech.tts.TextToSpeech
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -20,13 +21,17 @@ import com.capstone.didow.entities.QuestionHandwriting
 import com.capstone.didow.entities.QuestionMultipleChoice
 import com.capstone.didow.entities.QuestionScrambleWords
 import com.google.android.flexbox.*
+import org.w3c.dom.Text
+import java.util.*
 import kotlin.String
+import kotlin.collections.ArrayList
 
 
 class ExerciseMultipleChoiceFragment : Fragment() {
 
     private var _binding: ExerciseMultipleChoiceFragmentBinding? = null
     private val binding get() = _binding!!
+    lateinit var tts : TextToSpeech
 
     companion object {
         fun newInstance() = ExerciseMultipleChoiceFragment()
@@ -48,7 +53,6 @@ class ExerciseMultipleChoiceFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
 
         binding.rvPilgan.setHasFixedSize(true)
         showRecyclerViewList()
@@ -114,8 +118,13 @@ class ExerciseMultipleChoiceFragment : Fragment() {
 
     private fun playSound(){
         binding.btnPlay.setOnClickListener {
-            Toast.makeText(this@ExerciseMultipleChoiceFragment.context,
-                "You play the sound", Toast.LENGTH_SHORT).show()
+            tts = TextToSpeech(requireContext(),TextToSpeech.OnInitListener {
+                if(it==TextToSpeech.SUCCESS){
+                    tts.setSpeechRate(1.0f)
+                    tts.speak("${exerciseViewModel.currentQuestion.value?.word}",TextToSpeech.QUEUE_ADD,null)
+                }
+                Log.d("SOUND", "PILIHAN GANDA")
+            })
         }
     }
 
@@ -146,7 +155,6 @@ class ExerciseMultipleChoiceFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+
     }
-
-
 }

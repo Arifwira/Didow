@@ -1,6 +1,7 @@
 package com.capstone.didow.UI.exercise
 
 import android.os.Bundle
+import android.speech.tts.TextToSpeech
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -25,6 +26,7 @@ import com.google.android.flexbox.JustifyContent
 class ExerciseWordsScrambleFragment : Fragment() {
     private var _binding: ExerciseWordsScrambleFragmentBinding? = null
     private val binding get() = _binding!!
+    lateinit var tts: TextToSpeech
 
     companion object {
         fun newInstance() = ExerciseWordsScrambleFragment()
@@ -85,8 +87,10 @@ class ExerciseWordsScrambleFragment : Fragment() {
 
         exerciseViewModel.isRetry.observe(viewLifecycleOwner, Observer {
             if (it) {
-                Toast.makeText(this.context,
-                    "Maaf jawaban kamu salah, silahkan untuk jawab ulang.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this.context,
+                    "Maaf jawaban kamu salah, silahkan untuk jawab ulang.", Toast.LENGTH_SHORT
+                ).show()
             }
         })
 
@@ -101,29 +105,41 @@ class ExerciseWordsScrambleFragment : Fragment() {
         })
     }
 
-    private fun playSound(){
+    private fun playSound() {
         binding.btnPlay.setOnClickListener {
-            Toast.makeText(this@ExerciseWordsScrambleFragment.context,
-                "You play the sound", Toast.LENGTH_SHORT).show()
+            tts = TextToSpeech(requireContext(), TextToSpeech.OnInitListener {
+                if (it == TextToSpeech.SUCCESS) {
+                    tts.setSpeechRate(1.0f)
+                    tts.speak(
+                        "${exerciseViewModel.currentQuestion.value?.word}",
+                        TextToSpeech.QUEUE_ADD, null
+                    )
+                }
+                    Log.d("SOUND", "KATA ACAK")
+            })
         }
     }
 
-    private fun openGuide(){
+    private fun openGuide() {
         binding.btnGuide.setOnClickListener {
-            Toast.makeText(this@ExerciseWordsScrambleFragment.context,
-                "You open the Guidebook", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                this@ExerciseWordsScrambleFragment.context,
+                "You open the Guidebook", Toast.LENGTH_SHORT
+            ).show()
         }
     }
 
-    private fun useHint(){
+    private fun useHint() {
         binding.btnHint.setOnClickListener {
-            Toast.makeText(this@ExerciseWordsScrambleFragment.context,
-                "You use hint", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                this@ExerciseWordsScrambleFragment.context,
+                "You use hint", Toast.LENGTH_SHORT
+            ).show()
         }
     }
 
-    private fun showRecyclerViewList(){
-        binding.apply{
+    private fun showRecyclerViewList() {
+        binding.apply {
             val layoutManager = FlexboxLayoutManager(activity)
             layoutManager.flexDirection = FlexDirection.ROW
             layoutManager.justifyContent = JustifyContent.SPACE_AROUND
