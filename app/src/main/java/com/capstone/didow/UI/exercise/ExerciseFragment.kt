@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.capstone.didow.R
 import com.capstone.didow.databinding.ExerciseFragmentBinding
 import com.capstone.didow.entities.*
+import com.google.firebase.auth.FirebaseAuth
 
 class ExerciseFragment : Fragment() {
 
@@ -21,6 +22,7 @@ class ExerciseFragment : Fragment() {
     private val viewModel: ExerciseViewModel by activityViewModels()
     private var _binding: ExerciseFragmentBinding? = null
     private val binding get() = _binding!!
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,7 +35,8 @@ class ExerciseFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val category = this.activity?.intent?.getStringExtra("category")
-        viewModel.init(category!!)
+        auth = FirebaseAuth.getInstance()
+        viewModel.init(category!!, auth.currentUser!!.uid)
         viewModel.isLoaded.observe(viewLifecycleOwner, Observer {
             if (it) {
                 viewModel.startExercise()

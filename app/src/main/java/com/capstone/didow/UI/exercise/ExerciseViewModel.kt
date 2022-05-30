@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.capstone.didow.api.RetrofitInstance
 import com.capstone.didow.entities.*
-import com.capstone.didow.models.QuestionsResponse
+import com.capstone.didow.api.QuestionsResponse
 import kotlinx.coroutines.launch
 
 class ExerciseViewModel : ViewModel() {
@@ -26,13 +26,14 @@ class ExerciseViewModel : ViewModel() {
     val isFinished: LiveData<Boolean> = _isFinished
 
 
-    fun init(category: String) {
+    fun init(category: String, userId: String) {
         val client = RetrofitInstance.getApiService()
         viewModelScope.launch {
+            val userInfo = client.getUser(userId, null)
             var response: QuestionsResponse? = null
 
             when (category) {
-                "auto" -> response = client.getQuestions(category, 100)
+                "auto" -> response = client.getQuestions(category, userInfo.data?.weightPoint)
                 "assessment" -> response = client.getQuestions(category, null)
             }
 
