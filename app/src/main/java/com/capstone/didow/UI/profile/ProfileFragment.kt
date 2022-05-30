@@ -15,12 +15,14 @@ import com.capstone.didow.UI.ExerciseActivity
 import com.capstone.didow.UI.OnBoarding
 import com.capstone.didow.UI.history.HistoryDetailFragment
 import com.capstone.didow.databinding.ProfileFragmentBinding
+import com.google.firebase.auth.FirebaseAuth
 
 class ProfileFragment : Fragment() {
 
     private var _binding : ProfileFragmentBinding? = null
     private val binding get() = _binding!!
     private lateinit var readAnimation : AnimationDrawable
+    private lateinit var auth: FirebaseAuth
 
     companion object {
         fun newInstance() = ProfileFragment()
@@ -55,10 +57,12 @@ class ProfileFragment : Fragment() {
                 parentFragmentManager.beginTransaction().replace(R.id.container_main, ChangePasswordFragment()).commit()
             }
             logout.setOnClickListener {
+                logout()
                 startActivity(Intent(activity, OnBoarding::class.java))
                 activity?.finish()
             }
         }
+        auth = FirebaseAuth.getInstance()
         binding.aum.setBackgroundResource(R.drawable.lion_list)
         readAnimation = binding.aum.background as AnimationDrawable
         readAnimation.start()
@@ -66,6 +70,10 @@ class ProfileFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+    }
+
+    private fun logout() {
+        auth.signOut()
     }
 
 }

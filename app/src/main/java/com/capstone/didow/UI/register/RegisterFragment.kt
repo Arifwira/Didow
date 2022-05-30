@@ -5,13 +5,24 @@ import android.animation.ObjectAnimator
 import android.graphics.drawable.AnimationDrawable
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.capstone.didow.R
+import com.capstone.didow.api.ApiService
+import com.capstone.didow.api.RetrofitInstance
 import com.capstone.didow.databinding.RegisterFragmentBinding
+import com.google.firebase.auth.FirebaseAuth
+import kotlinx.coroutines.launch
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.RequestBody.Companion.toRequestBody
+import org.json.JSONObject
 
 class RegisterFragment : Fragment() {
 
@@ -19,6 +30,8 @@ class RegisterFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var readAnimation : AnimationDrawable
+    private lateinit var auth: FirebaseAuth
+    private lateinit var client: ApiService
 
     companion object {
         fun newInstance() = RegisterFragment()
@@ -49,6 +62,15 @@ class RegisterFragment : Fragment() {
         readAnimation = binding.daftarPaw.background as AnimationDrawable
         readAnimation.start()
         playAnimation()
+        auth = FirebaseAuth.getInstance()
+        client = RetrofitInstance.getApiService()
+        binding.apply {
+            daftarDaftar.setOnClickListener {
+                val email = daftarEmail.text.toString()
+                val password = daftarPassword.text.toString()
+                signUp(email, password)
+            }
+        }
     }
 
     override fun onDestroy() {
@@ -79,5 +101,38 @@ class RegisterFragment : Fragment() {
             playTogether(paw,pawalpha)
             start()
         }
+    }
+
+    private fun signUp(email: String, password: String) {
+        auth.createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    // Sign in success, update UI with the signed-in user's information
+                    Log.d("SIGN_UP", "createUserWithEmail:success")
+                    val user = auth.currentUser
+                    lifecycleScope.launch {
+                        try {
+                            val jsonObject = JSONObject()
+                            jsonObject.put("id", user!!.uid)
+                            jsonObject.put("username", binding.daftarNama.text.toString())
+                            jsonObject.put("weightPoint", 100)
+                            val requestBody =jsonObject.toString().toRequestBody("application/json".toMediaTypeOrNull())
+                            // Create user data in db
+                            client.createUser(requestBody)
+                            findNavController().navigate(R.id.action_registerFragment_to_mainActivity)
+                            activity?.finish()
+                        } catch (error: Error) {
+                            Log.w("SIGN_UP", "createUserWithEmail:failure", error)
+                            Toast.makeText(context, "Authentication failed.",
+                                Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                } else {
+                    // If sign in fails, display a message to the user.
+                    Log.w("SIGN_UP", "createUserWithEmail:failure", task.exception)
+                    Toast.makeText(context, "Authentication failed.",
+                        Toast.LENGTH_SHORT).show()
+                }
+            }
     }
 }

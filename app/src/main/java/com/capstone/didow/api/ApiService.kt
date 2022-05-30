@@ -1,13 +1,11 @@
 package com.capstone.didow.api
 
-import com.capstone.didow.models.QuestionsResponse
 import okhttp3.OkHttpClient
+import okhttp3.RequestBody
 import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.GET
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface ApiService {
     @GET("questions")
@@ -15,6 +13,15 @@ interface ApiService {
         @Query("type") type: String,
         @Query("weightPoint") weightPoint: Int?,
     ): QuestionsResponse
+
+    @GET("users/{id}")
+    suspend fun getUser(
+        @Path("id") id: String,
+        @Query("weightOnly") weightOnly: Boolean?,
+    ): GetUserResponse
+
+    @POST("users")
+    suspend fun createUser(@Body requestBody: RequestBody): CreateUserResponse
 }
 
 class RetrofitInstance {

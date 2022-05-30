@@ -5,19 +5,24 @@ import android.animation.ObjectAnimator
 import android.graphics.drawable.AnimationDrawable
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.capstone.didow.R
 import com.capstone.didow.databinding.LoginFragmentBinding
+import com.google.firebase.auth.FirebaseAuth
 
 class LoginFragment : Fragment() {
 
     private var _binding: LoginFragmentBinding? = null
     private val binding get() = _binding!!
     private lateinit var readAnimation : AnimationDrawable
+    private lateinit var auth: FirebaseAuth
     companion object {
         fun newInstance() = LoginFragment()
     }
@@ -43,13 +48,17 @@ class LoginFragment : Fragment() {
         binding.Daftar.setOnClickListener {
             it.findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
         }
-        binding.masuk.setOnClickListener{
-            it.findNavController().navigate(R.id.action_loginFragment_to_mainActivity)
+        binding.masuk.setOnClickListener {
+//            it.findNavController().navigate(R.id.action_loginFragment_to_mainActivity)
+            val email = binding.editTextTextEmailAddress.text.toString()
+            val password = binding.editTextTextPassword.text.toString()
+            signIn(email, password)
         }
         binding.paw.setBackgroundResource(R.drawable.paw_animation)
         readAnimation = binding.paw.background as AnimationDrawable
         readAnimation.start()
         playAnimation()
+        auth = FirebaseAuth.getInstance()
     }
 
     override fun onDestroy() {
@@ -77,4 +86,23 @@ class LoginFragment : Fragment() {
             start()
         }
     }
+
+    private fun signIn(email: String, password: String) {
+        auth.signInWithEmailAndPassword(email, password)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    // Sign in success, update UI with the signed-in user's information
+                    Log.d("SIGN_IN", "signInWithEmail:success")
+                    val user = auth.currentUser
+                    findNavController().navigate(R.id.action_loginFragment_to_mainActivity)
+                    this.activity?.finish()
+                } else {
+                    // If sign in fails, display a message to the user.
+                    Log.w("SIGN_IN", "signInWithEmail:failure", task.exception)
+                    Toast.makeText(this.context, "Authentication failed.",
+                        Toast.LENGTH_SHORT).show()
+                }
+            }
+    }
+
 }

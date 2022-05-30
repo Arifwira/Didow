@@ -1,4 +1,4 @@
-package com.capstone.didow.models
+package com.capstone.didow.api
 
 import com.google.gson.annotations.SerializedName
 

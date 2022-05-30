@@ -15,11 +15,15 @@ import com.capstone.didow.UI.profile.ProfileFragment
 import com.capstone.didow.databinding.ActivityMainBinding
 import com.capstone.didow.databinding.RegisterFragmentBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 class MainActivity : AppCompatActivity() {
 
     private var _binding: ActivityMainBinding? = null
     private val binding get() = _binding!!
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,6 +31,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 //        startActivity(Intent(this, OnBoarding::class.java))
 //        finish()
+        auth = Firebase.auth
+        val currentUser = auth.currentUser
+        if (currentUser == null) {
+            startActivity(Intent(this, OnBoarding::class.java))
+            finish()
+        }
 
         val firstFragment=HomeFragment()
         val secondFragment=HistoryFragment()
