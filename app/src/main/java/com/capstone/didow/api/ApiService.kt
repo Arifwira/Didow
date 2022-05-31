@@ -34,6 +34,12 @@ interface ApiService {
 
     @POST("exercises")
     suspend fun createExercise(@Body requestBody: RequestBody): CreateExerciseResponse
+
+    @POST("assessments")
+    suspend fun createAssessmentReport(@Body requestBody: RequestBody): CreateAssessmentResponse
+
+    @GET("assessments/{id}")
+    suspend fun getAssessmentReport(@Path("id") assessmentId: String): GetAssessmentResponse
 }
 
 class RetrofitInstance {
