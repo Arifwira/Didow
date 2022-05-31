@@ -4,5 +4,6 @@ class QuestionHandwriting(
     word: String,
     syllables: Int,
     hintImg: String,
+    number: Int,
     val hintHangman: List<String>,
-): Question(word, syllables, hintImg)
+): Question(word, syllables, hintImg, number)

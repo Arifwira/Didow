@@ -4,6 +4,7 @@ class QuestionScrambleWords(
     word: String,
     syllables: Int,
     hintImg: String,
+    number: Int,
     val letters: List<String>,
     val hintHangman: List<String>,
-): Question(word, syllables, hintImg)
+): Question(word, syllables, hintImg, number)

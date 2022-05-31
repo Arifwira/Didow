@@ -9,6 +9,11 @@ import com.capstone.didow.api.RetrofitInstance
 import com.capstone.didow.entities.*
 import com.capstone.didow.api.QuestionsResponse
 import kotlinx.coroutines.launch
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.RequestBody.Companion.toRequestBody
+import org.json.JSONArray
+import org.json.JSONObject
+import java.lang.Exception
 
 class ExerciseViewModel : ViewModel() {
     private val _exercise = MutableLiveData<Exercise>()
@@ -17,6 +22,7 @@ class ExerciseViewModel : ViewModel() {
     private val _currentAttempt = MutableLiveData<Attempt>()
     private val _isRetry = MutableLiveData(false)
     private val _isFinished = MutableLiveData(false)
+    private val _userId = MutableLiveData<String>()
 
     val exercise: LiveData<Exercise> = _exercise
     val currentQuestion: LiveData<Question> = _currentQuestion
@@ -27,6 +33,7 @@ class ExerciseViewModel : ViewModel() {
 
 
     fun init(category: String, userId: String) {
+        _userId.value = userId
         val client = RetrofitInstance.getApiService()
         viewModelScope.launch {
             val userInfo = client.getUser(userId, null)
@@ -39,6 +46,7 @@ class ExerciseViewModel : ViewModel() {
 
             val data = response?.data
             val questions = mutableListOf<Question>()
+            var questionNumber = 1
             data?.forEach {
                 val type = it?.type
                 var question: Question? = null
@@ -47,12 +55,14 @@ class ExerciseViewModel : ViewModel() {
                         it.word!!,
                         it.syllables!!,
                         it.hintImg!!,
+                        questionNumber,
                         it.multipleChoice!!.choices!! as List<String>
                     )
                     "scrambleWords" -> question = QuestionScrambleWords(
                         it.word!!,
                         it.syllables!!,
                         it.hintImg!!,
+                        questionNumber,
                         it.scrambleWords!!.letters!! as List<String>,
                         it.scrambleWords.hintHangman!! as List<String>
                     )
@@ -60,9 +70,11 @@ class ExerciseViewModel : ViewModel() {
                         it.word!!,
                         it.syllables!!,
                         it.hintImg!!,
+                        questionNumber,
                         it.handWriting!!.hintHangman!! as List<String>
                     )
                 }
+                questionNumber++
                 questions.add(question!!)
             }
             _exercise.value = Exercise(questions, category)
@@ -84,7 +96,7 @@ class ExerciseViewModel : ViewModel() {
         val newQuestion = this.currentAttempt.value?.next()
         if (newQuestion == null) {
             val newAttempt = this.currentAttempt.value?.checkWrongAnswers()
-            if (newAttempt == null || exercise.value?.category !== "assessment") {
+            if (newAttempt == null || exercise.value?.category == "assessment") {
                 finish()
             } else {
                 _isRetry.value = true
@@ -97,9 +109,60 @@ class ExerciseViewModel : ViewModel() {
         }
     }
 
-    fun finish() {
-        Log.d("finished", exercise.value.toString())
-        _isFinished.value = true
+    private suspend fun saveExercise() {
+        val attemptsWithWrongAnswers = exercise.value?.attempts?.filter { attempt ->
+            val wrongAnswers = attempt.answers.filter { answer -> !answer.isCorrect }
+            wrongAnswers.isNotEmpty()
+        }
+
+        val attemptsJson = attemptsWithWrongAnswers?.map { attempt ->
+            val wrongAnswers = attempt.answers.filter { answer -> !answer.isCorrect }
+            val wrongAnswersJson = wrongAnswers.map { wrongAnswer ->
+                val questionType = when (wrongAnswer.question) {
+                    is QuestionMultipleChoice -> "multipleChoice"
+                    is QuestionScrambleWords -> "scrambleWords"
+                    is QuestionHandwriting -> "handwriting"
+                    else -> null
+                }
+                val wrongAnswerJson = JSONObject()
+                wrongAnswerJson.put("number", wrongAnswer.question.number)
+                wrongAnswerJson.put("word", wrongAnswer.question.word)
+                wrongAnswerJson.put("answer", wrongAnswer.answer)
+                wrongAnswerJson.put("type", questionType)
+                wrongAnswerJson
+            }
+            val attemptJson = JSONObject()
+            attemptJson.put("attemptNumber", attempt.number)
+            attemptJson.put("wrongAnswers", JSONArray(wrongAnswersJson.toString()))
+            attemptJson
+        }
+
+        val jsonRequestBody = JSONObject()
+        val questions = exercise.value?.questions
+        val avgSyllables = questions!!
+            .map { question -> question.syllables }
+            .reduce { acc, i -> acc + i } / questions.size
+        jsonRequestBody.put("userId", _userId.value)
+        jsonRequestBody.put("endTime", System.currentTimeMillis())
+        jsonRequestBody.put("avgSyllables", avgSyllables)
+        jsonRequestBody.put("questionsQty", questions.size)
+        jsonRequestBody.put("attempts", JSONArray(attemptsJson.toString()))
+        val requestBody = jsonRequestBody.toString().toRequestBody("application/json".toMediaTypeOrNull())
+
+        val client = RetrofitInstance.getApiService()
+        client.createExercise(requestBody)
+    }
+
+    private fun finish() {
+        viewModelScope.launch {
+            try {
+                saveExercise()
+            } catch (exception: Exception) {
+                Log.d("CREATE_EXERCISE_ERROR", exception.message.toString())
+            }
+            Log.d("finished", exercise.value.toString())
+            _isFinished.value = true
+        }
     }
 
     fun getExerciseCategory(): String {
