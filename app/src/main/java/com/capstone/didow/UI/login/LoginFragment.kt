@@ -7,6 +7,8 @@ import android.content.SharedPreferences
 import android.graphics.drawable.AnimationDrawable
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -25,6 +27,9 @@ class LoginFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var readAnimation : AnimationDrawable
     private lateinit var auth: FirebaseAuth
+
+
+
     companion object {
         fun newInstance() = LoginFragment()
     }
@@ -58,6 +63,31 @@ class LoginFragment : Fragment() {
         binding.Daftar.setOnClickListener {
             it.findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
         }
+
+        binding.editTextTextEmailAddress.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                enableButton()
+            }
+
+            override fun afterTextChanged(s: Editable) {
+            }
+        })
+
+        binding.editTextTextPassword.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                enableButton()
+            }
+
+            override fun afterTextChanged(s: Editable) {
+            }
+        })
+
         binding.masuk.setOnClickListener {
             val email = binding.editTextTextEmailAddress.text.toString()
             val password = binding.editTextTextPassword.text.toString()
@@ -75,6 +105,27 @@ class LoginFragment : Fragment() {
         super.onDestroy()
         _binding = null
     }
+
+    private fun isValidEmail(str: String): Boolean {
+        return android.util.Patterns.EMAIL_ADDRESS.matcher(str).matches()
+    }
+
+    private fun isValidPassword(str: String): Boolean {
+        return str.length >= 6
+    }
+
+    private fun enableButton() {
+        val email = binding.editTextTextEmailAddress.text
+        val pass = binding.editTextTextPassword.text
+        binding.masuk.isEnabled =
+            pass != null && isValidPassword(pass.toString()) && email != null && isValidEmail(email.toString())
+        if(binding.masuk.isEnabled){
+            binding.masuk.setBackgroundColor(resources.getColor(android.R.color.holo_orange_dark))
+        }else{
+            binding.masuk.setBackgroundColor(resources.getColor(android.R.color.darker_gray))
+        }
+    }
+
     private fun playAnimation() {
         val pawalpha = ObjectAnimator.ofFloat(binding.paw, View.ALPHA, 1f).setDuration(300)
         val login = ObjectAnimator.ofFloat(binding.HeadingLogin, View.ALPHA, 1f).setDuration(300)
@@ -98,15 +149,27 @@ class LoginFragment : Fragment() {
     }
 
     private fun signIn(email: String, password: String) {
+        binding.apply {
+            darkBg.visibility = View.VISIBLE
+            catLogin.visibility = View.VISIBLE
+        }
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
+                    binding.apply {
+                        darkBg.visibility = View.GONE
+                        catLogin.visibility = View.GONE
+                    }
                     // Sign in success, update UI with the signed-in user's information
                     Log.d("SIGN_IN", "signInWithEmail:success")
                     val user = auth.currentUser
                     findNavController().navigate(R.id.action_loginFragment_to_mainActivity)
                     this.activity?.finish()
                 } else {
+                    binding.apply {
+                        darkBg.visibility = View.GONE
+                        catLogin.visibility = View.GONE
+                    }
                     // If sign in fails, display a message to the user.
                     Log.w("SIGN_IN", "signInWithEmail:failure", task.exception)
                     Toast.makeText(this.context, "Authentication failed.",

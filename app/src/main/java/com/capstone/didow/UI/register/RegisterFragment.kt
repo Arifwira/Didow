@@ -7,6 +7,8 @@ import android.content.SharedPreferences
 import android.graphics.drawable.AnimationDrawable
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -64,6 +66,39 @@ class RegisterFragment : Fragment() {
         binding.daftarMasuk.setOnClickListener {
             it.findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
         }
+        binding.daftarNama.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                enableButton()
+            }
+
+            override fun afterTextChanged(s: Editable) {
+            }
+        })
+        binding.daftarEmail.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                enableButton()
+            }
+
+            override fun afterTextChanged(s: Editable) {
+            }
+        })
+        binding.daftarPassword.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                enableButton()
+            }
+
+            override fun afterTextChanged(s: Editable) {
+            }
+        })
         binding.daftarPaw.setBackgroundResource(R.drawable.paw_animation)
         readAnimation = binding.daftarPaw.background as AnimationDrawable
         readAnimation.start()
@@ -84,6 +119,28 @@ class RegisterFragment : Fragment() {
         super.onDestroy()
         _binding = null
     }
+
+    private fun isValidEmail(str: String): Boolean {
+        return android.util.Patterns.EMAIL_ADDRESS.matcher(str).matches()
+    }
+
+    private fun isValidPassword(str: String): Boolean {
+        return str.length >= 6
+    }
+
+    private fun enableButton() {
+        val name = binding.daftarNama.text
+        val email = binding.daftarEmail.text
+        val pass = binding.daftarPassword.text
+        binding.daftarDaftar.isEnabled =
+            pass != null && isValidPassword(pass.toString()) && email != null && isValidEmail(email.toString()) && name.isNotEmpty()
+        if(binding.daftarDaftar.isEnabled){
+            binding.daftarDaftar.setBackgroundColor(resources.getColor(android.R.color.holo_orange_dark))
+        }else{
+            binding.daftarDaftar.setBackgroundColor(resources.getColor(android.R.color.darker_gray))
+        }
+    }
+
     private fun playAnimation() {
         val pawalpha = ObjectAnimator.ofFloat(binding.daftarPaw, View.ALPHA, 1f).setDuration(300)
         val login = ObjectAnimator.ofFloat(binding.HeadingRegist, View.ALPHA, 1f).setDuration(300)
@@ -111,9 +168,14 @@ class RegisterFragment : Fragment() {
     }
 
     private fun signUp(email: String, password: String, score: Int) {
+        binding.apply {
+            darkBg.visibility = View.VISIBLE
+            catRegister.visibility = View.VISIBLE
+        }
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
+
                     // Sign in success, update UI with the signed-in user's information
                     Log.d("SIGN_UP", "createUserWithEmail:success")
                     val user = auth.currentUser
@@ -128,14 +190,26 @@ class RegisterFragment : Fragment() {
                             client.createUser(requestBody)
                             sharedPref.edit().clear().apply()
                             findNavController().navigate(R.id.action_registerFragment_to_mainActivity)
+                            binding.apply {
+                                darkBg.visibility = View.GONE
+                                catRegister.visibility = View.GONE
+                            }
                             activity?.finish()
                         } catch (error: Error) {
+                            binding.apply {
+                                darkBg.visibility = View.GONE
+                                catRegister.visibility = View.GONE
+                            }
                             Log.w("SIGN_UP", "createUserWithEmail:failure", error)
                             Toast.makeText(context, "Authentication failed.",
                                 Toast.LENGTH_SHORT).show()
                         }
                     }
                 } else {
+                    binding.apply {
+                        darkBg.visibility = View.GONE
+                        catRegister.visibility = View.GONE
+                    }
                     // If sign in fails, display a message to the user.
                     Log.w("SIGN_UP", "createUserWithEmail:failure", task.exception)
                     Toast.makeText(context, "Authentication failed.",

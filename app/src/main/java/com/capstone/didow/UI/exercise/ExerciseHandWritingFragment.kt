@@ -1,7 +1,6 @@
 package com.capstone.didow.UI.exercise
 
 import android.Manifest
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
@@ -18,19 +17,16 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.camera.core.impl.utils.ContextUtil.getApplicationContext
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.capstone.didow.BuildConfig
 import com.capstone.didow.R
 import com.capstone.didow.UI.OnBoarding
 import com.capstone.didow.databinding.ExerciseHandWritingFragmentBinding
-import com.capstone.didow.databinding.ExerciseWordsScrambleFragmentBinding
 import com.capstone.didow.entities.AssessmentReport
 import com.capstone.didow.entities.QuestionHandwriting
 import com.capstone.didow.entities.QuestionMultipleChoice
