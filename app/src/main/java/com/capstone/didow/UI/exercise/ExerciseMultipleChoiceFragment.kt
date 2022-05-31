@@ -1,9 +1,9 @@
 package com.capstone.didow.UI.exercise
 
-import android.app.Dialog
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
+import android.app.AlertDialog
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.speech.tts.TextToSpeech
 import android.util.Log
 import android.view.LayoutInflater
@@ -13,7 +13,6 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.capstone.didow.R
 import com.capstone.didow.databinding.ExerciseMultipleChoiceFragmentBinding
@@ -21,10 +20,7 @@ import com.capstone.didow.entities.QuestionHandwriting
 import com.capstone.didow.entities.QuestionMultipleChoice
 import com.capstone.didow.entities.QuestionScrambleWords
 import com.google.android.flexbox.*
-import org.w3c.dom.Text
 import java.util.*
-import kotlin.String
-import kotlin.collections.ArrayList
 
 
 class ExerciseMultipleChoiceFragment : Fragment() {
@@ -61,9 +57,9 @@ class ExerciseMultipleChoiceFragment : Fragment() {
 
         playSound()
         openGuide()
-        binding.lanjut.setOnClickListener {
-            exerciseViewModel.nextQuestion()
-        }
+//        binding.lanjut.setOnClickListener {
+//            exerciseViewModel.nextQuestion()
+//        }
 
         exerciseViewModel.currentQuestion.observe(viewLifecycleOwner, Observer {
             Log.d("ganti", it.word)
@@ -79,8 +75,16 @@ class ExerciseMultipleChoiceFragment : Fragment() {
                         override fun onItemClicked(data: String) {
                             val isCorrect = exerciseViewModel.answer(data)
                             Log.d("isCorrect", isCorrect.toString())
-                            Toast.makeText(this@ExerciseMultipleChoiceFragment.context,
-                                "Anda $isCorrect",Toast.LENGTH_SHORT).show()
+                            when(isCorrect.toString()){
+                                "true" -> {
+                                    trueDialog()
+                                }
+                                "false" -> {
+                                    falseDialog()
+                                }
+                            }
+//                            Toast.makeText(this@ExerciseMultipleChoiceFragment.context,
+//                                "Anda $isCorrect",Toast.LENGTH_SHORT).show()
                         }
                     })
                     useHint()
@@ -110,6 +114,34 @@ class ExerciseMultipleChoiceFragment : Fragment() {
                 }
             }
         })
+    }
+
+    private fun trueDialog(){
+        val view = View.inflate(this@ExerciseMultipleChoiceFragment.context, R.layout.dialog_true_view, null)
+        val builder = AlertDialog.Builder(this@ExerciseMultipleChoiceFragment.context)
+        builder.setView(view)
+        val dialog = builder.create()
+        dialog.show()
+        dialog.setCancelable(false)
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        Handler(Looper.getMainLooper()).postDelayed({
+            dialog.dismiss()
+            exerciseViewModel.nextQuestion()
+        }, 3000)
+    }
+
+    private fun falseDialog(){
+        val view = View.inflate(this@ExerciseMultipleChoiceFragment.context, R.layout.dialog_false_view, null)
+        val builder = AlertDialog.Builder(this@ExerciseMultipleChoiceFragment.context)
+        builder.setView(view)
+        val dialog = builder.create()
+        dialog.show()
+        dialog.setCancelable(false)
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        Handler(Looper.getMainLooper()).postDelayed({
+            dialog.dismiss()
+            exerciseViewModel.nextQuestion()
+        }, 3000)
     }
 
     private fun openGuide(){
