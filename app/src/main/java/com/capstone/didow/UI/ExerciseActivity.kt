@@ -13,9 +13,14 @@ class ExerciseActivity : AppCompatActivity() {
     private var _binding : ActivityExerciseBinding? = null
     private val binding get() = _binding!!
 
+    companion object {
+        const val RESULT_CODE = 110
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityExerciseBinding.inflate(layoutInflater)
+
         setContentView(binding.root)
         playAnimation()
     }

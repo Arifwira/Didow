@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import androidx.navigation.findNavController
 import com.capstone.didow.R
 import com.capstone.didow.UI.ExerciseActivity
+import com.capstone.didow.UI.OnBoarding
 import com.capstone.didow.databinding.FragmentAssessmentStartBinding
 
 
@@ -33,7 +34,9 @@ class AssessmentStartFragment : Fragment() {
 //            it.findNavController().navigate(R.id.action_assessmentStartFragment_to_exerciseActivity)
             val intent = Intent(activity, ExerciseActivity::class.java)
             intent.putExtra("category", "assessment")
-            startActivity(intent)
+//            startActivity(intent)
+            val onboardingActivity = activity as OnBoarding
+            onboardingActivity.resultLauncher.launch(intent)
         }
         binding.kembaliAssesment.setOnClickListener {
             it.findNavController().navigate(R.id.action_assessmentStartFragment_to_featuresFragment)

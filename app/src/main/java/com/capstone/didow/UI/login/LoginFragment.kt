@@ -2,6 +2,8 @@ package com.capstone.didow.UI.login
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
+import android.content.Context
+import android.content.SharedPreferences
 import android.graphics.drawable.AnimationDrawable
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -28,6 +30,7 @@ class LoginFragment : Fragment() {
     }
 
     private lateinit var viewModel: LoginViewModel
+    private lateinit var sharedPref: SharedPreferences
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,13 +48,20 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        sharedPref = activity?.getPreferences(Context.MODE_PRIVATE) ?: return
+        val assessmentIsCompleted = sharedPref.getBoolean("assessmentIsCompleted", false)
+        if (!assessmentIsCompleted) {
+            binding.Daftar.visibility = View.INVISIBLE
+        }
+
         binding.Daftar.setOnClickListener {
             it.findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
         }
         binding.masuk.setOnClickListener {
-//            it.findNavController().navigate(R.id.action_loginFragment_to_mainActivity)
             val email = binding.editTextTextEmailAddress.text.toString()
             val password = binding.editTextTextPassword.text.toString()
+            sharedPref.edit().clear().commit()
             signIn(email, password)
         }
         binding.paw.setBackgroundResource(R.drawable.paw_animation)

@@ -2,6 +2,8 @@ package com.capstone.didow.UI.register
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
+import android.content.Context
+import android.content.SharedPreferences
 import android.graphics.drawable.AnimationDrawable
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -38,6 +40,7 @@ class RegisterFragment : Fragment() {
     }
 
     private lateinit var viewModel: RegisterViewModel
+    private lateinit var sharedPref: SharedPreferences
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -55,6 +58,9 @@ class RegisterFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        sharedPref = activity?.getPreferences(Context.MODE_PRIVATE) ?: return
+
         binding.daftarMasuk.setOnClickListener {
             it.findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
         }
@@ -68,7 +74,8 @@ class RegisterFragment : Fragment() {
             daftarDaftar.setOnClickListener {
                 val email = daftarEmail.text.toString()
                 val password = daftarPassword.text.toString()
-                signUp(email, password)
+                val score = sharedPref.getInt("score", 0)
+                signUp(email, password, score)
             }
         }
     }
@@ -103,7 +110,7 @@ class RegisterFragment : Fragment() {
         }
     }
 
-    private fun signUp(email: String, password: String) {
+    private fun signUp(email: String, password: String, score: Int) {
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
@@ -115,10 +122,11 @@ class RegisterFragment : Fragment() {
                             val jsonObject = JSONObject()
                             jsonObject.put("id", user!!.uid)
                             jsonObject.put("username", binding.daftarNama.text.toString())
-                            jsonObject.put("weightPoint", 100)
+                            jsonObject.put("weightPoint", score)
                             val requestBody =jsonObject.toString().toRequestBody("application/json".toMediaTypeOrNull())
                             // Create user data in db
                             client.createUser(requestBody)
+                            sharedPref.edit().clear().apply()
                             findNavController().navigate(R.id.action_registerFragment_to_mainActivity)
                             activity?.finish()
                         } catch (error: Error) {
