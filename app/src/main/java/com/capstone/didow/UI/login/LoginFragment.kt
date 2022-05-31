@@ -138,15 +138,27 @@ class LoginFragment : Fragment() {
     }
 
     private fun signIn(email: String, password: String) {
+        binding.apply {
+            darkBg.visibility = View.VISIBLE
+            catLogin.visibility = View.VISIBLE
+        }
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
+                    binding.apply {
+                        darkBg.visibility = View.GONE
+                        catLogin.visibility = View.GONE
+                    }
                     // Sign in success, update UI with the signed-in user's information
                     Log.d("SIGN_IN", "signInWithEmail:success")
                     val user = auth.currentUser
                     findNavController().navigate(R.id.action_loginFragment_to_mainActivity)
                     this.activity?.finish()
                 } else {
+                    binding.apply {
+                        darkBg.visibility = View.GONE
+                        catLogin.visibility = View.GONE
+                    }
                     // If sign in fails, display a message to the user.
                     Log.w("SIGN_IN", "signInWithEmail:failure", task.exception)
                     Toast.makeText(this.context, "Authentication failed.",

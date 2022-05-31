@@ -161,9 +161,14 @@ class RegisterFragment : Fragment() {
     }
 
     private fun signUp(email: String, password: String) {
+        binding.apply {
+            darkBg.visibility = View.VISIBLE
+            catRegister.visibility = View.VISIBLE
+        }
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
+
                     // Sign in success, update UI with the signed-in user's information
                     Log.d("SIGN_UP", "createUserWithEmail:success")
                     val user = auth.currentUser
@@ -177,14 +182,26 @@ class RegisterFragment : Fragment() {
                             // Create user data in db
                             client.createUser(requestBody)
                             findNavController().navigate(R.id.action_registerFragment_to_mainActivity)
+                            binding.apply {
+                                darkBg.visibility = View.GONE
+                                catRegister.visibility = View.GONE
+                            }
                             activity?.finish()
                         } catch (error: Error) {
+                            binding.apply {
+                                darkBg.visibility = View.GONE
+                                catRegister.visibility = View.GONE
+                            }
                             Log.w("SIGN_UP", "createUserWithEmail:failure", error)
                             Toast.makeText(context, "Authentication failed.",
                                 Toast.LENGTH_SHORT).show()
                         }
                     }
                 } else {
+                    binding.apply {
+                        darkBg.visibility = View.GONE
+                        catRegister.visibility = View.GONE
+                    }
                     // If sign in fails, display a message to the user.
                     Log.w("SIGN_UP", "createUserWithEmail:failure", task.exception)
                     Toast.makeText(context, "Authentication failed.",
