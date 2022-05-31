@@ -22,6 +22,18 @@ interface ApiService {
 
     @POST("users")
     suspend fun createUser(@Body requestBody: RequestBody): CreateUserResponse
+
+    @GET("exercises")
+    suspend fun getExercises(
+        @Query("userId") userId: String?,
+        @Query("groupBy") groupBy: String?,
+        @Query("startDate") startDate: String?,
+        @Query("endDate") endDate: String?,
+        @Header("x-timezone") timezone: Int,
+    ): GetExercisesResponse
+
+    @POST("exercises")
+    suspend fun createExercise(@Body requestBody: RequestBody): CreateExerciseResponse
 }
 
 class RetrofitInstance {
