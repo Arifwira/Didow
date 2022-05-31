@@ -5,6 +5,8 @@ import android.animation.ObjectAnimator
 import android.graphics.drawable.AnimationDrawable
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -58,6 +60,39 @@ class RegisterFragment : Fragment() {
         binding.daftarMasuk.setOnClickListener {
             it.findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
         }
+        binding.daftarNama.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                enableButton()
+            }
+
+            override fun afterTextChanged(s: Editable) {
+            }
+        })
+        binding.daftarEmail.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                enableButton()
+            }
+
+            override fun afterTextChanged(s: Editable) {
+            }
+        })
+        binding.daftarPassword.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                enableButton()
+            }
+
+            override fun afterTextChanged(s: Editable) {
+            }
+        })
         binding.daftarPaw.setBackgroundResource(R.drawable.paw_animation)
         readAnimation = binding.daftarPaw.background as AnimationDrawable
         readAnimation.start()
@@ -77,6 +112,28 @@ class RegisterFragment : Fragment() {
         super.onDestroy()
         _binding = null
     }
+
+    private fun isValidEmail(str: String): Boolean {
+        return android.util.Patterns.EMAIL_ADDRESS.matcher(str).matches()
+    }
+
+    private fun isValidPassword(str: String): Boolean {
+        return str.length >= 6
+    }
+
+    private fun enableButton() {
+        val name = binding.daftarNama.text
+        val email = binding.daftarEmail.text
+        val pass = binding.daftarPassword.text
+        binding.daftarDaftar.isEnabled =
+            pass != null && isValidPassword(pass.toString()) && email != null && isValidEmail(email.toString()) && name.isNotEmpty()
+        if(binding.daftarDaftar.isEnabled){
+            binding.daftarDaftar.setBackgroundColor(resources.getColor(android.R.color.holo_orange_dark))
+        }else{
+            binding.daftarDaftar.setBackgroundColor(resources.getColor(android.R.color.darker_gray))
+        }
+    }
+
     private fun playAnimation() {
         val pawalpha = ObjectAnimator.ofFloat(binding.daftarPaw, View.ALPHA, 1f).setDuration(300)
         val login = ObjectAnimator.ofFloat(binding.HeadingRegist, View.ALPHA, 1f).setDuration(300)

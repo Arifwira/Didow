@@ -5,6 +5,8 @@ import android.animation.ObjectAnimator
 import android.graphics.drawable.AnimationDrawable
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -23,6 +25,9 @@ class LoginFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var readAnimation : AnimationDrawable
     private lateinit var auth: FirebaseAuth
+
+
+
     companion object {
         fun newInstance() = LoginFragment()
     }
@@ -48,8 +53,32 @@ class LoginFragment : Fragment() {
         binding.Daftar.setOnClickListener {
             it.findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
         }
+
+        binding.editTextTextEmailAddress.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                enableButton()
+            }
+
+            override fun afterTextChanged(s: Editable) {
+            }
+        })
+
+        binding.editTextTextPassword.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                enableButton()
+            }
+
+            override fun afterTextChanged(s: Editable) {
+            }
+        })
+
         binding.masuk.setOnClickListener {
-//            it.findNavController().navigate(R.id.action_loginFragment_to_mainActivity)
             val email = binding.editTextTextEmailAddress.text.toString()
             val password = binding.editTextTextPassword.text.toString()
             signIn(email, password)
@@ -65,6 +94,27 @@ class LoginFragment : Fragment() {
         super.onDestroy()
         _binding = null
     }
+
+    private fun isValidEmail(str: String): Boolean {
+        return android.util.Patterns.EMAIL_ADDRESS.matcher(str).matches()
+    }
+
+    private fun isValidPassword(str: String): Boolean {
+        return str.length >= 6
+    }
+
+    private fun enableButton() {
+        val email = binding.editTextTextEmailAddress.text
+        val pass = binding.editTextTextPassword.text
+        binding.masuk.isEnabled =
+            pass != null && isValidPassword(pass.toString()) && email != null && isValidEmail(email.toString())
+        if(binding.masuk.isEnabled){
+            binding.masuk.setBackgroundColor(resources.getColor(android.R.color.holo_orange_dark))
+        }else{
+            binding.masuk.setBackgroundColor(resources.getColor(android.R.color.darker_gray))
+        }
+    }
+
     private fun playAnimation() {
         val pawalpha = ObjectAnimator.ofFloat(binding.paw, View.ALPHA, 1f).setDuration(300)
         val login = ObjectAnimator.ofFloat(binding.HeadingLogin, View.ALPHA, 1f).setDuration(300)

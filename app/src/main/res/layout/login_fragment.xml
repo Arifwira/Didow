@@ -48,7 +48,8 @@
             style="@style/ButtonGeneral"
             android:layout_marginBottom="16dp"
             android:alpha="0"
-            android:backgroundTint="@color/black"
+            android:backgroundTint="@android:color/darker_gray"
+            android:enabled="false"
             android:text="Masuk"
             android:textColor="@color/white"
             app:layout_constraintBottom_toTopOf="@+id/Daftar"
@@ -68,29 +69,36 @@
             app:layout_constraintEnd_toEndOf="@+id/masuk"
             app:layout_constraintStart_toStartOf="@+id/masuk" />
 
-        <EditText
+        <com.example.storyapp.custom.CustomEmail
             android:id="@+id/editTextTextEmailAddress"
-            android:layout_width="wrap_content"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:ems="10"
             android:alpha="0"
+            android:drawablePadding="10dp"
             android:hint="Masukkan email"
             android:inputType="textEmailAddress"
+            android:textColor="@android:color/holo_orange_dark"
+            android:padding="10dp"
+            android:textSize="15sp"
             app:layout_constraintBottom_toTopOf="@+id/editTextTextPassword"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintEnd_toEndOf="@+id/loginDesc"
+            app:layout_constraintStart_toStartOf="@+id/loginDesc" />
 
-        <EditText
+        <com.example.storyapp.custom.CustomPassword
             android:id="@+id/editTextTextPassword"
-            android:layout_width="wrap_content"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:textSize="15sp"
+            android:textColor="@android:color/holo_orange_dark"
             android:layout_marginBottom="32dp"
-            android:ems="10"
             android:alpha="0"
+            android:drawablePadding="10dp"
             android:hint="Masukkan password"
             android:inputType="textPassword"
             app:layout_constraintBottom_toTopOf="@+id/masuk"
+            app:layout_constraintEnd_toEndOf="@+id/editTextTextEmailAddress"
             app:layout_constraintStart_toStartOf="@+id/editTextTextEmailAddress" />
 
         <ImageView
