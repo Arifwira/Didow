@@ -21,6 +21,8 @@ import com.google.android.flexbox.AlignItems
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
+import java.util.*
+import kotlin.collections.HashMap
 
 class ExerciseWordsScrambleFragment : Fragment() {
     private var _binding: ExerciseWordsScrambleFragmentBinding? = null
@@ -135,6 +137,7 @@ class ExerciseWordsScrambleFragment : Fragment() {
         binding.btnPlay.setOnClickListener {
             tts = TextToSpeech(requireContext(), TextToSpeech.OnInitListener {
                 if (it == TextToSpeech.SUCCESS) {
+                    tts.setLanguage(Locale.forLanguageTag("in"))
                     tts.setSpeechRate(1.0f)
                     tts.speak(
                         "${exerciseViewModel.currentQuestion.value?.word}",

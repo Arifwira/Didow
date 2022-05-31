@@ -71,6 +71,14 @@
             motion:layout_constraintBottom_toTopOf="@+id/kembali"
             motion:layout_constraintTop_toTopOf="parent"
             motion:layout_constraintStart_toStartOf="parent" />
+        <Constraint
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:id="@+id/animationView"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintBottom_toBottomOf="@+id/HeadingLatihan"
+            motion:layout_constraintTop_toTopOf="parent" />
     </ConstraintSet>
 
     <ConstraintSet android:id="@+id/end">
@@ -156,6 +164,20 @@
             motion:layout_constraintStart_toStartOf="parent"
             motion:transitionEasing="linear"
             android:layout_marginBottom="16dp" />
+        <Constraint
+            android:id="@+id/animationView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toTopOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            motion:layout_constraintBottom_toTopOf="@+id/HeadingLatihan"
+            motion:layout_constraintHorizontal_bias="0.0"
+            motion:layout_constraintVertical_bias="0.487"
+            android:layout_marginBottom="-32dp" />
     </ConstraintSet>
     <ConstraintSet
         android:id="@+id/menu2"
@@ -259,6 +281,18 @@
             motion:layout_constraintBottom_toTopOf="@id/JenisLatihan"
             android:layout_marginBottom="16dp"
             motion:layout_constraintStart_toStartOf="parent" />
+        <Constraint
+            android:id="@+id/animationView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            motion:layout_constraintBottom_toTopOf="@+id/JenisLatihan"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toTopOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="-16dp" />
     </ConstraintSet>
     <Transition
         motion:constraintSetStart="@+id/end"

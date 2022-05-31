@@ -199,7 +199,7 @@
             android:layout_width="240dp"
             android:layout_height="48dp"
             android:textStyle="bold"
-            android:backgroundTint="#FF6A4A"
+            android:backgroundTint="@android:color/holo_orange_dark"
             android:text="keluar"
             app:layout_constraintBottom_toTopOf="@+id/daftar"
             app:layout_constraintEnd_toEndOf="parent"

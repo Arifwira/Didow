@@ -123,6 +123,7 @@ class ExerciseMultipleChoiceFragment : Fragment() {
         binding.btnPlay.setOnClickListener {
             tts = TextToSpeech(requireContext(),TextToSpeech.OnInitListener {
                 if(it==TextToSpeech.SUCCESS){
+                    tts.setLanguage(Locale.forLanguageTag("in"))
                     tts.setSpeechRate(1.0f)
                     tts.speak("${exerciseViewModel.currentQuestion.value?.word}",TextToSpeech.QUEUE_ADD,null)
                 }

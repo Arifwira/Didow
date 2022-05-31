@@ -3,7 +3,7 @@
     <item>
         <!-- drawable/volume_up.xml -->
         <shape android:shape="oval">
-            <solid android:color="#FF6A4A"/>
+            <solid android:color="@android:color/holo_orange_dark"/>
             <size android:height="48dp" android:width="48dp"/>
         </shape>
     </item>

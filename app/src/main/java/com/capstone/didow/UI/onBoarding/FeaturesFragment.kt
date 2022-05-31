@@ -40,9 +40,6 @@ class FeaturesFragment : Fragment() {
         binding.lewati.setOnClickListener{
             it.findNavController().navigate(R.id.action_featuresFragment_to_assessmentStartFragment)
         }
-        binding.readingAnimation.setBackgroundResource(R.drawable.book_animation_list)
-        readAnimation = binding.readingAnimation.background as AnimationDrawable
-        readAnimation.start()
     }
 
     override fun onDestroy() {

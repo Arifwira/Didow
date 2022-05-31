@@ -21,7 +21,6 @@ class ProfileFragment : Fragment() {
 
     private var _binding : ProfileFragmentBinding? = null
     private val binding get() = _binding!!
-    private lateinit var readAnimation : AnimationDrawable
     private lateinit var auth: FirebaseAuth
 
     companion object {
@@ -63,9 +62,6 @@ class ProfileFragment : Fragment() {
             }
         }
         auth = FirebaseAuth.getInstance()
-        binding.aum.setBackgroundResource(R.drawable.lion_list)
-        readAnimation = binding.aum.background as AnimationDrawable
-        readAnimation.start()
     }
     override fun onDestroy() {
         super.onDestroy()
