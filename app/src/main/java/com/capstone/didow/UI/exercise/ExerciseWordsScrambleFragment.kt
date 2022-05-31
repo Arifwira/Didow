@@ -11,7 +11,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.capstone.didow.R
 import com.capstone.didow.databinding.ExerciseWordsScrambleFragmentBinding
@@ -32,7 +31,7 @@ class ExerciseWordsScrambleFragment : Fragment() {
         fun newInstance() = ExerciseWordsScrambleFragment()
     }
 
-    private lateinit var viewModel: ExerciseWordsScrambleViewModel
+    private lateinit var scrambleWordsViewModel: ExerciseWordsScrambleViewModel
     private val exerciseViewModel: ExerciseViewModel by activityViewModels()
 
     private lateinit var adapter: ExerciseWordsScrambleAdapter
@@ -40,7 +39,7 @@ class ExerciseWordsScrambleFragment : Fragment() {
     private var hintImg : String? = null
     private var hintHangman : String? = null
 
-    private val listWordScrambleOption = ArrayList<String>()
+    private var listWordScrambleOption = HashMap<String, Int>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -50,14 +49,10 @@ class ExerciseWordsScrambleFragment : Fragment() {
         return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(ExerciseWordsScrambleViewModel::class.java)
-        // TODO: Use the ViewModel
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        scrambleWordsViewModel = ViewModelProvider(this).get(ExerciseWordsScrambleViewModel::class.java)
 
         showRecyclerViewList()
         binding.rvWordScramble.setHasFixedSize(true)
@@ -66,6 +61,10 @@ class ExerciseWordsScrambleFragment : Fragment() {
         openGuide()
         binding.lanjut.setOnClickListener {
             exerciseViewModel.nextQuestion()
+        }
+
+        binding.tvSoal.setOnClickListener {
+            scrambleWordsViewModel.undoLetter()
         }
 
         exerciseViewModel.currentQuestion.observe(viewLifecycleOwner, Observer {
@@ -80,15 +79,35 @@ class ExerciseWordsScrambleFragment : Fragment() {
                     hintHangman = it.hintHangman.joinToString(" ")
                     hintImg = it.hintImg
                     Log.d("Hint hangman should be", hintHangman.toString())
-                    listWordScrambleOption.clear()
-                    listWordScrambleOption.addAll(it.letters)
-                    adapter = ExerciseWordsScrambleAdapter(listWordScrambleOption)
-                    binding.rvWordScramble.adapter = adapter
+                    scrambleWordsViewModel.init(it.letters)
                     useHint()
                 }
                 is QuestionHandwriting -> {
                     findNavController().navigate(R.id.action_exerciseWordsScrambleFragment_to_exerciseHandWritingFragment)
                 }
+            }
+        })
+
+        scrambleWordsViewModel.availableLetters.observe(viewLifecycleOwner, Observer { availableLetters ->
+            adapter = ExerciseWordsScrambleAdapter(availableLetters)
+            binding.rvWordScramble.adapter = adapter
+            adapter.setOnItemClickCallback(object: ExerciseWordsScrambleAdapter.OnItemClickCallback {
+                override fun onItemClicked(data: String) {
+                    scrambleWordsViewModel.selectLetter(data)
+                }
+            })
+        })
+
+        scrambleWordsViewModel.selectedLetters.observe(viewLifecycleOwner, Observer { selectedLetters ->
+            val answer = selectedLetters.joinToString("")
+            binding.tvSoal.text = answer
+            val word = exerciseViewModel.currentQuestion.value?.word
+            if (selectedLetters.size == word?.length) {
+                val isCorrect = exerciseViewModel.answer(answer)
+
+                Log.d("isCorrect", isCorrect.toString())
+                Toast.makeText(this.context,
+                    "Anda $isCorrect",Toast.LENGTH_SHORT).show()
             }
         })
 

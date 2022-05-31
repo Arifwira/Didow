@@ -2,11 +2,12 @@ package com.capstone.didow.UI.exercise
 
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.capstone.didow.databinding.WordsScrambleOptionBinding
 
-class ExerciseWordsScrambleAdapter(private val listWordScramble: ArrayList<String>): RecyclerView.Adapter<ExerciseWordsScrambleAdapter.ViewHolder>() {
+class ExerciseWordsScrambleAdapter(private val listWordScramble: HashMap<String, Int>): RecyclerView.Adapter<ExerciseWordsScrambleAdapter.ViewHolder>() {
 
     private lateinit var onItemClickCallback: OnItemClickCallback
 
@@ -22,14 +23,19 @@ class ExerciseWordsScrambleAdapter(private val listWordScramble: ArrayList<Strin
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val wordScramble = listWordScramble[position]
+        val letter = listWordScramble.keys.toTypedArray()[position]
+        val qty = listWordScramble[listWordScramble.keys.toTypedArray()[position]]
         Log.d("Word Scramble", listWordScramble.size.toString())
 
         holder.apply {
-            binding.btnWordsOption.text = wordScramble
+            binding.btnWordsOption.text = letter
+            binding.letterQty.text = qty.toString()
+            if (qty == 0) {
+                binding.containerLetter.visibility = View.GONE
+            }
 
             binding.btnWordsOption.setOnClickListener {
-                onItemClickCallback.onItemClicked(listWordScramble[holder.adapterPosition])
+                onItemClickCallback.onItemClicked(listWordScramble.keys.toTypedArray()[holder.adapterPosition])
             }
         }
     }
