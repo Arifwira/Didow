@@ -40,9 +40,9 @@
 
         <com.capstone.didow.UI.custom.SpeakerButton
             android:id="@+id/btnPlay"
-            android:layout_width="176dp"
-            android:layout_height="176dp"
-            android:layout_marginTop="32dp"
+            android:layout_width="146dp"
+            android:layout_height="146dp"
+            android:layout_marginTop="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvNomorSoal" />
@@ -52,7 +52,7 @@
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
             android:text="@string/soal"
             android:textAlignment="center"
@@ -64,11 +64,27 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btnHint" />
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvAnswer"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="32dp"
+            app:layout_constraintBottom_toTopOf="@+id/rvWordScramble"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvSoal"
+            app:layout_constraintVertical_bias="0.31"
+            tools:listitem="@layout/words_scramble_answer" />
+
+
         <Button
             android:id="@+id/btnHint"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="24dp"
             android:layout_marginEnd="16dp"
             android:backgroundTint="@android:color/holo_orange_dark"
             android:padding="8dp"
@@ -84,24 +100,23 @@
             android:id="@+id/rvWordScramble"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginStart="64dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="64dp"
-            android:layout_marginBottom="16dp"
-            app:layout_constraintBottom_toTopOf="@id/lanjut"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="32dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvSoal"
+            app:layout_constraintTop_toBottomOf="@+id/rvAnswer"
             app:layout_constraintVertical_bias="0.0"
             tools:listitem="@layout/words_scramble_option" />
 
         <Button
+            android:visibility="gone"
             android:id="@+id/lanjut"
             android:layout_width="240dp"
             android:layout_height="48dp"
             android:layout_marginBottom="16dp"
-            android:backgroundTint="@android:color/holo_orange_dark"
             android:text="Lanjut"
             android:textColor="@color/black"
             android:textStyle="bold"

@@ -206,18 +206,16 @@ class ExerciseHandWritingFragment : Fragment() {
     }
 
     private fun useHint() {
-        binding.btnHint.setOnClickListener {
-            var args = Bundle()
-            args.putString("hint", hintHangman)
-            Log.d("hint hangman must", hintHangman.toString())
-            args.putString("imageUrl", hintImg.toString())
-            Log.d("image argument be", hintImg.toString())
+        var args = Bundle()
+        args.putString("hint", hintHangman)
+        Log.d("hint hangman must", hintHangman.toString())
+        args.putString("imageUrl", hintImg.toString())
+        Log.d("image argument be", hintImg.toString())
 
-            val popupHintFragment = PopupHintFragment()
-            binding.btnHint.setOnClickListener {
-                popupHintFragment.arguments = args
-                popupHintFragment.show(childFragmentManager, "PopUpHintDialog Fragment")
-            }
+        val popupHintFragment = PopupHintFragment()
+        binding.btnHint.setOnClickListener {
+            popupHintFragment.arguments = args
+            popupHintFragment.show(childFragmentManager, "PopUpHintDialog Fragment")
         }
     }
 

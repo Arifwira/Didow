@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.capstone.didow.R
 import com.capstone.didow.databinding.WordsScrambleOptionBinding
 
 class ExerciseWordsScrambleAdapter(private val listWordScramble: HashMap<String, Int>): RecyclerView.Adapter<ExerciseWordsScrambleAdapter.ViewHolder>() {
@@ -31,11 +32,13 @@ class ExerciseWordsScrambleAdapter(private val listWordScramble: HashMap<String,
             binding.btnWordsOption.text = letter
             binding.letterQty.text = qty.toString()
             if (qty == 0) {
-                binding.containerLetter.visibility = View.GONE
-            }
-
-            binding.btnWordsOption.setOnClickListener {
-                onItemClickCallback.onItemClicked(listWordScramble.keys.toTypedArray()[holder.adapterPosition])
+                binding.btnWordsOption.isClickable= false
+                binding.letterQty.visibility = View.INVISIBLE
+                binding.btnWordsOption.backgroundTintList = holder.itemView.resources.getColorStateList(R.color.buttonOff)
+            } else{
+                binding.btnWordsOption.setOnClickListener {
+                    onItemClickCallback.onItemClicked(listWordScramble.keys.toTypedArray()[holder.adapterPosition])
+                }
             }
         }
     }
