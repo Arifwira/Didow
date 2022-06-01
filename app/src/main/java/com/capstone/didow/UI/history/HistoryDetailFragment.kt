@@ -19,6 +19,9 @@ class HistoryDetailFragment : Fragment() {
 
     private val listDetailHistory = ArrayList<DetailHistory>()
 
+    companion object{
+        var EXTRA_DATA = "extra_data"
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

@@ -63,47 +63,63 @@
             android:id="@+id/datePickerContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:orientation="horizontal"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="24dp"
+            android:layout_marginEnd="16dp"
+            android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/recomContainer">
 
             <TextView
-                android:id="@+id/tvDatePicker"
-                android:layout_width="280dp"
+                android:id="@+id/tvStartDate"
+                android:layout_width="140dp"
                 android:layout_height="48dp"
                 android:layout_marginStart="8dp"
                 android:background="@drawable/date_background"
                 android:gravity="center_vertical"
-                android:hint="Select date"
-                android:textColor="@color/black"
+                android:hint="Start date"
                 android:padding="12dp"
+                android:textColor="@color/black"
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvEndDate"
+                android:layout_width="140dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="16dp"
+                android:background="@drawable/date_background"
+                android:gravity="center_vertical"
+                android:hint="End date"
+                android:padding="12dp"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                app:layout_constraintStart_toEndOf="@id/tvStartDate"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageButton
                 android:id="@+id/btnCalendar"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
+                android:layout_marginStart="11dp"
                 android:layout_marginEnd="8dp"
                 android:background="@drawable/date_background"
                 android:src="@drawable/ic_baseline_calendar_month_24"
-                app:layout_constraintBottom_toBottomOf="@+id/textView2"
+                app:layout_constraintBottom_toBottomOf="@+id/tvEndDate"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/textView2" />
+                app:layout_constraintStart_toEndOf="@+id/tvEndDate"
+                app:layout_constraintTop_toTopOf="@+id/tvEndDate" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvHistory"
             android:layout_width="match_parent"
             android:layout_height="300dp"
-            android:layout_marginStart="24dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="24dp"
+            android:layout_marginEnd="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
