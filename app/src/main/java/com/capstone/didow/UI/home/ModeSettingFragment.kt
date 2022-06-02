@@ -1,5 +1,6 @@
 package com.capstone.didow.UI.home
 
+import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,6 +9,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import com.capstone.didow.R
+import com.capstone.didow.UI.ExerciseActivity
+import com.capstone.didow.UI.exercise.CustomizationFragment
 import com.capstone.didow.databinding.CustomizeLayoutBottomSheetBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
@@ -42,6 +45,9 @@ class ModeSettingFragment: BottomSheetDialogFragment() {
                     Toast.LENGTH_SHORT).show()
                 normalModeContainer.background = disableBackground
                 customModeContainer.background = enableBackground
+                val popupCustom = CustomizationFragment()
+                popupCustom.show(childFragmentManager, "PopupCustomization Fragment")
+
             }
         }
 

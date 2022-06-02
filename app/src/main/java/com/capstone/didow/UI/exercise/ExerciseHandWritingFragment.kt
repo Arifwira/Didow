@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -175,6 +176,7 @@ class ExerciseHandWritingFragment : Fragment() {
 
     private fun playSound() {
         binding.btnPlay.setOnClickListener {
+            binding.btnPlay.startAnimation(AnimationUtils.loadAnimation(requireContext(), R.anim.shake))
             tts = TextToSpeech(requireContext(), TextToSpeech.OnInitListener {
                 if (it == TextToSpeech.SUCCESS) {
                     tts.setLanguage(Locale.forLanguageTag("in"))
