@@ -1,5 +1,6 @@
 package com.capstone.didow.UI.onBoarding
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
@@ -7,6 +8,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import com.capstone.didow.R
 import com.capstone.didow.UI.OnBoarding
 import com.capstone.didow.databinding.FragmentAssessmentReportBinding
 import com.github.mikephil.charting.animation.Easing
@@ -22,10 +25,10 @@ class AssessmentReportFragment : Fragment() {
     private var _binding: FragmentAssessmentReportBinding? = null
     private val binding get() = _binding!!
 
-    private val percentPilgan = 15F
-    private val percentSusunKata = 15F
-    private val percentHandWriting = 15F
-    private val percentKurang = 55F
+    private var percentPilgan = 0F
+    private var percentSusunKata = 0F
+    private var percentHandWriting = 0F
+    private var percentKurang = 0F
 
 
     override fun onCreateView(
@@ -38,19 +41,23 @@ class AssessmentReportFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE) ?: return
+        percentPilgan = sharedPref.getFloat("multipleChoice", 0F) * 100
+        percentSusunKata = sharedPref.getFloat("scrambleWords", 0F) * 100
+        percentHandWriting = sharedPref.getFloat("handwriting", 0F) * 100
+        percentKurang = 100F - (percentPilgan + percentSusunKata + percentHandWriting)
+
         setupPieChart()
         addToPieChart()
         setupPercentage()
         binding.apply {
             daftar.setOnClickListener{
-                val intent = Intent(activity,OnBoarding::class.java)
-                intent.putExtra("TARGET","RegisterFragment")
-                startActivity(intent)
-                activity?.finish()
+                findNavController().navigate(R.id.action_assessmentReportFragment2_to_registerFragment)
             }
             keluar.setOnClickListener {
                 activity?.finish()
             }
+            tvReportScore.text = sharedPref.getInt("score", 0).toString()
         }
 
     }

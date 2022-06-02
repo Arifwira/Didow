@@ -85,7 +85,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="32dp"
             app:layout_constraintBottom_toTopOf="@id/lanjut"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -95,6 +95,7 @@
             tools:listitem="@layout/multiple_choice_option" />
 
         <Button
+            android:visibility="gone"
             android:id="@+id/lanjut"
             android:layout_width="240dp"
             android:layout_height="48dp"

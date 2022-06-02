@@ -36,7 +36,7 @@ class ExerciseFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val category = this.activity?.intent?.getStringExtra("category")
         auth = FirebaseAuth.getInstance()
-        viewModel.init(category!!, auth.currentUser!!.uid)
+        viewModel.init(category!!, auth.currentUser?.uid)
         viewModel.isLoaded.observe(viewLifecycleOwner, Observer {
             showLoading(it)
             if (it) {

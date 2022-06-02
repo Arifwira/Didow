@@ -41,7 +41,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Kamu berhasil menyelesaikan\nasesmen awal"
+            android:text="Kamu berhasil menyelesaikan\nlatihan dengan baik"
             android:textAlignment="center"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="@+id/tvCompleteTitle"

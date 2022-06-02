@@ -1,6 +1,9 @@
 package com.capstone.didow.UI.exercise
 
+import android.app.AlertDialog
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.speech.tts.TextToSpeech
 import android.util.Log
 import android.view.LayoutInflater
@@ -13,15 +16,13 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.capstone.didow.R
 import com.capstone.didow.databinding.ExerciseWordsScrambleFragmentBinding
 import com.capstone.didow.entities.QuestionHandwriting
 import com.capstone.didow.entities.QuestionMultipleChoice
 import com.capstone.didow.entities.QuestionScrambleWords
-import com.google.android.flexbox.AlignItems
-import com.google.android.flexbox.FlexDirection
-import com.google.android.flexbox.FlexboxLayoutManager
-import com.google.android.flexbox.JustifyContent
+import com.google.android.flexbox.*
 import java.util.*
 import kotlin.collections.HashMap
 
@@ -37,12 +38,16 @@ class ExerciseWordsScrambleFragment : Fragment() {
     private lateinit var scrambleWordsViewModel: ExerciseWordsScrambleViewModel
     private val exerciseViewModel: ExerciseViewModel by activityViewModels()
 
-    private lateinit var adapter: ExerciseWordsScrambleAdapter
+    private lateinit var choiceAdapter: ExerciseWordsScrambleAdapter
+
+    private lateinit var answerAdapter: ExerciseWordsScrambleAnswerAdapter
 
     private var hintImg : String? = null
     private var hintHangman : String? = null
 
     private var listWordScrambleOption = HashMap<String, Int>()
+
+    private var listWordScrambleAnswer = ArrayList<String>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -58,6 +63,7 @@ class ExerciseWordsScrambleFragment : Fragment() {
         scrambleWordsViewModel = ViewModelProvider(this).get(ExerciseWordsScrambleViewModel::class.java)
 
         showRecyclerViewList()
+        showAnswerList()
         binding.rvWordScramble.setHasFixedSize(true)
 
         playSound()
@@ -92,23 +98,51 @@ class ExerciseWordsScrambleFragment : Fragment() {
         })
 
         scrambleWordsViewModel.availableLetters.observe(viewLifecycleOwner, Observer { availableLetters ->
-            adapter = ExerciseWordsScrambleAdapter(availableLetters)
-            binding.rvWordScramble.adapter = adapter
-            adapter.setOnItemClickCallback(object: ExerciseWordsScrambleAdapter.OnItemClickCallback {
+            choiceAdapter = ExerciseWordsScrambleAdapter(availableLetters)
+            binding.rvWordScramble.adapter = choiceAdapter
+            choiceAdapter.setOnItemClickCallback(object: ExerciseWordsScrambleAdapter.OnItemClickCallback {
                 override fun onItemClicked(data: String) {
                     scrambleWordsViewModel.selectLetter(data)
                 }
             })
         })
 
+
         scrambleWordsViewModel.selectedLetters.observe(viewLifecycleOwner, Observer { selectedLetters ->
             val answer = selectedLetters.joinToString("")
-            binding.tvSoal.text = answer
+            val splitWords = exerciseViewModel.currentQuestion.value?.word?.length
+            Log.d("Split word", splitWords.toString())
+            val mappingAnswer = mutableListOf<String>()
+            for(i in 1..splitWords!!) {
+                mappingAnswer.add("")
+            }
+
+            selectedLetters.forEachIndexed { index, element ->
+                mappingAnswer[index] = element
+            }
+
+
+            answerAdapter = ExerciseWordsScrambleAnswerAdapter(mappingAnswer)
+            binding.rvAnswer.adapter = answerAdapter
+
+            answerAdapter.setOnItemClickCallback(object: ExerciseWordsScrambleAnswerAdapter.OnItemClickCallback {
+                override fun onItemClicked(data: String) {
+                    scrambleWordsViewModel.undoLetter()
+                    Log.d("answer rv remove", selectedLetters.toString())
+                }
+            })
             val word = exerciseViewModel.currentQuestion.value?.word
             if (selectedLetters.size == word?.length) {
                 val isCorrect = exerciseViewModel.answer(answer)
 
-                Log.d("isCorrect", isCorrect.toString())
+                when(isCorrect.toString()){
+                    "true" -> {
+                        trueDialog()
+                    }
+                    "false" -> {
+                        falseDialog()
+                    }
+                }
                 Toast.makeText(this.context,
                     "Anda $isCorrect",Toast.LENGTH_SHORT).show()
             }
@@ -139,7 +173,7 @@ class ExerciseWordsScrambleFragment : Fragment() {
             binding.btnPlay.startAnimation(AnimationUtils.loadAnimation(requireContext(), R.anim.shake))
             tts = TextToSpeech(requireContext(), TextToSpeech.OnInitListener {
                 if (it == TextToSpeech.SUCCESS) {
-                    tts.setLanguage(Locale.forLanguageTag("in"))
+                    tts.language = Locale.forLanguageTag("in")
                     tts.setSpeechRate(1.0f)
                     tts.speak(
                         "${exerciseViewModel.currentQuestion.value?.word}",
@@ -161,18 +195,16 @@ class ExerciseWordsScrambleFragment : Fragment() {
     }
 
     private fun useHint() {
-        binding.btnHint.setOnClickListener {
-            var args = Bundle()
-            args.putString("hint", hintHangman)
-            Log.d("hint hangman must", hintHangman.toString())
-            args.putString("imageUrl", hintImg.toString())
-            Log.d("image argument be", hintImg.toString())
+        var args = Bundle()
+        args.putString("hint", hintHangman)
+        Log.d("hint hangman must", hintHangman.toString())
+        args.putString("imageUrl", hintImg.toString())
+        Log.d("image argument be", hintImg.toString())
 
-            val popupHintFragment = PopupHintFragment()
-            binding.btnHint.setOnClickListener {
-                popupHintFragment.arguments = args
-                popupHintFragment.show(childFragmentManager, "PopUpHintDialog Fragment")
-            }
+        val popupHintFragment = PopupHintFragment()
+        binding.btnHint.setOnClickListener {
+            popupHintFragment.arguments = args
+            popupHintFragment.show(childFragmentManager, "PopUpHintDialog Fragment")
         }
     }
 
@@ -180,10 +212,49 @@ class ExerciseWordsScrambleFragment : Fragment() {
         binding.apply {
             val layoutManager = FlexboxLayoutManager(activity)
             layoutManager.flexDirection = FlexDirection.ROW
-            layoutManager.justifyContent = JustifyContent.SPACE_AROUND
-            layoutManager.alignItems = AlignItems.CENTER
+            layoutManager.justifyContent = JustifyContent.CENTER
             rvWordScramble.layoutManager = layoutManager
         }
+    }
+
+    private fun showAnswerList(){
+        binding.apply {
+            val layoutManager = FlexboxLayoutManager(activity)
+            layoutManager.flexDirection = FlexDirection.ROW
+            layoutManager.flexWrap = FlexWrap.WRAP
+            layoutManager.justifyContent = JustifyContent.SPACE_AROUND
+            layoutManager.alignItems = AlignItems.CENTER
+            rvAnswer.layoutManager = layoutManager
+
+        }
+    }
+
+    private fun trueDialog(){
+        val view = View.inflate(this@ExerciseWordsScrambleFragment.context, R.layout.dialog_true_view, null)
+        val builder = AlertDialog.Builder(this@ExerciseWordsScrambleFragment.context)
+        builder.setView(view)
+        val dialog = builder.create()
+        dialog.show()
+        dialog.setCancelable(false)
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        Handler(Looper.getMainLooper()).postDelayed({
+            dialog.dismiss()
+            exerciseViewModel.nextQuestion()
+        }, 3000)
+    }
+
+    private fun falseDialog(){
+        val view = View.inflate(this@ExerciseWordsScrambleFragment.context, R.layout.dialog_false_view, null)
+        val builder = AlertDialog.Builder(this@ExerciseWordsScrambleFragment.context)
+        builder.setView(view)
+        val dialog = builder.create()
+        dialog.show()
+        dialog.setCancelable(false)
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        Handler(Looper.getMainLooper()).postDelayed({
+            dialog.dismiss()
+            exerciseViewModel.nextQuestion()
+        }, 3000)
     }
 
     override fun onDestroy() {

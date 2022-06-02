@@ -75,7 +75,6 @@ class ExerciseMultipleChoiceFragment : Fragment() {
                     adapter.setOnItemClickCallback(object: ExerciseMultipleChoiceAdapter.OnItemClickCallback {
                         override fun onItemClicked(data: String) {
                             val isCorrect = exerciseViewModel.answer(data)
-                            Log.d("isCorrect", isCorrect.toString())
                             when(isCorrect.toString()){
                                 "true" -> {
                                     trueDialog()
@@ -84,8 +83,6 @@ class ExerciseMultipleChoiceFragment : Fragment() {
                                     falseDialog()
                                 }
                             }
-//                            Toast.makeText(this@ExerciseMultipleChoiceFragment.context,
-//                                "Anda $isCorrect",Toast.LENGTH_SHORT).show()
                         }
                     })
                     useHint()

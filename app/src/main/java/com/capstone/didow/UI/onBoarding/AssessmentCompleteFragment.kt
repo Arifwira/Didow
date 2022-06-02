@@ -23,7 +23,7 @@ class AssessmentCompleteFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.lanjut.setOnClickListener{
-            it.findNavController().navigate(R.id.action_assessmentCompleteFragment_to_assessmentReportFragment)
+            it.findNavController().navigate(R.id.action_assessmentCompleteFragment2_to_assessmentReportFragment2)
         }
     }
     override fun onDestroy() {

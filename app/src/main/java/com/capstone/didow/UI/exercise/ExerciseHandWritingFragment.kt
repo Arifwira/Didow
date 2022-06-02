@@ -26,7 +26,9 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.capstone.didow.BuildConfig
 import com.capstone.didow.R
+import com.capstone.didow.UI.OnBoarding
 import com.capstone.didow.databinding.ExerciseHandWritingFragmentBinding
+import com.capstone.didow.entities.AssessmentReport
 import com.capstone.didow.entities.QuestionHandwriting
 import com.capstone.didow.entities.QuestionMultipleChoice
 import com.capstone.didow.entities.QuestionScrambleWords
@@ -159,10 +161,23 @@ class ExerciseHandWritingFragment : Fragment() {
                 when (exerciseViewModel.getExerciseCategory()) {
                     "auto" -> findNavController().navigate(R.id.action_exerciseHandWritingFragment_to_exerciseCompleteFragment)
                     "custom" -> findNavController().navigate(R.id.action_exerciseHandWritingFragment_to_exerciseCompleteFragment)
-                    "assessment" -> findNavController().navigate(R.id.action_exerciseHandWritingFragment_to_assessmentCompleteFragment)
+                    "assessment" -> {
+                        val intent = makeAssessmentReportIntent(exerciseViewModel.assessmentReport.value!!)
+                        activity?.setResult(110, intent)
+                        activity?.finish()
+                    }
                 }
             }
         })
+    }
+
+    private fun makeAssessmentReportIntent(report: AssessmentReport): Intent {
+        val intent = Intent(activity, OnBoarding::class.java)
+        intent.putExtra("multipleChoice", report.multipleChoice)
+        intent.putExtra("scrambleWords", report.scrambleWords)
+        intent.putExtra("handwriting", report.handwriting)
+        intent.putExtra("score", report.score)
+        return intent
     }
 
     private fun openGuide() {
@@ -193,18 +208,16 @@ class ExerciseHandWritingFragment : Fragment() {
     }
 
     private fun useHint() {
-        binding.btnHint.setOnClickListener {
-            var args = Bundle()
-            args.putString("hint", hintHangman)
-            Log.d("hint hangman must", hintHangman.toString())
-            args.putString("imageUrl", hintImg.toString())
-            Log.d("image argument be", hintImg.toString())
+        var args = Bundle()
+        args.putString("hint", hintHangman)
+        Log.d("hint hangman must", hintHangman.toString())
+        args.putString("imageUrl", hintImg.toString())
+        Log.d("image argument be", hintImg.toString())
 
-            val popupHintFragment = PopupHintFragment()
-            binding.btnHint.setOnClickListener {
-                popupHintFragment.arguments = args
-                popupHintFragment.show(childFragmentManager, "PopUpHintDialog Fragment")
-            }
+        val popupHintFragment = PopupHintFragment()
+        binding.btnHint.setOnClickListener {
+            popupHintFragment.arguments = args
+            popupHintFragment.show(childFragmentManager, "PopUpHintDialog Fragment")
         }
     }
 

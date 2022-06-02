@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.capstone.didow.api.GetUserResponse
 import com.capstone.didow.api.RetrofitInstance
 import com.capstone.didow.entities.*
 import com.capstone.didow.api.QuestionsResponse
@@ -23,6 +24,7 @@ class ExerciseViewModel : ViewModel() {
     private val _isRetry = MutableLiveData(false)
     private val _isFinished = MutableLiveData(false)
     private val _userId = MutableLiveData<String>()
+    private val _assessmentReport = MutableLiveData<AssessmentReport>()
 
     val exercise: LiveData<Exercise> = _exercise
     val currentQuestion: LiveData<Question> = _currentQuestion
@@ -30,17 +32,23 @@ class ExerciseViewModel : ViewModel() {
     val currentAttempt: LiveData<Attempt> = _currentAttempt
     val isRetry: LiveData<Boolean> = _isRetry
     val isFinished: LiveData<Boolean> = _isFinished
+    val assessmentReport: LiveData<AssessmentReport> = _assessmentReport
 
 
-    fun init(category: String, userId: String) {
-        _userId.value = userId
+    fun init(category: String, userId: String?) {
+        if (userId != null) {
+            _userId.value = userId!!
+        }
         val client = RetrofitInstance.getApiService()
         viewModelScope.launch {
-            val userInfo = client.getUser(userId, null)
+            var userInfo: GetUserResponse? = null
+            if (userId != null) {
+                userInfo = client.getUser(userId, null)
+            }
             var response: QuestionsResponse? = null
 
             when (category) {
-                "auto" -> response = client.getQuestions(category, userInfo.data?.weightPoint)
+                "auto" -> response = client.getQuestions(category, userInfo!!.data?.weightPoint)
                 "assessment" -> response = client.getQuestions(category, null)
             }
 
@@ -153,10 +161,48 @@ class ExerciseViewModel : ViewModel() {
         client.createExercise(requestBody)
     }
 
+    private suspend fun getAssessmentReport() {
+        val jsonAnswers = exercise.value!!.attempts[0].answers.map { answer ->
+            val jsonAnswer = JSONObject()
+            val questionType = when (answer.question) {
+                is QuestionMultipleChoice -> "multipleChoice"
+                is QuestionScrambleWords -> "scrambleWords"
+                is QuestionHandwriting -> "handwriting"
+                else -> null
+            }
+            jsonAnswer.put("word", answer.question.word)
+            jsonAnswer.put("syllables", answer.question.syllables)
+            jsonAnswer.put("answer", answer.answer)
+            jsonAnswer.put("isCorrect", answer.isCorrect)
+            jsonAnswer.put("type", questionType)
+            jsonAnswer
+        }
+        val jsonRequestBody = JSONObject()
+        jsonRequestBody.put("answers", JSONArray(jsonAnswers.toString()))
+        val requestBody = jsonRequestBody.toString().toRequestBody("application/json".toMediaTypeOrNull())
+
+        val client = RetrofitInstance.getApiService()
+        val createAssessmentResponse = client.createAssessmentReport(requestBody)
+        Log.d("createReport", createAssessmentResponse.toString())
+        val assessmentId = createAssessmentResponse.data?.id
+        val getAssessmentResponse = client.getAssessmentReport(assessmentId!!)
+        Log.d("getReport", getAssessmentResponse.toString())
+        _assessmentReport.value = AssessmentReport(
+            getAssessmentResponse.data?.correctPercentage?.multipleChoice!!,
+            getAssessmentResponse.data.correctPercentage.scrambleWords!!,
+            getAssessmentResponse.data.correctPercentage.handwriting!!,
+            getAssessmentResponse.data.score!!,
+        )
+    }
+
     private fun finish() {
         viewModelScope.launch {
             try {
-                saveExercise()
+                when (exercise.value!!.category) {
+                    "auto" -> saveExercise()
+                    "assessment" -> getAssessmentReport()
+                    "custom" -> saveExercise()
+                }
             } catch (exception: Exception) {
                 Log.d("CREATE_EXERCISE_ERROR", exception.message.toString())
             }

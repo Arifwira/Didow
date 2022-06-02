@@ -1,43 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/containerLayout"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:gravity="center">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/containerLetter"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
         <Button
-            android:id="@+id/btnWordsOption"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:id="@+id/btnWordsAnswer"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_gravity="center"
             android:gravity="center"
             android:padding="0dp"
+            android:textColor="@color/black"
             android:text="A"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/letterQty"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:padding="2dp"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            android:textColor="@color/white"
-            android:gravity="center"
-            android:text="3"
-            android:textAlignment="center"
-            android:background="@drawable/false_background"
-            app:layout_constraintStart_toEndOf="@+id/btnWordsOption"
-            app:layout_constraintTop_toTopOf="@+id/btnWordsOption" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
