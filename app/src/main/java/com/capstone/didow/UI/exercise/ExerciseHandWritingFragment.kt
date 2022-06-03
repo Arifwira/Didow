@@ -136,6 +136,10 @@ class ExerciseHandWritingFragment : Fragment() {
                     findNavController().navigate(R.id.action_exerciseHandWritingFragment_to_exerciseWordsScrambleFragment)
                 }
                 is QuestionHandwriting -> {
+                    val currentNumber = exerciseViewModel.currentQuestion.value?.number
+                    val totalNumber = exerciseViewModel.exercise.value?.questions?.size
+                    binding.tvNomorSoal.text = "$currentNumber/$totalNumber"
+
                     Log.d("Hangman List", it.hintHangman.toString())
                     this.hintImg = it.hintImg
                     Log.d("Hint hangman should be", hintHangman.toString())

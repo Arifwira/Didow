@@ -66,11 +66,14 @@ class ExerciseMultipleChoiceFragment : Fragment() {
             Log.d("hintImg from observe", it.hintImg)
             when (it) {
                 is QuestionMultipleChoice -> {
+                    val currentNumber = exerciseViewModel.currentQuestion.value?.number
+                    val totalNumber = exerciseViewModel.exercise.value?.questions?.size
                     hintImg = it.hintImg
                     listMultipleChoiceOption.clear()
                     listMultipleChoiceOption.addAll(it.choices)
                     adapter = ExerciseMultipleChoiceAdapter(listMultipleChoiceOption)
                     binding.rvPilgan.adapter = adapter
+                    binding.tvNomorSoal.text = "$currentNumber/$totalNumber"
                     adapter.setOnItemClickCallback(object: ExerciseMultipleChoiceAdapter.OnItemClickCallback {
                         override fun onItemClicked(data: String) {
                             val isCorrect = exerciseViewModel.answer(data)
