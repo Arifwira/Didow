@@ -5,8 +5,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.capstone.didow.databinding.HistoryOptionBinding
+import java.text.SimpleDateFormat
+import java.util.*
 
-class HistoryAdapter(private val listHistory: ArrayList<History>) : RecyclerView.Adapter<HistoryAdapter.ViewHolder>() {
+class HistoryAdapter(private val listHistory: List<History>) : RecyclerView.Adapter<HistoryAdapter.ViewHolder>() {
 
     private lateinit var onItemClickCallback: OnItemClickCallback
 
@@ -22,21 +24,30 @@ class HistoryAdapter(private val listHistory: ArrayList<History>) : RecyclerView
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val(date, averageSukuKata, tipe) = listHistory[position]
-        Log.d("Date", date)
-        Log.d("Suku Kata", averageSukuKata)
-        Log.d("Tipe", tipe)
+        val data = listHistory[position]
+        Log.d("Size", data.wrongAnswer.size.toString())
+        Log.d("Date", data.endTime.toString())
+        Log.d("Soal", data.qty.toString())
+        Log.d("Suku Kata", data.avgSyllables.toString())
 
         holder.apply {
+
+            val date = convertLongToTime(data.endTime)
             binding.tvDate.text = date
-            binding.tvSukuKata.text = "$averageSukuKata Suku Kata"
-            binding.tvJenis.text = tipe
+            binding.tvSukuKata.text = "${data.avgSyllables} Suku Kata"
+            binding.tvJenis.text = "Auto"
         }
 
-        holder.binding.btnNext.setOnClickListener {
+        holder.binding.historyOption.setOnClickListener {
             onItemClickCallback.onItemClicked(listHistory[holder.adapterPosition])
         }
 
+    }
+
+    private fun convertLongToTime(time: Long): String{
+        val date = Date(time)
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd")
+        return dateFormat.format(date)
     }
 
     override fun getItemCount(): Int = listHistory.size

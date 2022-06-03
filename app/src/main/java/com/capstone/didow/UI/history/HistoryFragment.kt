@@ -2,30 +2,42 @@ package com.capstone.didow.UI.history
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.os.Parcelable
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.util.Pair
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.capstone.didow.R
 import com.capstone.didow.databinding.HistoryFragmentBinding
 import com.capstone.didow.databinding.HomeFragmentBinding
 import com.google.android.material.datepicker.MaterialDatePicker
+import com.google.firebase.auth.FirebaseAuth
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 class HistoryFragment : Fragment() {
 
+    private val historyViewModel : HistoryViewModel by viewModels()
     private var _binding : HistoryFragmentBinding? = null
     private val binding get() = _binding!!
+    private lateinit var auth: FirebaseAuth
 
     companion object {
         fun newInstance() = HistoryFragment()
+        const val WEEK_TIME = 604800000L
+        const val TIMEZONE = 7
     }
 
-    private lateinit var viewModel: HistoryViewModel
-
     private lateinit var adapter: HistoryAdapter
-    private val listHistory = ArrayList<History>()
+    private var startDate: String? = null
+    private var endDate: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,62 +49,69 @@ class HistoryFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        auth = FirebaseAuth.getInstance()
+        val endDateTime = System.currentTimeMillis()
+        val startDateTime = endDateTime - WEEK_TIME
+        startDate = SimpleDateFormat("yyyy-MM-dd").format(Date(startDateTime))
+        endDate = SimpleDateFormat("yyyy-MM-dd").format(Date(endDateTime))
+
+        Log.d("endDateTime", endDate.toString())
+        Log.d("startDateTime", startDate.toString())
+
+        datePicker()
+        showRecyclerViewHistory()
+
+        historyViewModel.init(auth.currentUser?.uid!!, startDate.toString(), endDate.toString(), TIMEZONE)
 
         binding.rvHistory.setHasFixedSize(true)
-        listHistory.clear()
-        listHistory.addAll(listHistoryOptions)
 
-        showRecyclerViewHistory()
-        datePicker()
-    }
-
-    private val listHistoryOptions: ArrayList<History>
-    get(){
-        val dataDate = resources.getStringArray(R.array.date_array)
-        val dataJumlahSukuKata = resources.getStringArray(R.array.count_suku_kata)
-        val dataJenis = resources.getStringArray(R.array.jenis_soal)
-
-        val listHistory = ArrayList<History>()
-        for(i in dataDate.indices){
-            val history = History(dataDate[i], dataJumlahSukuKata[i], dataJenis[i])
-            listHistory.add(history)
-        }
-        return listHistory
+        historyViewModel.history.observe(viewLifecycleOwner, Observer{
+            Log.d("History Data", it.last().endTime.toString())
+            adapter = HistoryAdapter(it)
+            binding.rvHistory.adapter = adapter
+            adapter.setOnItemClickCallback(object: HistoryAdapter.OnItemClickCallback{
+                override fun onItemClicked(data: History) {
+                    val mDetailHistory = HistoryDetailFragment()
+                    val mBundle = Bundle()
+                    mBundle.putParcelableArrayList(HistoryDetailFragment.EXTRA_DATA, data.wrongAnswer as java.util.ArrayList<out Parcelable>)
+                    Log.d("mBundle", mBundle.toString())
+                    mDetailHistory.arguments = mBundle
+                    parentFragmentManager.beginTransaction().replace(R.id.container_main, mDetailHistory).commit()
+                }
+            })
+        })
     }
 
     private fun showRecyclerViewHistory(){
         binding.apply {
             val layoutManager = LinearLayoutManager(this@HistoryFragment.context)
             rvHistory.layoutManager = layoutManager
-            adapter = HistoryAdapter(listHistory)
-            rvHistory.adapter = adapter
-
-            adapter.setOnItemClickCallback(object: HistoryAdapter.OnItemClickCallback{
-                override fun onItemClicked(data: History) {
-                    parentFragmentManager.beginTransaction().replace(R.id.container_main, HistoryDetailFragment()).commit()
-                }
-            })
         }
 
     }
 
     private fun datePicker(){
-        var datePicker = MaterialDatePicker.Builder.dateRangePicker().setSelection(Pair.create(
-            MaterialDatePicker.thisMonthInUtcMilliseconds(),
-            MaterialDatePicker.todayInUtcMilliseconds())).build()
+        val datePicker = MaterialDatePicker.Builder.dateRangePicker()
+            .setTitleText("Select dates").build()
         binding.btnCalendar.setOnClickListener {
             datePicker.show(childFragmentManager, "Tag_picker")
-            datePicker.addOnPositiveButtonClickListener { binding.tvDatePicker.text = datePicker.headerText }
+            datePicker.addOnPositiveButtonClickListener {
+                val dateFormat = SimpleDateFormat("yyyy-MM-dd")
+                val datePickerFirst = datePicker.selection?.first
+                val datePickerSecond = datePicker.selection?.second
+                val dateFirst = dateFormat.format(Date(datePickerFirst!!))
+                val dateSecond = dateFormat.format(Date(datePickerSecond!!))
+                binding.apply {
+                    tvStartDate.text = dateFirst
+                    tvEndDate.text = dateSecond
+                }
+                startDate = dateFirst
+                endDate = dateSecond
+                historyViewModel.init(auth.currentUser?.uid!!, startDate.toString(), endDate.toString(), TIMEZONE)
+            }
+
         }
     }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(HistoryViewModel::class.java)
-        // TODO: Use the ViewModel
-    }
-
-
 
     override fun onDestroy() {
         super.onDestroy()

@@ -17,8 +17,9 @@ class HistoryDetailFragment : Fragment() {
 
     private lateinit var adapter: HistoryDetailAdapter
 
-    private val listDetailHistory = ArrayList<DetailHistory>()
-
+    companion object{
+        var EXTRA_DATA = "extra_data"
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,32 +30,16 @@ class HistoryDetailFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        val data = arguments?.getParcelableArrayList<WrongAnswers>(EXTRA_DATA)
         super.onViewCreated(view, savedInstanceState)
         binding.rvDetailHistory.setHasFixedSize(true)
-        listDetailHistory.clear()
-        listDetailHistory.addAll(listDetaiHistoryArray)
-        adapter = HistoryDetailAdapter(listDetailHistory)
-
+        adapter = HistoryDetailAdapter(data!!)
         showRecyclerViewList()
-    }
-
-    private val listDetaiHistoryArray: ArrayList<DetailHistory>
-    get(){
-        val dataNumberSoal = resources.getIntArray(R.array.nomor_soal)
-        val dataDescription = resources.getStringArray(R.array.detail_description)
-
-        val tempDetailHistory = ArrayList<DetailHistory>()
-        for(i in dataNumberSoal.indices){
-            val listTempDetailHistory = DetailHistory(dataNumberSoal[i], dataDescription[i])
-            tempDetailHistory.add(listTempDetailHistory)
-        }
-        return tempDetailHistory
     }
 
     private fun showRecyclerViewList(){
         binding.apply {
             rvDetailHistory.layoutManager = LinearLayoutManager(this@HistoryDetailFragment.context)
-
             rvDetailHistory.adapter = adapter
         }
     }
