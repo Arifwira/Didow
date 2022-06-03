@@ -16,6 +16,9 @@ class HistoryViewModel : ViewModel() {
     val history: LiveData<List<History>> = _history
 
     fun init(userId: String, startDate: String, endDate: String, timeZone: Int){
+
+        Log.d("startDate", startDate)
+        Log.d("endDate", endDate)
         _userId.value = userId!!
 
         val client = RetrofitInstance.getApiService()
@@ -52,8 +55,8 @@ class HistoryViewModel : ViewModel() {
                 )
                 histories.add(history)
             }
-            Log.d("Histories Data", histories.toString())
             _history.value = histories
+            Log.d("Histories Data", histories.toString())
         }
     }
 }

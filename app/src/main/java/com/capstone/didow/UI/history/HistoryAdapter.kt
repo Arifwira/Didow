@@ -25,9 +25,10 @@ class HistoryAdapter(private val listHistory: List<History>) : RecyclerView.Adap
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val data = listHistory[position]
+        Log.d("Size", data.wrongAnswer.size.toString())
         Log.d("Date", data.endTime.toString())
-        Log.d("Suku Kata", data.qty.toString())
-        Log.d("Tipe", data.avgSyllables.toString())
+        Log.d("Soal", data.qty.toString())
+        Log.d("Suku Kata", data.avgSyllables.toString())
 
         holder.apply {
 
@@ -37,7 +38,7 @@ class HistoryAdapter(private val listHistory: List<History>) : RecyclerView.Adap
             binding.tvJenis.text = "Auto"
         }
 
-        holder.binding.btnNext.setOnClickListener {
+        holder.binding.historyOption.setOnClickListener {
             onItemClickCallback.onItemClicked(listHistory[holder.adapterPosition])
         }
 

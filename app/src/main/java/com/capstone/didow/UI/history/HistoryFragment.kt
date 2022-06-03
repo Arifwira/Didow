@@ -2,12 +2,14 @@ package com.capstone.didow.UI.history
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.os.Parcelable
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.util.Pair
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,6 +20,7 @@ import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.firebase.auth.FirebaseAuth
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 class HistoryFragment : Fragment() {
 
@@ -55,24 +58,28 @@ class HistoryFragment : Fragment() {
         Log.d("endDateTime", endDate.toString())
         Log.d("startDateTime", startDate.toString())
 
+        datePicker()
+        showRecyclerViewHistory()
+
         historyViewModel.init(auth.currentUser?.uid!!, startDate.toString(), endDate.toString(), TIMEZONE)
 
         binding.rvHistory.setHasFixedSize(true)
 
         historyViewModel.history.observe(viewLifecycleOwner, Observer{
+            Log.d("History Data", it.last().endTime.toString())
             adapter = HistoryAdapter(it)
             binding.rvHistory.adapter = adapter
             adapter.setOnItemClickCallback(object: HistoryAdapter.OnItemClickCallback{
                 override fun onItemClicked(data: History) {
+                    val mDetailHistory = HistoryDetailFragment()
                     val mBundle = Bundle()
-                    mBundle.putParcelable(HistoryDetailFragment.EXTRA_DATA, data)
-                    parentFragmentManager.beginTransaction().replace(R.id.container_main, HistoryDetailFragment()).commit()
+                    mBundle.putParcelableArrayList(HistoryDetailFragment.EXTRA_DATA, data.wrongAnswer as java.util.ArrayList<out Parcelable>)
+                    Log.d("mBundle", mBundle.toString())
+                    mDetailHistory.arguments = mBundle
+                    parentFragmentManager.beginTransaction().replace(R.id.container_main, mDetailHistory).commit()
                 }
             })
-            datePicker()
         })
-
-        showRecyclerViewHistory()
     }
 
     private fun showRecyclerViewHistory(){
@@ -102,6 +109,7 @@ class HistoryFragment : Fragment() {
                 endDate = dateSecond
                 historyViewModel.init(auth.currentUser?.uid!!, startDate.toString(), endDate.toString(), TIMEZONE)
             }
+
         }
     }
 

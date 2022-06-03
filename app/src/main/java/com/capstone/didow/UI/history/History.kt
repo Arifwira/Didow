@@ -1,7 +1,6 @@
 package com.capstone.didow.UI.history
 
 import android.os.Parcelable
-import com.capstone.didow.api.WrongAnswersItem
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -14,7 +13,7 @@ open class History(
 ):Parcelable
 
 @Parcelize
-class WrongAnswers(
+open class WrongAnswers(
     val number: Int,
     val word: String,
     val type: String,
@@ -22,7 +21,7 @@ class WrongAnswers(
 ):Parcelable
 
 @Parcelize
-class WrongAttempts(
+open class WrongAttempts(
     val attemptNumber: Int,
     val answer: String
 ):Parcelable
