@@ -145,6 +145,11 @@ class ExerciseHandWritingFragment : Fragment() {
         }
 
         binding.lanjut.setOnClickListener {
+            binding.apply {
+                darkBg.visibility = View.VISIBLE
+                catLogin.visibility = View.VISIBLE
+                loadingText.visibility = View.VISIBLE
+            }
             if (getFile != null) {
                 lifecycleScope.launch {
                     withContext(Dispatchers.IO) {
@@ -155,8 +160,18 @@ class ExerciseHandWritingFragment : Fragment() {
                             exerciseViewModel.answer(response.data!!.predictedWord.toString())
                             withContext(Dispatchers.Main) {
                                 if (response.data!!.isCorrect!!) {
+                                    binding.apply {
+                                        darkBg.visibility = View.GONE
+                                        catLogin.visibility = View.GONE
+                                        loadingText.visibility = View.GONE
+                                    }
                                     trueDialog()
                                 } else {
+                                    binding.apply {
+                                        darkBg.visibility = View.GONE
+                                        catLogin.visibility = View.GONE
+                                        loadingText.visibility = View.GONE
+                                    }
                                     falseDialog()
                                 }
                             }
