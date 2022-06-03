@@ -3,6 +3,7 @@ package com.capstone.didow.UI.home
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.content.Intent
+import android.media.MediaPlayer
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -56,6 +57,8 @@ class HomeFragment : Fragment() {
         // TODO: Use the ViewModel
     }
 
+
+
     private fun playAnimation() {
         ObjectAnimator.ofFloat(binding.play, View.SCALE_X, 1f, 1.1f).apply {
             duration = 1500
@@ -69,7 +72,7 @@ class HomeFragment : Fragment() {
         }.start()
     }
 
-    private fun selectMode(){
+    private fun selectMode() {
         val bottomSheetDialogFragment = ModeSettingFragment()
         binding.btnModeSetting.setOnClickListener {
             bottomSheetDialogFragment.show(childFragmentManager, "Mode Setting Dialog")

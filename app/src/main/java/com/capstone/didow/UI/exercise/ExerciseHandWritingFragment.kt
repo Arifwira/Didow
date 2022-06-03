@@ -1,12 +1,13 @@
 package com.capstone.didow.UI.exercise
 
 import android.Manifest
+import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.BitmapFactory
 import android.net.Uri
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.os.Environment
 import android.provider.MediaStore
 import android.speech.tts.TextToSpeech
 import android.util.Log
@@ -17,13 +18,13 @@ import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import com.capstone.didow.BuildConfig
 import com.capstone.didow.R
 import com.capstone.didow.UI.OnBoarding
@@ -32,20 +33,32 @@ import com.capstone.didow.entities.AssessmentReport
 import com.capstone.didow.entities.QuestionHandwriting
 import com.capstone.didow.entities.QuestionMultipleChoice
 import com.capstone.didow.entities.QuestionScrambleWords
+import com.theartofdev.edmodo.cropper.CropImage
+import com.theartofdev.edmodo.cropper.CropImageView
 import java.io.File
+import java.io.IOException
 import java.util.*
 
 class ExerciseHandWritingFragment : Fragment() {
+
+    private lateinit var currentPhotoPath: String
+    private lateinit var viewModel: ExerciseHandWritingViewModel
+    lateinit var tts: TextToSpeech
+    private val exerciseViewModel: ExerciseViewModel by activityViewModels()
     private var _binding: ExerciseHandWritingFragmentBinding? = null
+    private var hintHangman: String? = null
     private val binding get() = _binding!!
-    lateinit var tts : TextToSpeech
+    private val TAG: String = "AppDebug"
+    private val GALLERY_REQUEST_CODE = 1
+    private val CAMERA_REQUEST_CODE = 2
+    private var hintImg: String? = null
+    private var getFile: File? = null
 
     companion object {
         fun newInstance() = ExerciseHandWritingFragment()
         private val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.CAMERA)
         private const val REQUEST_CODE_PERMISSIONS = 10
     }
-
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
@@ -74,11 +87,6 @@ class ExerciseHandWritingFragment : Fragment() {
         } == PackageManager.PERMISSION_GRANTED
     }
 
-    private lateinit var viewModel: ExerciseHandWritingViewModel
-    private val exerciseViewModel: ExerciseViewModel by activityViewModels()
-
-    private var hintImg: String? = null
-    private var hintHangman: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -90,7 +98,7 @@ class ExerciseHandWritingFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(ExerciseHandWritingViewModel::class.java)
+        viewModel = ViewModelProvider(this)[ExerciseHandWritingViewModel::class.java]
         // TODO: Use the ViewModel
     }
 
@@ -103,6 +111,7 @@ class ExerciseHandWritingFragment : Fragment() {
                 REQUEST_CODE_PERMISSIONS
             )
         }
+
         playSound()
         useHint()
         openGuide()
@@ -116,7 +125,7 @@ class ExerciseHandWritingFragment : Fragment() {
         }
 
         binding.btnGallery.setOnClickListener {
-            startGallery()
+            pickFromGallery()
             Toast.makeText(
                 this@ExerciseHandWritingFragment.context,
                 "You open Gallery", Toast.LENGTH_SHORT
@@ -124,6 +133,7 @@ class ExerciseHandWritingFragment : Fragment() {
         }
 
         binding.lanjut.setOnClickListener {
+            uploadImage()
             exerciseViewModel.nextQuestion()
         }
 
@@ -162,7 +172,8 @@ class ExerciseHandWritingFragment : Fragment() {
                     "auto" -> findNavController().navigate(R.id.action_exerciseHandWritingFragment_to_exerciseCompleteFragment)
                     "custom" -> findNavController().navigate(R.id.action_exerciseHandWritingFragment_to_exerciseCompleteFragment)
                     "assessment" -> {
-                        val intent = makeAssessmentReportIntent(exerciseViewModel.assessmentReport.value!!)
+                        val intent =
+                            makeAssessmentReportIntent(exerciseViewModel.assessmentReport.value!!)
                         activity?.setResult(110, intent)
                         activity?.finish()
                     }
@@ -191,10 +202,15 @@ class ExerciseHandWritingFragment : Fragment() {
 
     private fun playSound() {
         binding.btnPlay.setOnClickListener {
-            binding.btnPlay.startAnimation(AnimationUtils.loadAnimation(requireContext(), R.anim.shake))
-            tts = TextToSpeech(requireContext(), TextToSpeech.OnInitListener {
+            binding.btnPlay.startAnimation(
+                AnimationUtils.loadAnimation(
+                    requireContext(),
+                    R.anim.shake
+                )
+            )
+            tts = TextToSpeech(requireContext()) {
                 if (it == TextToSpeech.SUCCESS) {
-                    tts.setLanguage(Locale.forLanguageTag("in"))
+                    tts.language = Locale.forLanguageTag("in")
                     tts.setSpeechRate(1.0f)
                     tts.speak(
                         "${exerciseViewModel.currentQuestion.value?.word}",
@@ -202,13 +218,13 @@ class ExerciseHandWritingFragment : Fragment() {
                     )
                 }
                 Log.d("SOUND", "TULIS TANGAN")
-            })
-            Log.d("SOUND","TULIS TANGAN LUAR")
+            }
+            Log.d("SOUND", "TULIS TANGAN LUAR")
         }
     }
 
     private fun useHint() {
-        var args = Bundle()
+        val args = Bundle()
         args.putString("hint", hintHangman)
         Log.d("hint hangman must", hintHangman.toString())
         args.putString("imageUrl", hintImg.toString())
@@ -223,13 +239,14 @@ class ExerciseHandWritingFragment : Fragment() {
 
     private fun startTakePhoto() {
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        requireActivity().let {
-            intent.resolveActivity(it.packageManager)
-            createTempFile(it.application).also {
+        requireActivity().let { fragment ->
+            intent.resolveActivity(fragment.packageManager)
+            createTempFile(fragment.application).also {
                 val photoURI: Uri = FileProvider.getUriForFile(
                     (Objects.requireNonNull(requireActivity().applicationContext)),
                     BuildConfig.APPLICATION_ID + ".provider", it
                 )
+                launchImageCrop(photoURI)
                 currentPhotoPath = it.absolutePath
                 intent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
                 launcherIntentCamera.launch(intent)
@@ -237,44 +254,95 @@ class ExerciseHandWritingFragment : Fragment() {
         }
     }
 
-    private lateinit var currentPhotoPath: String
     private val launcherIntentCamera = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
-    ) {
-        if (it.resultCode == AppCompatActivity.RESULT_OK) {
-            val myFile = File(currentPhotoPath)
-            Log.d("LaunchCam","GAGAL LAUNCH")
-            val result = BitmapFactory.decodeFile(myFile.path)
-            binding.previewImage.setImageBitmap(result)
+    ){
+    }
+
+
+    private fun uploadImage() {
+        if (getFile != null) {
+            val file = reduceFileImage(getFile as File)
+
         }
     }
-    private fun startGallery() {
-        val intent = Intent()
-        intent.action = Intent.ACTION_GET_CONTENT
-        intent.type = "image/*"
-        val chooser = Intent.createChooser(intent, "Choose a Picture")
-        launcherIntentGallery.launch(chooser)
-    }
 
-    private val launcherIntentGallery = registerForActivityResult(
-        ActivityResultContracts.StartActivityForResult()
-    ) { result ->
-        if (result.resultCode == AppCompatActivity.RESULT_OK) {
-            val selectedImg: Uri = result.data?.data as Uri
-            val myFile = uriToFile(selectedImg, requireActivity())
-            binding.previewImage.setImageURI(selectedImg)
-            var args = Bundle()
-            args.putString("hint", hintHangman)
-            Log.d("hint hangman must", hintHangman.toString())
-            args.putString("imageUrl", hintImg.toString())
-            Log.d("image argument be", hintImg.toString())
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
 
-            val popupHintFragment = PopupHintFragment()
-            binding.btnHint.setOnClickListener {
-                popupHintFragment.arguments = args
-                popupHintFragment.show(childFragmentManager, "PopUpHintDialog Fragment")
+        when (requestCode) {
+
+            GALLERY_REQUEST_CODE -> {
+                if (resultCode == Activity.RESULT_OK) {
+                    data?.data?.let { uri ->
+                        launchImageCrop(uri)
+                    }
+                }
+                else{
+                    Log.e(TAG, "Gagal Memilih Gambar" )
+                }
+            }
+
+            CAMERA_REQUEST_CODE -> {
+                if (resultCode == Activity.RESULT_OK){
+                    data?.data?.let {
+                        launchImageCrop(it)
+                    }
+                }
+                else{
+                    Log.e(TAG, "Kamera Gagal Terbuka" )
+                }
+            }
+
+            CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE -> {
+                val result = CropImage.getActivityResult(data)
+                if (resultCode == Activity.RESULT_OK) {
+                    val selectedImg: Uri = result.uri
+                    val myFile = uriToFile(selectedImg, requireContext())
+                    getFile = myFile
+                    setImage(selectedImg)
+                }
+                else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+                    Log.e(TAG, "Crop error: ${result.error}" )
+                }
             }
         }
+    }
+
+    private fun setImage(uri: Uri){
+        Glide.with(this)
+            .load(uri)
+            .into(binding.previewImage)
+    }
+
+    private fun launchImageCrop(uri: Uri){
+        context?.let {
+            CropImage.activity(uri)
+                .setGuidelines(CropImageView.Guidelines.ON)
+                .setAspectRatio(1920, 1080)
+                .setCropShape(CropImageView.CropShape.RECTANGLE) // default is rectangle
+                .start(it,this)
+        }
+    }
+
+    private fun pickFromGallery() {
+        val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+        intent.type = "image/*"
+        val mimeTypes = arrayOf("image/jpeg", "image/png", "image/jpg")
+        intent.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes)
+        intent.flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
+        startActivityForResult(intent, GALLERY_REQUEST_CODE)
+    }
+
+    private fun saveImage(): File?{
+        val fileName = "Gambarku"
+        val storageDir = activity?.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+        val image = File.createTempFile(
+            fileName,
+            ".jpg",
+            storageDir
+        )
+        return image
     }
 
     override fun onDestroy() {
