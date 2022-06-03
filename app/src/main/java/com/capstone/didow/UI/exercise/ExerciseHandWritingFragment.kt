@@ -2,12 +2,15 @@ package com.capstone.didow.UI.exercise
 
 import android.Manifest
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.os.Environment
+import android.os.Handler
+import android.os.Looper
 import android.provider.MediaStore
 import android.speech.tts.TextToSpeech
 import android.util.Log
@@ -23,11 +26,14 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.capstone.didow.BuildConfig
 import com.capstone.didow.R
 import com.capstone.didow.UI.OnBoarding
+import com.capstone.didow.api.HandwritingResponse
+import com.capstone.didow.api.RetrofitInstance
 import com.capstone.didow.databinding.ExerciseHandWritingFragmentBinding
 import com.capstone.didow.entities.AssessmentReport
 import com.capstone.didow.entities.QuestionHandwriting
@@ -35,6 +41,12 @@ import com.capstone.didow.entities.QuestionMultipleChoice
 import com.capstone.didow.entities.QuestionScrambleWords
 import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.File
 import java.io.IOException
 import java.util.*
@@ -133,8 +145,29 @@ class ExerciseHandWritingFragment : Fragment() {
         }
 
         binding.lanjut.setOnClickListener {
-            uploadImage()
-            exerciseViewModel.nextQuestion()
+            if (getFile != null) {
+                lifecycleScope.launch {
+                    withContext(Dispatchers.IO) {
+                        var response: HandwritingResponse? = null
+                        try {
+                            response = uploadImage()
+                            Log.d("successUpload", response!!.data!!.predictedWord.toString())
+                            exerciseViewModel.answer(response.data!!.predictedWord.toString())
+                            withContext(Dispatchers.Main) {
+                                if (response.data!!.isCorrect!!) {
+                                    trueDialog()
+                                } else {
+                                    falseDialog()
+                                }
+                            }
+                        } catch (e: IOException) {
+                            Log.d("errorUpload", e.message.toString())
+                        }
+                    }
+                }
+            } else {
+                exerciseViewModel.nextQuestion()
+            }
         }
 
         exerciseViewModel.currentQuestion.observe(viewLifecycleOwner, Observer {
@@ -151,7 +184,8 @@ class ExerciseHandWritingFragment : Fragment() {
                     this.hintImg = it.hintImg
                     Log.d("Hint hangman should be", hintHangman.toString())
                     this.hintHangman = it.hintHangman.joinToString(" ")
-
+                    binding.previewImage.setImageResource(R.drawable.ic_baseline_image_24)
+                    getFile = null
                     useHint()
                 }
             }
@@ -260,11 +294,19 @@ class ExerciseHandWritingFragment : Fragment() {
     }
 
 
-    private fun uploadImage() {
+    private suspend fun uploadImage(): HandwritingResponse? {
         if (getFile != null) {
             val file = reduceFileImage(getFile as File)
-
+            val client = RetrofitInstance.getApiService()
+            val expectedWord = exerciseViewModel.currentQuestion.value!!.word
+            val requestBody = MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("img", file.name, file.asRequestBody("application/octet-stream".toMediaType()))
+                .addFormDataPart("expectedWord", expectedWord)
+                .build()
+            return client.analyzeHandwriting(requestBody)
         }
+        return null
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -343,6 +385,34 @@ class ExerciseHandWritingFragment : Fragment() {
             storageDir
         )
         return image
+    }
+
+    private fun trueDialog(){
+        val view = View.inflate(this.context, R.layout.dialog_true_view, null)
+        val builder = AlertDialog.Builder(this.context)
+        builder.setView(view)
+        val dialog = builder.create()
+        dialog.show()
+        dialog.setCancelable(false)
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        Handler(Looper.getMainLooper()).postDelayed({
+            dialog.dismiss()
+            exerciseViewModel.nextQuestion()
+        }, 3000)
+    }
+
+    private fun falseDialog(){
+        val view = View.inflate(this.context, R.layout.dialog_false_view, null)
+        val builder = AlertDialog.Builder(this.context)
+        builder.setView(view)
+        val dialog = builder.create()
+        dialog.show()
+        dialog.setCancelable(false)
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        Handler(Looper.getMainLooper()).postDelayed({
+            dialog.dismiss()
+            exerciseViewModel.nextQuestion()
+        }, 3000)
     }
 
     override fun onDestroy() {
