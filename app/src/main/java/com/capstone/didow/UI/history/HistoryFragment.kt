@@ -24,7 +24,7 @@ import kotlin.collections.ArrayList
 
 class HistoryFragment : Fragment() {
 
-    private val historyViewModel : HistoryViewModel by viewModels()
+    private val historyViewModel : HistoryViewModel by activityViewModels()
     private var _binding : HistoryFragmentBinding? = null
     private val binding get() = _binding!!
     private lateinit var auth: FirebaseAuth
@@ -66,7 +66,7 @@ class HistoryFragment : Fragment() {
         binding.rvHistory.setHasFixedSize(true)
 
         historyViewModel.history.observe(viewLifecycleOwner, Observer{
-            Log.d("History Data", it.last().endTime.toString())
+//            Log.d("History Data", it.last().endTime.toString())
             adapter = HistoryAdapter(it)
             binding.rvHistory.adapter = adapter
             adapter.setOnItemClickCallback(object: HistoryAdapter.OnItemClickCallback{
