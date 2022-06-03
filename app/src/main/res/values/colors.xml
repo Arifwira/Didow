@@ -10,4 +10,9 @@
     <color name="orange_bg">#FFBB37</color>
     <color name="reddish">#FF7D37</color>
     <color name="buttonOff">#7A7A7A</color>
+    
+    <color name="purple_button">#882FF6</color>
+    <color name="blue_button">#37B6F6</color>
+    <color name="green_button">#35D461</color>
+    <color name="orange_button">#F99D07</color>
 </resources>
