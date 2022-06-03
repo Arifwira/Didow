@@ -1,9 +1,11 @@
 package com.capstone.didow.UI.exercise
 
+import android.annotation.SuppressLint
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.capstone.didow.R
 import com.capstone.didow.databinding.MultipleChoiceOptionBinding
 import kotlin.String
 
@@ -27,6 +29,14 @@ class ExerciseMultipleChoiceAdapter(private val listOption: ArrayList<String>): 
         Log.d("Option", option)
         holder.apply {
             binding.btnOption.text = option
+            binding.btnOption.setTextColor(binding.btnOption.context.resources.getColor(R.color.white))
+            when(position) {
+                0 -> binding.btnOption.setBackgroundColor(binding.btnOption.context.resources.getColor(R.color.purple_button))
+                1 -> binding.btnOption.setBackgroundColor(binding.btnOption.context.resources.getColor(R.color.blue_button))
+                2 -> binding.btnOption.setBackgroundColor(binding.btnOption.context.resources.getColor(R.color.green_button))
+                3 -> binding.btnOption.setBackgroundColor(binding.btnOption.context.resources.getColor(R.color.orange_button))
+            }
+
         }
 
         holder.binding.btnOption.setOnClickListener {

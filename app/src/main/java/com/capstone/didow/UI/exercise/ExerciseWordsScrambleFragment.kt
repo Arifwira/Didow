@@ -85,6 +85,9 @@ class ExerciseWordsScrambleFragment : Fragment() {
                 is QuestionScrambleWords -> {
                     Log.d("scramble", it.letters.toString())
                     Log.d("Hangman List", it.hintHangman.toString())
+                    val currentNumber = exerciseViewModel.currentQuestion.value?.number
+                    val totalNumber = exerciseViewModel.exercise.value?.questions?.size
+                    binding.tvNomorSoal.text = "$currentNumber/$totalNumber"
                     hintHangman = it.hintHangman.joinToString(" ")
                     hintImg = it.hintImg
                     Log.d("Hint hangman should be", hintHangman.toString())
