@@ -23,7 +23,7 @@
         <item>U</item>
         <item>P</item>
     </string-array>
-    
+
     <string-array name="date_array">
         <item>31–12–2021</item>
         <item>31–12–2021</item>
@@ -32,7 +32,7 @@
         <item>31–12–2021</item>
         <item>31–12–2021</item>
     </string-array>
-    
+
     <string-array name="count_suku_kata">
         <item>4</item>
         <item>4</item>

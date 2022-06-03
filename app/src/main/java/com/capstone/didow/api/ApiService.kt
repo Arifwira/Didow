@@ -1,5 +1,6 @@
 package com.capstone.didow.api
 
+import okhttp3.MultipartBody
 import okhttp3.OkHttpClient
 import okhttp3.RequestBody
 import okhttp3.logging.HttpLoggingInterceptor
@@ -40,6 +41,9 @@ interface ApiService {
 
     @GET("assessments/{id}")
     suspend fun getAssessmentReport(@Path("id") assessmentId: String): GetAssessmentResponse
+
+    @POST("handwritings")
+    suspend fun analyzeHandwriting(@Body requestBody: MultipartBody): HandwritingResponse
 }
 
 class RetrofitInstance {

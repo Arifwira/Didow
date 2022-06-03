@@ -38,6 +38,7 @@ class ExerciseFragment : Fragment() {
         auth = FirebaseAuth.getInstance()
         viewModel.init(category!!, auth.currentUser?.uid)
         viewModel.isLoaded.observe(viewLifecycleOwner, Observer {
+            showLoading(it)
             if (it) {
                 viewModel.startExercise()
                 when (viewModel.currentQuestion.value) {
@@ -53,5 +54,15 @@ class ExerciseFragment : Fragment() {
                 }
             }
         })
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        if (!isLoading) {
+            binding.darkBg.visibility = View.VISIBLE
+            binding.catRegister.visibility = View.VISIBLE
+        } else {
+            binding.darkBg.visibility = View.INVISIBLE
+            binding.catRegister.visibility = View.GONE
+        }
     }
 }

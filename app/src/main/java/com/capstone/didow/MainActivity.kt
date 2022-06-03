@@ -3,8 +3,10 @@ package com.capstone.didow
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.content.Intent
+import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
@@ -17,6 +19,8 @@ import com.capstone.didow.databinding.RegisterFragmentBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
 class MainActivity : AppCompatActivity() {
@@ -24,6 +28,8 @@ class MainActivity : AppCompatActivity() {
     private var _binding: ActivityMainBinding? = null
     private val binding get() = _binding!!
     private lateinit var auth: FirebaseAuth
+    private lateinit var data: FirebaseFirestore
+    private var musicPlayer: MediaPlayer? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,11 +43,29 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, OnBoarding::class.java))
             finish()
         }
+        val uid = auth.currentUser?.uid
+        data = Firebase.firestore
 
         val firstFragment=HomeFragment()
         val secondFragment=HistoryFragment()
         val thirdFragment=ProfileFragment()
 
+        if (uid != null) {
+            data.collection("users").document(uid)
+                .get()
+                .addOnSuccessListener { result ->
+                    Log.d("NAMA", "${result.id} => ${result.data?.get("nickname")}")
+                    val bundle = Bundle().apply {
+                        putString("NAMA","${result.data?.get("nickname")}")
+                    }
+                    thirdFragment.arguments = bundle
+                }
+                .addOnFailureListener { exception ->
+                    Log.w("NAMA", "Error getting documents.", exception)
+                }
+        }
+
+        playMusic()
         setCurrentFragment(firstFragment)
 
 
@@ -66,15 +90,46 @@ class MainActivity : AppCompatActivity() {
         playAnimation()
     }
 
+    override fun onPause() {
+        super.onPause()
+        if(musicPlayer != null){
+            musicPlayer!!.release()
+            musicPlayer = null
+        }
+    }
+
     private fun setCurrentFragment(fragment: Fragment)=
         supportFragmentManager.beginTransaction().apply {
             replace(R.id.container_main,fragment)
             commit()
         }
+
+    private fun playMusic() {
+        musicPlayer = MediaPlayer.create(this, R.raw.lo_fi)
+        musicPlayer?.apply {
+            setVolume(0.1f, 0.1f)
+            start()
+        }
+        binding.musicToggle.setOnClickListener {
+            if (musicPlayer!!.isPlaying) {
+                binding.musicToggle.setBackgroundResource(R.drawable.musicpause)
+                musicPlayer!!.pause()
+            } else {
+                binding.musicToggle.setBackgroundResource(R.drawable.musicplay)
+                musicPlayer!!.start()
+            }
+        }
+    }
+
     private fun playAnimation() {
         val bgLeaves2 = ObjectAnimator.ofFloat(binding.bgLeaves2, View.ALPHA, 1f).setDuration(1500)
         val bgLeaves3 = ObjectAnimator.ofFloat(binding.bgLeaves3, View.ALPHA, 1f).setDuration(1500)
-
+        ObjectAnimator.ofFloat(binding.musicToggle, View.TRANSLATION_Y, -10f,10f).apply {
+            duration = 1000
+            repeatCount = ObjectAnimator.INFINITE
+            repeatMode = ObjectAnimator.REVERSE
+            start()
+        }
         val bg_X1 =
             ObjectAnimator.ofFloat(binding.bgLeaves1, View.TRANSLATION_X, -1050f, 1050f).apply {
                 duration = 3000

@@ -1,7 +1,5 @@
 package com.capstone.didow.entities
 
-import android.util.Log
-
 class Attempt(val number: Int, val questions: List<Question>) {
     val answers = mutableListOf<Answer>()
     var currentQuestion: Question = questions[0]
@@ -23,6 +21,10 @@ class Attempt(val number: Int, val questions: List<Question>) {
     }
 
     fun checkWrongAnswers(): Attempt? {
+        // If it is the third attempt, don't retry (return null)
+        if (number == 3) {
+            return null
+        }
         val wrongAnswers = answers.filter {
             !it.isCorrect
         }

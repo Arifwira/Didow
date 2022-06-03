@@ -42,6 +42,9 @@ class ModeSettingFragment: BottomSheetDialogFragment() {
                     Toast.LENGTH_SHORT).show()
                 normalModeContainer.background = disableBackground
                 customModeContainer.background = enableBackground
+                val popupCustom = CustomizationFragment()
+                popupCustom.show(childFragmentManager, "PopupCustomization Fragment")
+
             }
         }
 

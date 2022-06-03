@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -153,6 +154,7 @@ class ExerciseMultipleChoiceFragment : Fragment() {
 
     private fun playSound(){
         binding.btnPlay.setOnClickListener {
+            binding.btnPlay.startAnimation(AnimationUtils.loadAnimation(requireContext(), R.anim.shake))
             tts = TextToSpeech(requireContext(),TextToSpeech.OnInitListener {
                 if(it==TextToSpeech.SUCCESS){
                     tts.setLanguage(Locale.forLanguageTag("in"))
