@@ -2,7 +2,9 @@ package com.capstone.didow.UI.home
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.media.MediaPlayer
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -28,6 +30,9 @@ class HomeFragment : Fragment() {
     }
 
     private lateinit var viewModel: HomeViewModel
+    private lateinit var sharedPref: SharedPreferences
+    private lateinit var bottomSheetDialogFragment: ModeSettingFragment
+    private var mode = "normal"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,13 +45,25 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        sharedPref = activity?.getPreferences(Context.MODE_PRIVATE) ?: return
+        mode = sharedPref.getString("mode", "normal").toString()
         binding.apply {
+            btnModeSetting.text = mode
             play.setOnClickListener {
-                val intent = Intent(activity, ExerciseActivity::class.java)
-                intent.putExtra("category", "auto")
-                startActivity(intent)
+                when (mode) {
+                    "normal" -> {
+                        val intent = Intent(activity, ExerciseActivity::class.java)
+                        intent.putExtra("category", "auto")
+                        startActivity(intent)
+                    }
+                    "kustom" -> {
+                        val popupCustom = CustomizationFragment()
+                        popupCustom.show(childFragmentManager, "PopupCustomization Fragment")
+                    }
+                }
             }
         }
+        bottomSheetDialogFragment = ModeSettingFragment()
         selectMode()
         playAnimation()
     }
@@ -73,9 +90,18 @@ class HomeFragment : Fragment() {
     }
 
     private fun selectMode() {
-        val bottomSheetDialogFragment = ModeSettingFragment()
+        val bundle = Bundle()
+        bundle.putString("mode", mode)
+        bottomSheetDialogFragment.arguments = bundle
         binding.btnModeSetting.setOnClickListener {
             bottomSheetDialogFragment.show(childFragmentManager, "Mode Setting Dialog")
         }
+    }
+
+    fun setResultAsMode(mode: String) {
+        this.mode = mode
+        sharedPref.edit().putString("mode", mode).apply()
+        binding.btnModeSetting.text = mode
+        selectMode()
     }
 }

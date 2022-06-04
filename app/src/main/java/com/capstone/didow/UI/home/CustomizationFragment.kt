@@ -57,18 +57,18 @@ class CustomizationFragment : BottomSheetDialogFragment() {
     private fun toggleChoice() {
 
         binding.lessthanfour.setOnClickListener {
-            binding.four.isChecked = false
-            binding.morethanfour.isChecked = false
+//            binding.four.isChecked = false
+//            binding.morethanfour.isChecked = false
             enableButton()
         }
         binding.four.setOnClickListener {
-            binding.lessthanfour.isChecked = false
-            binding.morethanfour.isChecked = false
+//            binding.lessthanfour.isChecked = false
+//            binding.morethanfour.isChecked = false
             enableButton()
         }
         binding.morethanfour.setOnClickListener {
-            binding.lessthanfour.isChecked = false
-            binding.four.isChecked = false
+//            binding.lessthanfour.isChecked = false
+//            binding.four.isChecked = false
             enableButton()
         }
     }
