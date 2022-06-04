@@ -57,21 +57,21 @@
                 android:textSize="20sp" />
 
             <ImageButton
-                android:id="@+id/addQuestion"
+                android:id="@+id/redQuestion"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginRight="10dp"
                 android:background="@drawable/circlebg"
-                android:src="@drawable/ic_add" />
+                android:src="@drawable/ic_baseline_remove_24" />
 
             <ImageButton
-                android:id="@+id/redQuestion"
+                android:id="@+id/addQuestion"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center_vertical"
                 android:background="@drawable/circlebg"
-                android:src="@drawable/ic_baseline_remove_24" />
+                android:src="@drawable/ic_add" />
         </LinearLayout>
 
         <TextView
