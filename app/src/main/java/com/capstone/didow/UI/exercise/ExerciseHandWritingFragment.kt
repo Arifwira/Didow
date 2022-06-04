@@ -176,6 +176,11 @@ class ExerciseHandWritingFragment : Fragment() {
                                 }
                             }
                         } catch (e: IOException) {
+                            binding.apply {
+                                darkBg.visibility = View.GONE
+                                catLogin.visibility = View.GONE
+                                loadingText.visibility = View.GONE
+                            }
                             Log.d("errorUpload", e.message.toString())
                         }
                     }

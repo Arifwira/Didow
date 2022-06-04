@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/avadog1" android:duration="50" />
+    <item android:drawable="@drawable/avadog2" android:duration="50"/>
+    <item android:drawable="@drawable/avadog3" android:duration="50"/>
+    <item android:drawable="@drawable/avadog4" android:duration="50"/>
+    <item android:drawable="@drawable/avadog5" android:duration="50"/>
+    <item android:drawable="@drawable/avadog6" android:duration="50"/>
+    <item android:drawable="@drawable/avadog7" android:duration="50"/>
+    <item android:drawable="@drawable/avadog8" android:duration="50"/>
+    <item android:drawable="@drawable/avadog9" android:duration="50"/>
+    <item android:drawable="@drawable/avadog10" android:duration="50"/>
+</animation-list>

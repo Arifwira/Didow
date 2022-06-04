@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/avacat1" android:duration="50" />
+    <item android:drawable="@drawable/avacat2" android:duration="50"/>
+    <item android:drawable="@drawable/avacat3" android:duration="50"/>
+    <item android:drawable="@drawable/avacat4" android:duration="50"/>
+    <item android:drawable="@drawable/avacat5" android:duration="50"/>
+    <item android:drawable="@drawable/avacat6" android:duration="50"/>
+    <item android:drawable="@drawable/avacat7" android:duration="50"/>
+    <item android:drawable="@drawable/avacat8" android:duration="50"/>
+    <item android:drawable="@drawable/avacat9" android:duration="50"/>
+    <item android:drawable="@drawable/avacat10" android:duration="50"/>
+</animation-list>
