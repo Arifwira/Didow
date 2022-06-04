@@ -34,6 +34,7 @@
             android:exported="false" />
         <activity
             android:name=".UI.OnBoarding"
+            android:windowSoftInputMode="adjustResize"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
@@ -58,6 +59,7 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider" />
         </provider>
+
     </application>
 
 </manifest>
