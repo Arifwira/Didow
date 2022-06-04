@@ -2,6 +2,7 @@ package com.capstone.didow.UI.onBoarding
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
+import android.content.Intent
 import android.graphics.drawable.AnimationDrawable
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -10,6 +11,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.findNavController
 import com.capstone.didow.R
+import com.capstone.didow.UI.ExerciseActivity
+import com.capstone.didow.UI.OnBoarding
 import com.capstone.didow.databinding.FragmentFeaturesBinding
 
 
@@ -35,7 +38,11 @@ class FeaturesFragment : Fragment() {
             it.findNavController().navigate(R.id.action_featuresFragment_to_onBoardingFragment2)
         }
         binding.coba.setOnClickListener{
-            it.findNavController().navigate(R.id.action_featuresFragment_to_exerciseActivity)
+            val intent = Intent(activity, ExerciseActivity::class.java)
+            intent.putExtra("category", "sample")
+            intent.putExtra("allowRetry", false)
+            val onboardingActivity = activity as OnBoarding
+            onboardingActivity.resultLauncher.launch(intent)
         }
         binding.lewati.setOnClickListener{
             it.findNavController().navigate(R.id.action_featuresFragment_to_assessmentStartFragment)

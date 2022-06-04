@@ -59,6 +59,7 @@ class ExerciseViewModel : ViewModel() {
                 "auto" -> response = client.getQuestions(category, userInfo!!.data?.weightPoint, null, null, null, null)
                 "assessment" -> response = client.getQuestions(category, null, null, null, null, null)
                 "custom" -> response = client.getQuestions(category, null, qty, easy, medium, hard)
+                "sample" -> response = client.getQuestions("custom", null, 3, true, null, null)
             }
 
             val data = response?.data

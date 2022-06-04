@@ -54,6 +54,9 @@
         <action
             android:id="@+id/action_exerciseHandWritingFragment_to_exerciseCompleteFragment"
             app:destination="@id/exerciseCompleteFragment" />
+        <action
+            android:id="@+id/action_exerciseHandWritingFragment_to_sampleCompleteFragment2"
+            app:destination="@id/sampleCompleteFragment2" />
     </fragment>
     <fragment
         android:id="@+id/exerciseWordsScrambleFragment"
@@ -106,5 +109,10 @@
         android:name="com.capstone.didow.UI.exercise.ExerciseCompleteFragment"
         android:label="fragment_exercise_complete"
         tools:layout="@layout/fragment_exercise_complete" />
+    <fragment
+        android:id="@+id/sampleCompleteFragment2"
+        android:name="com.capstone.didow.UI.onBoarding.SampleCompleteFragment"
+        android:label="fragment_sample_complete"
+        tools:layout="@layout/fragment_sample_complete" />
 
 </navigation>

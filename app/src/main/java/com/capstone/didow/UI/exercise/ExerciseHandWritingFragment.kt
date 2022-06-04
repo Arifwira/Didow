@@ -235,6 +235,9 @@ class ExerciseHandWritingFragment : Fragment() {
                         activity?.setResult(110, intent)
                         activity?.finish()
                     }
+                    "sample" -> {
+                        findNavController().navigate(R.id.action_exerciseHandWritingFragment_to_sampleCompleteFragment2)
+                    }
                 }
             }
         })
