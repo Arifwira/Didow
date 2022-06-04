@@ -145,12 +145,12 @@ class ExerciseHandWritingFragment : Fragment() {
         }
 
         binding.lanjut.setOnClickListener {
-            binding.apply {
-                darkBg.visibility = View.VISIBLE
-                catLogin.visibility = View.VISIBLE
-                loadingText.visibility = View.VISIBLE
-            }
             if (getFile != null) {
+                binding.apply {
+                    darkBg.visibility = View.VISIBLE
+                    catLogin.visibility = View.VISIBLE
+                    loadingText.visibility = View.VISIBLE
+                }
                 lifecycleScope.launch {
                     withContext(Dispatchers.IO) {
                         var response: HandwritingResponse? = null
