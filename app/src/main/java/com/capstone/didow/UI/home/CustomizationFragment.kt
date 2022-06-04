@@ -36,9 +36,18 @@ class CustomizationFragment : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.lanjutkustom.setOnClickListener {
+            val easy = binding.lessthanfour.isChecked
+            val medium = binding.four.isChecked
+            val hard = binding.morethanfour.isChecked
+            val qty = binding.questionCount.text.toString().toInt()
             val intent = Intent(activity, ExerciseActivity::class.java)
-            intent.putExtra("category", "auto")
+            intent.putExtra("category", "custom")
+            intent.putExtra("easy", easy)
+            intent.putExtra("medium", medium)
+            intent.putExtra("hard", hard)
+            intent.putExtra("qty", qty)
             startActivity(intent)
+            dismiss()
         }
         val behavior = BottomSheetBehavior.from(requireView().parent as View)
         behavior.state = BottomSheetBehavior.STATE_EXPANDED

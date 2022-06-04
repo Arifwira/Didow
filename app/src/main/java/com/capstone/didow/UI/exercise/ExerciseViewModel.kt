@@ -1,5 +1,6 @@
 package com.capstone.didow.UI.exercise
 
+import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -35,7 +36,13 @@ class ExerciseViewModel : ViewModel() {
     val assessmentReport: LiveData<AssessmentReport> = _assessmentReport
 
 
-    fun init(category: String, userId: String?) {
+    fun init(bundle: Bundle, userId: String?) {
+        val category = bundle.getString("category")
+        val easy = bundle.getBoolean("easy")
+        val medium = bundle.getBoolean("medium")
+        val hard = bundle.getBoolean("hard")
+        val qty = bundle.getInt("qty")
+
         if (userId != null) {
             _userId.value = userId!!
         }
@@ -48,8 +55,9 @@ class ExerciseViewModel : ViewModel() {
             var response: QuestionsResponse? = null
 
             when (category) {
-                "auto" -> response = client.getQuestions(category, userInfo!!.data?.weightPoint)
-                "assessment" -> response = client.getQuestions(category, null)
+                "auto" -> response = client.getQuestions(category, userInfo!!.data?.weightPoint, null, null, null, null)
+                "assessment" -> response = client.getQuestions(category, null, null, null, null, null)
+                "custom" -> response = client.getQuestions(category, null, qty, easy, medium, hard)
             }
 
             val data = response?.data
@@ -85,7 +93,7 @@ class ExerciseViewModel : ViewModel() {
                 questionNumber++
                 questions.add(question!!)
             }
-            _exercise.value = Exercise(questions, category)
+            _exercise.value = Exercise(questions, category!!)
             _isLoaded.value = true
         }
     }
