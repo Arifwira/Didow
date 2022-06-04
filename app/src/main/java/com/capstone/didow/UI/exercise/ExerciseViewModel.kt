@@ -42,6 +42,7 @@ class ExerciseViewModel : ViewModel() {
         val medium = bundle.getBoolean("medium")
         val hard = bundle.getBoolean("hard")
         val qty = bundle.getInt("qty")
+        val allowRetry = bundle.getBoolean("allowRetry")
 
         if (userId != null) {
             _userId.value = userId!!
@@ -93,7 +94,7 @@ class ExerciseViewModel : ViewModel() {
                 questionNumber++
                 questions.add(question!!)
             }
-            _exercise.value = Exercise(questions, category!!)
+            _exercise.value = Exercise(questions, category!!, allowRetry)
             _isLoaded.value = true
         }
     }
@@ -112,7 +113,7 @@ class ExerciseViewModel : ViewModel() {
         val newQuestion = this.currentAttempt.value?.next()
         if (newQuestion == null) {
             val newAttempt = this.currentAttempt.value?.checkWrongAnswers()
-            if (newAttempt == null || exercise.value?.category == "assessment") {
+            if (newAttempt == null || !exercise.value?.allowRetry!!) {
                 finish()
             } else {
                 _isRetry.value = true

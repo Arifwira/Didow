@@ -54,6 +54,7 @@ class HomeFragment : Fragment() {
                     "normal" -> {
                         val intent = Intent(activity, ExerciseActivity::class.java)
                         intent.putExtra("category", "auto")
+                        intent.putExtra("allowRetry", true)
                         startActivity(intent)
                     }
                     "kustom" -> {

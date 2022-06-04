@@ -40,12 +40,14 @@ class CustomizationFragment : BottomSheetDialogFragment() {
             val medium = binding.four.isChecked
             val hard = binding.morethanfour.isChecked
             val qty = binding.questionCount.text.toString().toInt()
+            val allowRetry = binding.repeat.isChecked
             val intent = Intent(activity, ExerciseActivity::class.java)
             intent.putExtra("category", "custom")
             intent.putExtra("easy", easy)
             intent.putExtra("medium", medium)
             intent.putExtra("hard", hard)
             intent.putExtra("qty", qty)
+            intent.putExtra("allowRetry", allowRetry)
             startActivity(intent)
             dismiss()
         }
