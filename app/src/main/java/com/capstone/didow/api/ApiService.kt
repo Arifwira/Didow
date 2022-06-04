@@ -13,6 +13,10 @@ interface ApiService {
     suspend fun getQuestions(
         @Query("type") type: String,
         @Query("weightPoint") weightPoint: Int?,
+        @Query("qty") qty: Int?,
+        @Query("easy") easy: Boolean?,
+        @Query("medium") medium: Boolean?,
+        @Query("hard") hard: Boolean?,
     ): QuestionsResponse
 
     @GET("users/{id}")

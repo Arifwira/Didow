@@ -1,6 +1,6 @@
 package com.capstone.didow.entities
 
-class Exercise(val questions: List<Question>, val category: String) {
+class Exercise(val questions: List<Question>, val category: String, val allowRetry: Boolean) {
     lateinit var currentAttempt: Attempt
     val attempts = mutableListOf<Attempt>()
     var currentAttemptIndex: Int = 0

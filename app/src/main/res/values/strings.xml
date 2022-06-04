@@ -7,6 +7,7 @@
     <string name="gallery">Album</string>
     <string name="lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas elementum, dolor non suscipit tincidunt, tellus elit pulvinar metus, nec sodales odio est id est. Ut vitae sem consequat, porta felis eu, condimentum ante. Phasellus imperdiet, eros et lacinia lobortis, nunc nibh vehicula enim, a elementum nunc arcu scelerisque eros. Nunc interdum vulputate nisi sit amet finibus. Fusce eu nisl a mi ornare lacinia. Aliquam eu tellus volutpat, varius tortor eu, pretium elit. Nunc mattis hendrerit tellus. Phasellus aliquam odio non feugiat sodales. Praesent finibus lectus et augue placerat, a semper turpis dictum. Sed fringilla sodales ante ac molestie.</string>
     <string name="normal_description">Pada mode ini soal yang diberikan akan secara otomatis menyesuaikan dengan kemampuan anak</string>
+    <string name="kustom_description">Pada mode ini Anda dapat menyesuaikan jumlah dan tingkat kesulitan soal sesuai preferensi</string>
 
     <string-array name="multiple_choice_option">
         <item>buku</item>
