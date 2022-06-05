@@ -5,16 +5,45 @@
     android:layout_height="match_parent"
     tools:context=".UI.profile.AvatarFragment">
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Kustomisasi Avatar" />
+        android:orientation="vertical"
+        android:padding="10dp">
 
-    <Button
-        android:id="@+id/simpanAva"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:text="simpan"
-        android:layout_gravity="center"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:layout_marginBottom="25dp"
+            android:gravity="center"
+            android:text="AVATARMU"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/avatarnih"
+            android:layout_width="350dp"
+            android:layout_height="350dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="10dp" />
+
+        <Button
+            android:id="@+id/changeAva"
+            style="@style/ButtonGeneral"
+            android:layout_gravity="center"
+            android:backgroundTint="@android:color/holo_orange_dark"
+            android:text="Ganti Avatar"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/simpanAva"
+            style="@style/ButtonGeneral"
+            android:layout_gravity="center"
+            android:backgroundTint="@android:color/holo_orange_dark"
+            android:text="simpan"
+            android:textColor="@color/white" />
+
+    </LinearLayout>
 
 </FrameLayout>

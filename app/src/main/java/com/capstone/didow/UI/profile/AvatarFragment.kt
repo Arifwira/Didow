@@ -1,5 +1,6 @@
 package com.capstone.didow.UI.profile
 
+import android.graphics.drawable.AnimationDrawable
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -13,6 +14,7 @@ import com.capstone.didow.databinding.ProfileFragmentBinding
 class AvatarFragment : Fragment() {
 
     private var _binding : AvatarFragmentBinding? = null
+    private lateinit var readAnimation : AnimationDrawable
     private val binding get() = _binding!!
 
     companion object {
@@ -31,11 +33,29 @@ class AvatarFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        var anim = 1
         binding.apply {
             simpanAva.setOnClickListener {
                 parentFragmentManager.beginTransaction().replace(R.id.container_main,ProfileFragment()).commit()
             }
+            changeAva.setOnClickListener {
+                if (anim == 1) {
+                    avatarnih.setBackgroundResource(R.drawable.avadog_animation)
+                    readAnimation = binding.avatarnih.background as AnimationDrawable
+                    readAnimation.start()
+                    anim += 1
+                }else{
+                    avatarnih.setBackgroundResource(R.drawable.avacat_animation)
+                    readAnimation = binding.avatarnih.background as AnimationDrawable
+                    readAnimation.start()
+                    anim -= 1
+                }
+            }
+            avatarnih.setBackgroundResource(R.drawable.avacat_animation)
         }
+            readAnimation = binding.avatarnih.background as AnimationDrawable
+            readAnimation.start()
+
     }
 
 

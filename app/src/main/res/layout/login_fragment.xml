@@ -6,102 +6,9 @@
     android:layout_height="match_parent"
     tools:context=".UI.login.LoginFragment">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Ini Login" />
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-        <TextView
-            android:id="@+id/HeadingLogin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="LOGIN"
-            android:textAlignment="viewStart"
-            android:textColor="@color/black"
-            android:alpha="0"
-            android:textSize="34sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/loginDesc"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <TextView
-            android:id="@+id/loginDesc"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="32dp"
-            android:alpha="0"
-            android:text="Kami merindukanmu untuk terus belajar bersama"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textSize="14sp"
-            app:layout_constraintBottom_toTopOf="@+id/editTextTextEmailAddress"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <Button
-            android:id="@+id/masuk"
-            style="@style/ButtonGeneral"
-            android:layout_marginBottom="16dp"
-            android:alpha="0"
-            android:backgroundTint="@android:color/darker_gray"
-            android:enabled="false"
-            android:text="Masuk"
-            android:textColor="@color/white"
-            app:layout_constraintBottom_toTopOf="@+id/Daftar"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <TextView
-            android:id="@+id/Daftar"
-            android:alpha="0"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="200dp"
-            android:text="Belum punya akun? Daftar"
-            android:textColor="@color/black"
-            android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/masuk"
-            app:layout_constraintStart_toStartOf="@+id/masuk" />
-
-        <com.example.storyapp.custom.CustomEmail
-            android:id="@+id/editTextTextEmailAddress"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:alpha="0"
-            android:drawablePadding="10dp"
-            android:hint="Masukkan email"
-            android:textColorHint="@android:color/darker_gray"
-            android:inputType="textEmailAddress"
-            android:textColor="@android:color/holo_orange_dark"
-            android:padding="10dp"
-            android:textSize="15sp"
-            app:layout_constraintBottom_toTopOf="@+id/editTextTextPassword"
-            app:layout_constraintEnd_toEndOf="@+id/loginDesc"
-            app:layout_constraintStart_toStartOf="@+id/loginDesc" />
-
-        <com.example.storyapp.custom.CustomPassword
-            android:id="@+id/editTextTextPassword"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:textSize="15sp"
-            android:textColorHint="@android:color/darker_gray"
-            android:textColor="@android:color/holo_orange_dark"
-            android:layout_marginBottom="32dp"
-            android:alpha="0"
-            android:drawablePadding="10dp"
-            android:hint="Masukkan password"
-            android:inputType="textPassword"
-            app:layout_constraintBottom_toTopOf="@+id/masuk"
-            app:layout_constraintEnd_toEndOf="@+id/editTextTextEmailAddress"
-            app:layout_constraintStart_toStartOf="@+id/editTextTextEmailAddress" />
 
         <ImageView
             android:id="@+id/paw"
@@ -140,6 +47,96 @@
             app:lottie_speed="2"
             app:lottie_loop="true"
             app:lottie_rawRes="@raw/cat_loader" />
+
+        <ScrollView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/HeadingLogin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:alpha="0"
+                    android:text="LOGIN"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/black"
+                    android:textSize="34sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/loginDesc"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="32dp"
+                    android:alpha="0"
+                    android:text="Kami merindukanmu untuk terus belajar bersama"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+
+                <com.example.storyapp.custom.CustomEmail
+                    android:id="@+id/editTextTextEmailAddress"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:alpha="0"
+                    android:drawablePadding="10dp"
+                    android:hint="Masukkan email"
+                    android:inputType="textEmailAddress"
+                    android:padding="10dp"
+                    android:textColor="@android:color/holo_orange_dark"
+                    android:textColorHint="@android:color/darker_gray"
+                    android:textSize="15sp" />
+
+                <com.example.storyapp.custom.CustomPassword
+                    android:id="@+id/editTextTextPassword"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="32dp"
+                    android:alpha="0"
+                    android:drawablePadding="10dp"
+                    android:hint="Masukkan password"
+                    android:inputType="textPassword"
+                    android:padding="10dp"
+                    android:textColor="@android:color/holo_orange_dark"
+                    android:textColorHint="@android:color/darker_gray"
+                    android:textSize="15sp" />
+
+                <Button
+                    android:id="@+id/masuk"
+                    style="@style/ButtonGeneral"
+                    android:layout_marginBottom="16dp"
+                    android:alpha="0"
+                    android:backgroundTint="@android:color/darker_gray"
+                    android:enabled="false"
+                    android:text="Masuk"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:id="@+id/Daftar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:alpha="0"
+                    android:text="Belum punya akun? Daftar"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+        </ScrollView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

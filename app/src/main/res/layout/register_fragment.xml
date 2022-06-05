@@ -6,120 +6,9 @@
     android:layout_height="match_parent"
     tools:context=".UI.register.RegisterFragment">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Ini Login" />
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-        <TextView
-            android:id="@+id/HeadingRegist"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:alpha="0"
-            android:text="DAFTAR"
-            android:textAlignment="viewStart"
-            android:textColor="@color/black"
-            android:textSize="34sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/registerDesc"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <TextView
-            android:id="@+id/registerDesc"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="32dp"
-            android:alpha="0"
-            android:text="Silahkan untuk melakukan pendaftaran sebelum belajar ya"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textSize="14sp"
-            app:layout_constraintBottom_toTopOf="@+id/daftarNama"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <Button
-            android:id="@+id/daftarDaftar"
-            style="@style/ButtonGeneral"
-            android:layout_marginBottom="16dp"
-            android:alpha="0"
-            android:backgroundTint="@android:color/darker_gray"
-            android:enabled="false"
-            android:text="Daftar"
-            android:textColor="@color/white"
-            app:layout_constraintBottom_toTopOf="@+id/daftarMasuk"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <TextView
-            android:id="@+id/daftarMasuk"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="200dp"
-            android:alpha="0"
-            android:text="Sudah punya akun? Masuk"
-            android:textColor="@color/black"
-            android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/daftarDaftar"
-            app:layout_constraintStart_toStartOf="@+id/daftarDaftar" />
-
-        <EditText
-            android:id="@+id/daftarNama"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:alpha="0"
-            android:background="@drawable/custom_input"
-            android:drawableStart="@drawable/custom_name"
-            android:drawablePadding="10dp"
-            android:hint="Masukkan nama"
-            android:inputType="textEmailAddress"
-            android:padding="10dp"
-            android:textColor="@android:color/holo_orange_dark"
-            android:textColorHint="@android:color/darker_gray"
-            android:textSize="15sp"
-            app:layout_constraintBottom_toTopOf="@+id/daftarEmail"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <com.example.storyapp.custom.CustomEmail
-            android:id="@+id/daftarEmail"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:alpha="0"
-            android:drawablePadding="10dp"
-            android:hint="Masukkan email"
-            android:inputType="textEmailAddress"
-            android:padding="10dp"
-            android:textColor="@android:color/holo_orange_dark"
-            android:textColorHint="@android:color/darker_gray"
-            android:textSize="15sp"
-            app:layout_constraintBottom_toTopOf="@+id/daftarPassword"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <com.example.storyapp.custom.CustomPassword
-            android:id="@+id/daftarPassword"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="32dp"
-            android:alpha="0"
-            android:drawablePadding="10dp"
-            android:hint="Masukkan password"
-            android:inputType="textPassword"
-            android:padding="10dp"
-            android:textColor="@android:color/holo_orange_dark"
-            android:textColorHint="@android:color/darker_gray"
-            android:textSize="15sp"
-            app:layout_constraintBottom_toTopOf="@+id/daftarDaftar"
-            app:layout_constraintStart_toStartOf="@+id/daftarEmail" />
 
         <ImageView
             android:id="@+id/daftarPaw"
@@ -158,6 +47,110 @@
             app:lottie_loop="true"
             app:lottie_rawRes="@raw/cat_loader"
             app:lottie_speed="2" />
+
+        <ScrollView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/HeadingRegist"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:alpha="0"
+                    android:text="DAFTAR"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/black"
+                    android:textSize="34sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/registerDesc"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="32dp"
+                    android:alpha="0"
+                    android:text="Silahkan untuk melakukan pendaftaran sebelum belajar ya"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/daftarNama"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:alpha="0"
+                    android:background="@drawable/custom_input"
+                    android:drawableStart="@drawable/custom_name"
+                    android:drawablePadding="10dp"
+                    android:hint="Masukkan nama"
+                    android:inputType="textEmailAddress"
+                    android:padding="10dp"
+                    android:textColor="@android:color/holo_orange_dark"
+                    android:textColorHint="@android:color/darker_gray"
+                    android:textSize="15sp" />
+
+                <com.example.storyapp.custom.CustomEmail
+                    android:id="@+id/daftarEmail"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:alpha="0"
+                    android:drawablePadding="10dp"
+                    android:hint="Masukkan email"
+                    android:inputType="textEmailAddress"
+                    android:padding="10dp"
+                    android:textColor="@android:color/holo_orange_dark"
+                    android:textColorHint="@android:color/darker_gray"
+                    android:textSize="15sp" />
+
+                <com.example.storyapp.custom.CustomPassword
+                    android:id="@+id/daftarPassword"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="32dp"
+                    android:alpha="0"
+                    android:drawablePadding="10dp"
+                    android:hint="Masukkan password"
+                    android:inputType="textPassword"
+                    android:padding="10dp"
+                    android:textColor="@android:color/holo_orange_dark"
+                    android:textColorHint="@android:color/darker_gray"
+                    android:textSize="15sp" />
+
+                <Button
+                    android:id="@+id/daftarDaftar"
+                    style="@style/ButtonGeneral"
+                    android:layout_marginBottom="16dp"
+                    android:alpha="0"
+                    android:backgroundTint="@android:color/darker_gray"
+                    android:enabled="false"
+                    android:text="Daftar"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:id="@+id/daftarMasuk"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:alpha="0"
+                    android:text="Sudah punya akun? Masuk"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+        </ScrollView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

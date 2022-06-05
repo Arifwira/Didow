@@ -176,6 +176,11 @@ class ExerciseHandWritingFragment : Fragment() {
                                 }
                             }
                         } catch (e: IOException) {
+                            binding.apply {
+                                darkBg.visibility = View.GONE
+                                catLogin.visibility = View.GONE
+                                loadingText.visibility = View.GONE
+                            }
                             Log.d("errorUpload", e.message.toString())
                         }
                     }
@@ -229,6 +234,9 @@ class ExerciseHandWritingFragment : Fragment() {
                             makeAssessmentReportIntent(exerciseViewModel.assessmentReport.value!!)
                         activity?.setResult(110, intent)
                         activity?.finish()
+                    }
+                    "sample" -> {
+                        findNavController().navigate(R.id.action_exerciseHandWritingFragment_to_sampleCompleteFragment2)
                     }
                 }
             }

@@ -130,8 +130,13 @@ class ExerciseWordsScrambleFragment : Fragment() {
 
             answerAdapter.setOnItemClickCallback(object: ExerciseWordsScrambleAnswerAdapter.OnItemClickCallback {
                 override fun onItemClicked(data: String) {
+                    if(selectedLetters.isEmpty()){
+                        Toast.makeText(this@ExerciseWordsScrambleFragment.context,"Jawaban masih Kosong",Toast.LENGTH_SHORT).show()
+                        Log.d("answer rv remove", "Jawaban masih Kosong")
+                    }else{
                     scrambleWordsViewModel.undoLetter()
                     Log.d("answer rv remove", selectedLetters.toString())
+                    }
                 }
             })
             val word = exerciseViewModel.currentQuestion.value?.word

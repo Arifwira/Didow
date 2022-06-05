@@ -7,6 +7,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.ViewTreeObserver
+import android.view.inputmethod.InputMethodManager
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavOptions
@@ -23,8 +25,14 @@ class OnBoarding : AppCompatActivity() {
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
         if (result.resultCode == ExerciseActivity.RESULT_CODE && result.data != null) {
-            saveAssessmentReportToSharedPref(result.data)
-            findNavController(R.id.container_onBoarding).navigate(R.id.action_assessmentStartFragment_to_assessmentCompleteFragment2)
+            val fromSample = result!!.data!!.getBooleanExtra("fromSample", false)
+            Log.d("fromSample", fromSample.toString())
+            if (fromSample) {
+                findNavController(R.id.container_onBoarding).navigate(R.id.action_featuresFragment_to_assessmentStartFragment)
+            } else {
+                saveAssessmentReportToSharedPref(result.data)
+                findNavController(R.id.container_onBoarding).navigate(R.id.action_assessmentStartFragment_to_assessmentCompleteFragment2)
+            }
         }
     }
 
