@@ -16,6 +16,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.capstone.didow.R
 import com.capstone.didow.databinding.HistoryFragmentBinding
 import com.capstone.didow.databinding.HomeFragmentBinding
+import com.google.android.material.datepicker.CalendarConstraints
+import com.google.android.material.datepicker.DateValidatorPointBackward
+import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.firebase.auth.FirebaseAuth
 import java.text.SimpleDateFormat
@@ -58,7 +61,7 @@ class HistoryFragment : Fragment() {
         Log.d("endDateTime", endDate.toString())
         Log.d("startDateTime", startDate.toString())
 
-        datePicker()
+        datePicker(startDateTime, endDateTime)
         showRecyclerViewHistory()
 
         historyViewModel.init(auth.currentUser?.uid!!, startDate.toString(), endDate.toString(), TIMEZONE)
@@ -90,13 +93,24 @@ class HistoryFragment : Fragment() {
 
     }
 
-    private fun datePicker(){
-        val datePicker = MaterialDatePicker.Builder.dateRangePicker()
+    private fun datePicker(startDateSet: Long, endDateSet: Long){
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd")
+        binding.apply {
+            tvStartDate.text = dateFormat.format(Date(startDateSet))
+            tvEndDate.text = dateFormat.format(Date(endDateSet))
+        }
+        val constraintBuilder = CalendarConstraints.Builder()
+        constraintBuilder.setValidator(DateValidatorPointBackward.now())
+        val datePicker = MaterialDatePicker.Builder.dateRangePicker().setCalendarConstraints(constraintBuilder.build())
+            .setSelection(
+                Pair(
+                    startDateSet, endDateSet
+                )
+            )
             .setTitleText("Select dates").build()
         binding.btnCalendar.setOnClickListener {
             datePicker.show(childFragmentManager, "Tag_picker")
             datePicker.addOnPositiveButtonClickListener {
-                val dateFormat = SimpleDateFormat("yyyy-MM-dd")
                 val datePickerFirst = datePicker.selection?.first
                 val datePickerSecond = datePicker.selection?.second
                 val dateFirst = dateFormat.format(Date(datePickerFirst!!))
@@ -109,7 +123,6 @@ class HistoryFragment : Fragment() {
                 endDate = dateSecond
                 historyViewModel.init(auth.currentUser?.uid!!, startDate.toString(), endDate.toString(), TIMEZONE)
             }
-
         }
     }
 

@@ -39,4 +39,10 @@
         <item name="android:colorForeground">#42221f1f
         </item>
     </style>
+
+<!--    Style For Fullscreen Dialog    -->
+    <style name="DialogTheme" parent="Theme.Didow">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">false</item>
+    </style>
 </resources>
