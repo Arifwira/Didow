@@ -53,6 +53,9 @@ interface ApiService {
 
     @POST("handwritings")
     suspend fun analyzeHandwriting(@Body requestBody: MultipartBody): HandwritingResponse
+
+    @GET("suggestions")
+    suspend fun getSuggestions(@Query("userId") userId: String): SuggestionsResponse
 }
 
 class RetrofitInstance {

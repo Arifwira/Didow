@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.capstone.didow.api.GetExercisesResponse
 import com.capstone.didow.api.RetrofitInstance
+import com.capstone.didow.api.SuggestionsResponse
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -16,8 +17,10 @@ import kotlinx.coroutines.tasks.await
 class HistoryViewModel : ViewModel() {
     private val _history = MutableLiveData<List<History>>()
     private val _userId = MutableLiveData<String>()
+    private val _suggestion = MutableLiveData<String>()
 
     val history: LiveData<List<History>> = _history
+    val suggestion: LiveData<String> = _suggestion
 
     private val auth = Firebase.auth
     private var currentUser: FirebaseUser? = null
@@ -37,10 +40,14 @@ class HistoryViewModel : ViewModel() {
         viewModelScope.launch {
 
             val response: GetExercisesResponse?
+            val suggestionsResponse: SuggestionsResponse?
 
             val userToken = currentUser!!.getIdToken(true).await().token
             response = client.getExercises(_userId.value, null, startDate, endDate, timeZone, userToken!!)
+            suggestionsResponse = client.getSuggestions(_userId.value!!)
             Log.d("response", response.data.toString())
+
+            _suggestion.value = suggestionsResponse.data!!
 
             val data = response?.data
             val histories = mutableListOf<History>()
