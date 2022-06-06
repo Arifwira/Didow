@@ -95,7 +95,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <androidx.appcompat.widget.SwitchCompat
-                    android:id="@+id/lessthanfour"
+                    android:id="@+id/twoSyllables"
                     android:layout_width="wrap_content"
                     android:checked="true"
                     android:theme="@style/CustomSwitch"
@@ -105,7 +105,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="kurang dari 4 suku kata"
+                    android:text="2 suku kata"
                     android:textColor="@color/black"/>
             </LinearLayout>
 
@@ -114,7 +114,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <androidx.appcompat.widget.SwitchCompat
-                    android:id="@+id/four"
+                    android:id="@+id/threeSyllables"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:theme="@style/CustomSwitch"
@@ -123,7 +123,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="4 suku kata"
+                    android:text="3 suku kata"
                     android:textColor="@color/black"/>
             </LinearLayout>
 
@@ -132,7 +132,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <androidx.appcompat.widget.SwitchCompat
-                    android:id="@+id/morethanfour"
+                    android:id="@+id/fourOrMoreSyllables"
                     android:layout_width="wrap_content"
                     android:theme="@style/CustomSwitch"
                     android:padding="15dp"
@@ -141,7 +141,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="lebih dari 4 suku kata"
+                    android:text="4 atau lebih suku kata"
                     android:textColor="@color/black"/>
             </LinearLayout>
 
