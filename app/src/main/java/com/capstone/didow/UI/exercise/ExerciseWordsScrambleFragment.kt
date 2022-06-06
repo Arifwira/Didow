@@ -194,11 +194,11 @@ class ExerciseWordsScrambleFragment : Fragment() {
     }
 
     private fun openGuide() {
+        val guideWordsScramble = GuideWordsScrambleFragment()
         binding.btnGuide.setOnClickListener {
-            Toast.makeText(
-                this@ExerciseWordsScrambleFragment.context,
-                "You open the Guidebook", Toast.LENGTH_SHORT
-            ).show()
+            guideWordsScramble.show(childFragmentManager, "Words Scramble Panduan")
+            Toast.makeText(this@ExerciseWordsScrambleFragment.context,
+                "You open the Guidebook", Toast.LENGTH_SHORT).show()
         }
     }
 

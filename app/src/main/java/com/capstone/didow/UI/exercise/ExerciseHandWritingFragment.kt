@@ -253,11 +253,11 @@ class ExerciseHandWritingFragment : Fragment() {
     }
 
     private fun openGuide() {
+        val guideHandWriting = GuideHandWritingFragment()
         binding.btnGuide.setOnClickListener {
-            Toast.makeText(
-                this@ExerciseHandWritingFragment.context,
-                "You open the Guidebook", Toast.LENGTH_SHORT
-            ).show()
+            guideHandWriting.show(childFragmentManager, "Words Scramble Panduan")
+            Toast.makeText(this@ExerciseHandWritingFragment.context,
+                "You open the Guidebook", Toast.LENGTH_SHORT).show()
         }
     }
 
