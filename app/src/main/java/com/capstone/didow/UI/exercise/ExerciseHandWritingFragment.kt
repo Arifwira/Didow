@@ -130,18 +130,18 @@ class ExerciseHandWritingFragment : Fragment() {
 
         binding.btnCamera.setOnClickListener {
             startTakePhoto()
-            Toast.makeText(
-                this@ExerciseHandWritingFragment.context,
-                "You open Camera", Toast.LENGTH_SHORT
-            ).show()
+//            Toast.makeText(
+//                this@ExerciseHandWritingFragment.context,
+//                "You open Camera", Toast.LENGTH_SHORT
+//            ).show()
         }
 
         binding.btnGallery.setOnClickListener {
             pickFromGallery()
-            Toast.makeText(
-                this@ExerciseHandWritingFragment.context,
-                "You open Gallery", Toast.LENGTH_SHORT
-            ).show()
+//            Toast.makeText(
+//                this@ExerciseHandWritingFragment.context,
+//                "You open Gallery", Toast.LENGTH_SHORT
+//            ).show()
         }
 
         binding.lanjut.setOnClickListener {
@@ -256,8 +256,8 @@ class ExerciseHandWritingFragment : Fragment() {
         val guideHandWriting = GuideHandWritingFragment()
         binding.btnGuide.setOnClickListener {
             guideHandWriting.show(childFragmentManager, "Words Scramble Panduan")
-            Toast.makeText(this@ExerciseHandWritingFragment.context,
-                "You open the Guidebook", Toast.LENGTH_SHORT).show()
+//            Toast.makeText(this@ExerciseHandWritingFragment.context,
+//                "You open the Guidebook", Toast.LENGTH_SHORT).show()
         }
     }
 
