@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/historyOption"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:backgroundTint="@color/white"
     android:layout_margin="5dp"
     app:cardCornerRadius="5dp"
     app:cardElevation="3dp"
     app:contentPadding="4dp"
-    android:backgroundTint="@android:color/holo_orange_dark">
+    app:strokeColor="@color/black"
+    app:strokeWidth="2dp"
+    android:backgroundTint="@color/orange_bg">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -22,7 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Tanggal"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="18sp"
 
             android:textStyle="bold"
@@ -37,7 +38,7 @@
             android:text="Berapa Suku Kata"
             android:textAlignment="textEnd"
 
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -49,9 +50,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:textColor="@color/black"
             android:text="Jenis"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvDate" />
 
@@ -67,4 +67,4 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-</androidx.cardview.widget.CardView>
+</com.google.android.material.card.MaterialCardView>

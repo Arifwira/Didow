@@ -51,9 +51,10 @@
                 android:id="@+id/tvRekomendasi"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
                 android:layout_marginTop="8dp"
-                android:textColor="@android:color/black"
                 android:text="Lorem ipsum dolor sit amet,\nconsectetur adipiscing eit. Sed\nvitae laciania eros."
+                android:textColor="@android:color/black"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvRekomendasiTitle" />
