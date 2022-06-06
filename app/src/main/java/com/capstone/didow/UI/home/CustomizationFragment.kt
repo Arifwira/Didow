@@ -36,14 +36,25 @@ class CustomizationFragment : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.lanjutkustom.setOnClickListener {
+            val easy = binding.twoSyllables.isChecked
+            val medium = binding.threeSyllables.isChecked
+            val hard = binding.fourOrMoreSyllables.isChecked
+            val qty = binding.questionCount.text.toString().toInt()
+            val allowRetry = binding.repeat.isChecked
             val intent = Intent(activity, ExerciseActivity::class.java)
-            intent.putExtra("category", "auto")
+            intent.putExtra("category", "custom")
+            intent.putExtra("easy", easy)
+            intent.putExtra("medium", medium)
+            intent.putExtra("hard", hard)
+            intent.putExtra("qty", qty)
+            intent.putExtra("allowRetry", allowRetry)
             startActivity(intent)
+            dismiss()
         }
         val behavior = BottomSheetBehavior.from(requireView().parent as View)
         behavior.state = BottomSheetBehavior.STATE_EXPANDED
-        Log.d("CHECK", "${binding.four.isChecked}")
-        binding.lessthanfour.isChecked = false
+        Log.d("CHECK", "${binding.threeSyllables.isChecked}")
+        binding.twoSyllables.isChecked = false
         toggleChoice()
         questionCount()
     }
@@ -56,27 +67,27 @@ class CustomizationFragment : BottomSheetDialogFragment() {
 
     private fun toggleChoice() {
 
-        binding.lessthanfour.setOnClickListener {
-            binding.four.isChecked = false
-            binding.morethanfour.isChecked = false
+        binding.twoSyllables.setOnClickListener {
+//            binding.four.isChecked = false
+//            binding.morethanfour.isChecked = false
             enableButton()
         }
-        binding.four.setOnClickListener {
-            binding.lessthanfour.isChecked = false
-            binding.morethanfour.isChecked = false
+        binding.threeSyllables.setOnClickListener {
+//            binding.lessthanfour.isChecked = false
+//            binding.morethanfour.isChecked = false
             enableButton()
         }
-        binding.morethanfour.setOnClickListener {
-            binding.lessthanfour.isChecked = false
-            binding.four.isChecked = false
+        binding.fourOrMoreSyllables.setOnClickListener {
+//            binding.lessthanfour.isChecked = false
+//            binding.four.isChecked = false
             enableButton()
         }
     }
 
     private fun enableButton() {
-        val count1 = binding.lessthanfour.isChecked
-        val count2 = binding.four.isChecked
-        val count3 = binding.morethanfour.isChecked
+        val count1 = binding.twoSyllables.isChecked
+        val count2 = binding.threeSyllables.isChecked
+        val count3 = binding.fourOrMoreSyllables.isChecked
         binding.lanjutkustom.isEnabled =
             count1 == true || count2 == true || count3 == true
         if (binding.lanjutkustom.isEnabled) {

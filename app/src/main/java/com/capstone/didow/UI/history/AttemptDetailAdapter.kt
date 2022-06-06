@@ -18,7 +18,7 @@ class AttemptDetailAdapter(private val listDetailAttempts: ArrayList<WrongAttemp
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val data = listDetailAttempts[position]
         holder.apply {
-            binding.tvAttemptsNumber.text = "Attempt ke ${data.attemptNumber}"
+            binding.tvAttemptsNumber.text = "Percobaan ke ${data.attemptNumber}"
             binding.tvFalseAnswer.text = data.answer
         }
     }

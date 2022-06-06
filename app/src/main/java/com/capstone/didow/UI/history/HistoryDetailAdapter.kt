@@ -26,9 +26,9 @@ class HistoryDetailAdapter(private val listDetailHistory: ArrayList<WrongAnswers
             binding.tvSoalNumber.text = "Soal Nomor ${data.number}"
             binding.tvTrueAnswer.text = data.word
             binding.tvTypeInput.text = when(data.type){
-                "multipleChoice" -> "Multiple Choice"
-                "handwriting" -> "Hand Writing"
-                "scrambleWords" -> "Scramble Words"
+                "multipleChoice" -> "Pilihan Ganda"
+                "handwriting" -> "Tulis Tangan"
+                "scrambleWords" -> "Susun Kata"
                 else -> ""
             }
             binding.rvDetailSoal.layoutManager = LinearLayoutManager(holder.itemView.context)
@@ -37,7 +37,7 @@ class HistoryDetailAdapter(private val listDetailHistory: ArrayList<WrongAnswers
             binding.consDetailLayout.setOnClickListener{
                 visibility = !visibility
                 binding.expandableDetailLayout.visibility = if(visibility) View.VISIBLE else View.GONE
-                notifyItemChanged(position)
+//                notifyItemChanged(position)
             }
 
         }

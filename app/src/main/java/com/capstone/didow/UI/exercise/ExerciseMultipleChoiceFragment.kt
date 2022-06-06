@@ -147,7 +147,9 @@ class ExerciseMultipleChoiceFragment : Fragment() {
     }
 
     private fun openGuide(){
+        val guideMultipleChoice = GuideMultipleChoiceFragment()
         binding.btnGuide.setOnClickListener {
+            guideMultipleChoice.show(childFragmentManager, "Multiple Choice Panduan")
             Toast.makeText(this@ExerciseMultipleChoiceFragment.context,
                 "You open the Guidebook", Toast.LENGTH_SHORT).show()
         }

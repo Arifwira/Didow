@@ -34,6 +34,7 @@ class AssessmentStartFragment : Fragment() {
 //            it.findNavController().navigate(R.id.action_assessmentStartFragment_to_exerciseActivity)
             val intent = Intent(activity, ExerciseActivity::class.java)
             intent.putExtra("category", "assessment")
+            intent.putExtra("allowRetry", false)
 //            startActivity(intent)
             val onboardingActivity = activity as OnBoarding
             onboardingActivity.resultLauncher.launch(intent)

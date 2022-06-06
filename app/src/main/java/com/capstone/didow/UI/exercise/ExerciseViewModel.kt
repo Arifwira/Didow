@@ -1,5 +1,6 @@
 package com.capstone.didow.UI.exercise
 
+import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -9,7 +10,11 @@ import com.capstone.didow.api.GetUserResponse
 import com.capstone.didow.api.RetrofitInstance
 import com.capstone.didow.entities.*
 import com.capstone.didow.api.QuestionsResponse
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONArray
@@ -34,22 +39,38 @@ class ExerciseViewModel : ViewModel() {
     val isFinished: LiveData<Boolean> = _isFinished
     val assessmentReport: LiveData<AssessmentReport> = _assessmentReport
 
+    private val auth = Firebase.auth
+    private var currentUser: FirebaseUser? = null
 
-    fun init(category: String, userId: String?) {
-        if (userId != null) {
-            _userId.value = userId!!
+    fun init(bundle: Bundle, userId: String?) {
+        val category = bundle.getString("category")
+        val easy = bundle.getBoolean("easy")
+        val medium = bundle.getBoolean("medium")
+        val hard = bundle.getBoolean("hard")
+        val qty = bundle.getInt("qty")
+        val allowRetry = bundle.getBoolean("allowRetry")
+
+        currentUser = auth.currentUser
+        if (currentUser != null) {
+            _userId.value = currentUser!!.uid
         }
+//        if (userId != null) {
+//            _userId.value = userId!!
+//        }
         val client = RetrofitInstance.getApiService()
         viewModelScope.launch {
             var userInfo: GetUserResponse? = null
-            if (userId != null) {
-                userInfo = client.getUser(userId, null)
+            if (currentUser != null) {
+                val userToken = currentUser!!.getIdToken(true).await().token
+                userInfo = client.getUser(_userId.value!!, null, userToken!!)
             }
             var response: QuestionsResponse? = null
 
             when (category) {
-                "auto" -> response = client.getQuestions(category, userInfo!!.data?.weightPoint)
-                "assessment" -> response = client.getQuestions(category, null)
+                "auto" -> response = client.getQuestions(category, userInfo!!.data?.weightPoint, null, null, null, null)
+                "assessment" -> response = client.getQuestions(category, null, null, null, null, null)
+                "custom" -> response = client.getQuestions(category, null, qty, easy, medium, hard)
+                "sample" -> response = client.getQuestions("custom", null, 3, true, null, null)
             }
 
             val data = response?.data
@@ -85,7 +106,7 @@ class ExerciseViewModel : ViewModel() {
                 questionNumber++
                 questions.add(question!!)
             }
-            _exercise.value = Exercise(questions, category)
+            _exercise.value = Exercise(questions, category!!, allowRetry)
             _isLoaded.value = true
         }
     }
@@ -104,7 +125,7 @@ class ExerciseViewModel : ViewModel() {
         val newQuestion = this.currentAttempt.value?.next()
         if (newQuestion == null) {
             val newAttempt = this.currentAttempt.value?.checkWrongAnswers()
-            if (newAttempt == null || exercise.value?.category == "assessment") {
+            if (newAttempt == null || !exercise.value?.allowRetry!!) {
                 finish()
             } else {
                 _isRetry.value = true
@@ -158,7 +179,8 @@ class ExerciseViewModel : ViewModel() {
         val requestBody = jsonRequestBody.toString().toRequestBody("application/json".toMediaTypeOrNull())
 
         val client = RetrofitInstance.getApiService()
-        client.createExercise(requestBody)
+        val userToken = currentUser!!.getIdToken(true).await().token
+        client.createExercise(requestBody, userToken!!)
     }
 
     private suspend fun getAssessmentReport() {

@@ -7,60 +7,21 @@
     <string name="gallery">Album</string>
     <string name="lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas elementum, dolor non suscipit tincidunt, tellus elit pulvinar metus, nec sodales odio est id est. Ut vitae sem consequat, porta felis eu, condimentum ante. Phasellus imperdiet, eros et lacinia lobortis, nunc nibh vehicula enim, a elementum nunc arcu scelerisque eros. Nunc interdum vulputate nisi sit amet finibus. Fusce eu nisl a mi ornare lacinia. Aliquam eu tellus volutpat, varius tortor eu, pretium elit. Nunc mattis hendrerit tellus. Phasellus aliquam odio non feugiat sodales. Praesent finibus lectus et augue placerat, a semper turpis dictum. Sed fringilla sodales ante ac molestie.</string>
     <string name="normal_description">Pada mode ini soal yang diberikan akan secara otomatis menyesuaikan dengan kemampuan anak</string>
-
-    <string-array name="multiple_choice_option">
-        <item>buku</item>
-        <item>puku</item>
-        <item>duku</item>
-        <item>puqu</item>
-    </string-array>
-
-    <string-array name="word_scramble_option">
-        <item>Q</item>
-        <item>K</item>
-        <item>U</item>
-        <item>B</item>
-        <item>U</item>
-        <item>P</item>
-    </string-array>
-
-    <string-array name="date_array">
-        <item>31–12–2021</item>
-        <item>31–12–2021</item>
-        <item>31–12–2021</item>
-        <item>31–12–2021</item>
-        <item>31–12–2021</item>
-        <item>31–12–2021</item>
-    </string-array>
-
-    <string-array name="count_suku_kata">
-        <item>4</item>
-        <item>4</item>
-        <item>3</item>
-        <item>3</item>
-        <item>2</item>
-        <item>2</item>
-    </string-array>
-
-    <string-array name="jenis_soal">
-        <item>Auto</item>
-        <item>Custom</item>
-        <item>Auto</item>
-        <item>Custom</item>
-        <item>Auto</item>
-        <item>Custom</item>
-    </string-array>
-
-    <integer-array name="nomor_soal">
-        <item>3</item>
-        <item>5</item>
-        <item>7</item>
-    </integer-array>
-
-    <string-array name="detail_description">
-        <item>Deskripsi Halaman No 3</item>
-        <item>Deskripsi Halaman No 5</item>
-        <item>Deskripsi Halaman No 7</item>
-    </string-array>
-
+  
+    <string name="speaker_panduan_description">Tekan tombol pengeras suara untuk mendengarkan kata</string>
+    <string name="speaker_panduan">Bantuan Suara</string>
+    <string name="hint_panduan_description">Tekan tombol \"HINT\" untuk melihat bantuan gambar</string>
+    <string name="hint_panduan_add_hangman_description">Tekan tombol \"HINT\" untuk melihat bantuan gambar dan hangman</string>
+    <string name="hint_memilih_description">Pilih salah satu pilihan jawaban sesuai kata yang terdengar</string>
+    <string name="hint_susun_description">Susun kata dengan memilih huruf yg disediakan satu per satu</string>
+    <string name="hint_tulis_description">Tulis kata yang kamu dengar pada kertas</string>
+    <string name="hint_huruf_pilih_description">Huruf yang kamu pilih akan masuk ke dalam kotak jawaban</string>
+    <string name="hint_tekan_huruf_hapus_description">Tekan huruf yang ada pada kotak jawaban untuk mengembalikan huruf</string>
+    <string name="hint_tekan_kamera_gallery_description">Tekan tombol kamera atau galeri untuk mengambil foto tulisan kamu</string>
+    <string name="hint_ambil_description">Atur dan sesuaikan foto tulisan mu agar dapat terdeteksi</string>
+    <string name="hint_check_answer_description">Tekan tombol \"LANJUT\" untuk mengetahui jawabanmu</string>
+    <string name="hint_kotak_terisi_description">Saat kotak jawaban penuh maka kamu sudah menjawab</string>
+    <string name="hint_jawaban_salah">Jika jawaban yang dipilih salah maka kamu dapat memperbaikinya nanti</string>
+  
+    <string name="kustom_description">Pada mode ini Anda dapat menyesuaikan jumlah dan tingkat kesulitan soal sesuai preferensi</string>
 </resources>
