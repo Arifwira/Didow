@@ -152,8 +152,8 @@ class ExerciseWordsScrambleFragment : Fragment() {
                         falseDialog()
                     }
                 }
-                Toast.makeText(this.context,
-                    "Anda $isCorrect",Toast.LENGTH_SHORT).show()
+//                Toast.makeText(this.context,
+//                    "Anda $isCorrect",Toast.LENGTH_SHORT).show()
             }
         })
 
@@ -198,8 +198,8 @@ class ExerciseWordsScrambleFragment : Fragment() {
         val guideWordsScramble = GuideWordsScrambleFragment()
         binding.btnGuide.setOnClickListener {
             guideWordsScramble.show(childFragmentManager, "Words Scramble Panduan")
-            Toast.makeText(this@ExerciseWordsScrambleFragment.context,
-                "You open the Guidebook", Toast.LENGTH_SHORT).show()
+//            Toast.makeText(this@ExerciseWordsScrambleFragment.context,
+//                "You open the Guidebook", Toast.LENGTH_SHORT).show()
         }
     }
 

@@ -904,6 +904,15 @@
                 motion:attributeName="crossfade"
                 motion:customFloatValue="0" />
         </Constraint>
+        <Constraint
+            android:id="@+id/btnDismiss"
+            motion:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            motion:layout_constraintBottom_toTopOf="@+id/menu2"
+            android:alpha="1"
+            motion:layout_constraintStart_toStartOf="parent" />
     </ConstraintSet>
     <Transition
         motion:constraintSetStart="@+id/menu6"
