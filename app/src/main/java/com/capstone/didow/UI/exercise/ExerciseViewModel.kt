@@ -10,7 +10,11 @@ import com.capstone.didow.api.GetUserResponse
 import com.capstone.didow.api.RetrofitInstance
 import com.capstone.didow.entities.*
 import com.capstone.didow.api.QuestionsResponse
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONArray
@@ -35,6 +39,8 @@ class ExerciseViewModel : ViewModel() {
     val isFinished: LiveData<Boolean> = _isFinished
     val assessmentReport: LiveData<AssessmentReport> = _assessmentReport
 
+    private val auth = Firebase.auth
+    private var currentUser: FirebaseUser? = null
 
     fun init(bundle: Bundle, userId: String?) {
         val category = bundle.getString("category")
@@ -44,14 +50,19 @@ class ExerciseViewModel : ViewModel() {
         val qty = bundle.getInt("qty")
         val allowRetry = bundle.getBoolean("allowRetry")
 
-        if (userId != null) {
-            _userId.value = userId!!
+        currentUser = auth.currentUser
+        if (currentUser != null) {
+            _userId.value = currentUser!!.uid
         }
+//        if (userId != null) {
+//            _userId.value = userId!!
+//        }
         val client = RetrofitInstance.getApiService()
         viewModelScope.launch {
             var userInfo: GetUserResponse? = null
-            if (userId != null) {
-                userInfo = client.getUser(userId, null)
+            if (currentUser != null) {
+                val userToken = currentUser!!.getIdToken(true).await().token
+                userInfo = client.getUser(_userId.value!!, null, userToken!!)
             }
             var response: QuestionsResponse? = null
 
@@ -168,7 +179,8 @@ class ExerciseViewModel : ViewModel() {
         val requestBody = jsonRequestBody.toString().toRequestBody("application/json".toMediaTypeOrNull())
 
         val client = RetrofitInstance.getApiService()
-        client.createExercise(requestBody)
+        val userToken = currentUser!!.getIdToken(true).await().token
+        client.createExercise(requestBody, userToken!!)
     }
 
     private suspend fun getAssessmentReport() {

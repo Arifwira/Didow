@@ -23,6 +23,7 @@ interface ApiService {
     suspend fun getUser(
         @Path("id") id: String,
         @Query("weightOnly") weightOnly: Boolean?,
+        @Header("x-firebase-token") firebaseToken: String,
     ): GetUserResponse
 
     @POST("users")
@@ -35,10 +36,14 @@ interface ApiService {
         @Query("startDate") startDate: String?,
         @Query("endDate") endDate: String?,
         @Header("x-timezone") timezone: Int,
+        @Header("x-firebase-token") firebaseToken: String,
     ): GetExercisesResponse
 
     @POST("exercises")
-    suspend fun createExercise(@Body requestBody: RequestBody): CreateExerciseResponse
+    suspend fun createExercise(
+        @Body requestBody: RequestBody,
+        @Header("x-firebase-token") firebaseToken: String,
+    ): CreateExerciseResponse
 
     @POST("assessments")
     suspend fun createAssessmentReport(@Body requestBody: RequestBody): CreateAssessmentResponse
