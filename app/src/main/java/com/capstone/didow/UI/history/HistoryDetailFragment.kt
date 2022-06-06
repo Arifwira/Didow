@@ -31,6 +31,11 @@ class HistoryDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val data = arguments?.getParcelableArrayList<WrongAnswers>(EXTRA_DATA)
+
+        if (data!!.size == 0) {
+            binding.tvBlankDetail.visibility = View.VISIBLE
+        }
+
         super.onViewCreated(view, savedInstanceState)
         binding.rvDetailHistory.setHasFixedSize(true)
         adapter = HistoryDetailAdapter(data!!)
