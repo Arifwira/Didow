@@ -6,125 +6,140 @@
     android:layout_height="match_parent"
     tools:context=".UI.profile.EditProfile">
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="ini edit Profile" />
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/transparentbg"
+            android:orientation="vertical"
+            android:padding="15dp"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/headingProfile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Edit Profile"
+                android:textColor="@color/black"
+                android:textSize="34dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Nama"
+                android:paddingStart="8dp"
+                android:textColor="@color/black"
+                app:layout_constraintEnd_toEndOf="@+id/namaProfile"
+                app:layout_constraintStart_toStartOf="@+id/namaProfile"
+                app:layout_constraintTop_toBottomOf="@+id/headingProfile" />
+
+            <EditText
+                android:id="@+id/namaProfile"
+                android:layout_width="200dp"
+                android:layout_height="40dp"
+                android:background="@drawable/input_border"
+                android:hint="Nama"
+                android:inputType="textPersonName"
+                android:padding="10dp"
+                android:textColor="@color/black"
+                android:textColorHint="@android:color/darker_gray"
+                app:layout_constraintEnd_toEndOf="@+id/headingProfile"
+                app:layout_constraintStart_toStartOf="@+id/headingProfile"
+                app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Tanggal Lahir"
+                android:paddingStart="8dp"
+                android:textColor="@color/black"
+                app:layout_constraintEnd_toEndOf="@+id/namaProfile"
+                app:layout_constraintStart_toStartOf="@+id/namaProfile"
+                app:layout_constraintTop_toBottomOf="@+id/namaProfile" />
+
+            <EditText
+                android:id="@+id/editTextDate"
+                android:layout_width="200dp"
+                android:layout_height="40dp"
+                android:background="@drawable/input_border"
+                android:ems="10"
+                android:hint="01/05/2001"
+                android:inputType="date"
+                android:padding="10dp"
+                android:textColorHint="@android:color/darker_gray"
+                app:layout_constraintEnd_toEndOf="@+id/namaProfile"
+                app:layout_constraintStart_toStartOf="@+id/namaProfile"
+                app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:paddingStart="8dp"
+                android:text="Jenis Kelamin"
+                android:textColor="@color/black"
+                app:layout_constraintEnd_toEndOf="@+id/editTextDate"
+                app:layout_constraintStart_toStartOf="@+id/editTextDate"
+                app:layout_constraintTop_toBottomOf="@+id/editTextDate" />
+
+            <RadioGroup
+                android:id="@+id/radioGroup"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="@+id/editTextDate"
+                app:layout_constraintStart_toStartOf="@+id/editTextDate"
+                app:layout_constraintTop_toBottomOf="@+id/textView6">
+
+                <RadioButton
+                    android:id="@+id/pria"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Laki-laki"
+                    android:textColor="@color/black" />
+
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <RadioButton
+                    android:id="@+id/wanita"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Perempuan"
+                    android:textColor="@color/black" />
+            </RadioGroup>
+        </LinearLayout>
 
         <Button
             android:id="@+id/simpanProfile"
             android:layout_width="200dp"
             android:layout_height="60dp"
             android:layout_gravity="center"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="15dp"
             android:backgroundTint="@android:color/holo_red_dark"
             android:text="simpan"
+            android:textColor="@color/white"
             app:cornerRadius="50dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
-
-        <TextView
-            android:id="@+id/headingProfile"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="150dp"
-            android:text="Edit Profile"
-            android:textSize="34dp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="32dp"
-            android:text="Nama"
-            app:layout_constraintEnd_toEndOf="@+id/namaProfile"
-            app:layout_constraintStart_toStartOf="@+id/namaProfile"
-            app:layout_constraintTop_toBottomOf="@+id/headingProfile" />
-
-        <EditText
-            android:id="@+id/namaProfile"
-            android:layout_width="200dp"
-            android:layout_height="40dp"
-            android:background="@drawable/input_border"
-            android:hint="Nama"
-            android:inputType="textPersonName"
-            android:padding="10dp"
-            app:layout_constraintEnd_toEndOf="@+id/headingProfile"
-            app:layout_constraintStart_toStartOf="@+id/headingProfile"
-            app:layout_constraintTop_toBottomOf="@+id/textView4" />
-
-        <TextView
-            android:id="@+id/textView5"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:text="Tanggal Lahir"
-            app:layout_constraintEnd_toEndOf="@+id/namaProfile"
-            app:layout_constraintStart_toStartOf="@+id/namaProfile"
-            app:layout_constraintTop_toBottomOf="@+id/namaProfile" />
-
-        <EditText
-            android:id="@+id/editTextDate"
-            android:layout_width="200dp"
-            android:layout_height="40dp"
-            android:background="@drawable/input_border"
-            android:ems="10"
-            android:hint="01/05/2001"
-            android:inputType="date"
-            android:padding="10dp"
-            app:layout_constraintEnd_toEndOf="@+id/namaProfile"
-            app:layout_constraintStart_toStartOf="@+id/namaProfile"
-            app:layout_constraintTop_toBottomOf="@+id/textView5" />
-
-        <TextView
-            android:id="@+id/textView6"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:text="Jenis Kelamin"
-            app:layout_constraintEnd_toEndOf="@+id/editTextDate"
-            app:layout_constraintStart_toStartOf="@+id/editTextDate"
-            app:layout_constraintTop_toBottomOf="@+id/editTextDate" />
-
-        <RadioGroup
-            android:id="@+id/radioGroup"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="@+id/editTextDate"
-            app:layout_constraintStart_toStartOf="@+id/editTextDate"
-            app:layout_constraintTop_toBottomOf="@+id/textView6">
-
-            <RadioButton
-                android:id="@+id/pria"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Laki-laki" />
-
-            <View
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_weight="1" />
-
-            <RadioButton
-                android:id="@+id/wanita"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Perempuan" />
-        </RadioGroup>
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 
 </FrameLayout>

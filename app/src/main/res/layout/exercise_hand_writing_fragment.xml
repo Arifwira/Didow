@@ -38,6 +38,16 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/tvNomorSoal" />
 
+        <ImageView
+            android:id="@+id/tekanAku"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/btnPlay"
+            app:layout_constraintEnd_toEndOf="@+id/btnPlay"
+            app:layout_constraintStart_toStartOf="@+id/btnPlay"
+            tools:src="@tools:sample/avatars" />
+
         <com.capstone.didow.UI.custom.SpeakerButton
             android:id="@+id/btnPlay"
             android:layout_width="176dp"
@@ -52,18 +62,17 @@
             android:layout_width="300dp"
             android:layout_height="210dp"
             android:layout_margin="16dp"
-            android:layout_marginTop="16dp"
             android:scaleType="fitCenter"
+            android:src="@drawable/ic_baseline_image_24"
+            app:layout_constraintBottom_toTopOf="@+id/btnCamera"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnHint"
-            android:src="@drawable/ic_baseline_image_24"/>
+            app:layout_constraintTop_toBottomOf="@+id/btnPlay" />
 
         <Button
             android:id="@+id/btnHint"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
             android:layout_marginEnd="16dp"
             android:backgroundTint="@android:color/holo_orange_dark"
             android:padding="8dp"
@@ -71,45 +80,44 @@
             android:textColor="@color/black"
             android:textSize="18sp"
             android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/btnPlay"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnPlay" />
+            app:layout_constraintTop_toTopOf="@+id/btnPlay" />
 
         <Button
             android:id="@+id/btnCamera"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
             android:backgroundTint="@android:color/holo_orange_dark"
             android:text="@string/camera"
             android:textColor="@color/black"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/lanjut"
             app:layout_constraintEnd_toStartOf="@id/btnGallery"
-            app:layout_constraintStart_toStartOf="@id/previewImage"
-            app:layout_constraintTop_toBottomOf="@id/previewImage" />
+            app:layout_constraintStart_toStartOf="@id/previewImage" />
 
         <Button
             android:id="@+id/btnGallery"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
             android:backgroundTint="@android:color/holo_orange_dark"
             android:text="@string/gallery"
             android:textColor="@color/black"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/lanjut"
             app:layout_constraintEnd_toEndOf="@id/previewImage"
-            app:layout_constraintStart_toEndOf="@id/btnCamera"
-            app:layout_constraintTop_toBottomOf="@id/previewImage" />
+            app:layout_constraintStart_toEndOf="@id/btnCamera" />
 
         <Button
             android:id="@+id/lanjut"
             android:layout_width="240dp"
             android:layout_height="48dp"
-            android:layout_marginBottom="16dp"
-            android:text="Lanjut"
+            android:layout_marginBottom="32dp"
             android:backgroundTint="@android:color/holo_orange_dark"
+            android:text="Lanjut"
             android:textColor="@color/black"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -158,6 +166,8 @@
             app:layout_constraintEnd_toEndOf="@+id/catLogin"
             app:layout_constraintStart_toStartOf="@+id/catLogin"
             app:layout_constraintTop_toBottomOf="@+id/catLogin" />
+
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

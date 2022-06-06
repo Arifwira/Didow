@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import com.capstone.didow.R
 import com.capstone.didow.databinding.ExerciseMultipleChoiceFragmentBinding
 import com.capstone.didow.entities.QuestionHandwriting
@@ -55,7 +56,7 @@ class ExerciseMultipleChoiceFragment : Fragment() {
 
         binding.rvPilgan.setHasFixedSize(true)
         showRecyclerViewList()
-
+        Glide.with(this).load(R.drawable.wiggle).into(binding.tekanAku)
         playSound()
         openGuide()
 //        binding.lanjut.setOnClickListener {
@@ -183,7 +184,8 @@ class ExerciseMultipleChoiceFragment : Fragment() {
     private fun showRecyclerViewList(){
         binding.apply {
             val layoutManager = FlexboxLayoutManager(activity)
-            layoutManager.flexDirection = FlexDirection.COLUMN
+            layoutManager.flexDirection = FlexDirection.ROW
+            layoutManager.flexWrap = FlexWrap.WRAP
             layoutManager.justifyContent = JustifyContent.SPACE_EVENLY
             layoutManager.alignItems = AlignItems.CENTER
             rvPilgan.layoutManager = layoutManager

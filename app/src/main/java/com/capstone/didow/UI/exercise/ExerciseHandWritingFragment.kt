@@ -124,6 +124,8 @@ class ExerciseHandWritingFragment : Fragment() {
             )
         }
 
+
+        Glide.with(this).load(R.drawable.wiggle).into(binding.tekanAku)
         playSound()
         useHint()
         openGuide()

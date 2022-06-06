@@ -17,6 +17,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.capstone.didow.R
 import com.capstone.didow.databinding.ExerciseWordsScrambleFragmentBinding
 import com.capstone.didow.entities.QuestionHandwriting
@@ -65,7 +66,7 @@ class ExerciseWordsScrambleFragment : Fragment() {
         showRecyclerViewList()
         showAnswerList()
         binding.rvWordScramble.setHasFixedSize(true)
-
+        Glide.with(this).load(R.drawable.wiggle).into(binding.tekanAku)
         playSound()
         openGuide()
         binding.lanjut.setOnClickListener {
