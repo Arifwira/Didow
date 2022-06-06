@@ -37,7 +37,7 @@ class HistoryDetailAdapter(private val listDetailHistory: ArrayList<WrongAnswers
             binding.consDetailLayout.setOnClickListener{
                 visibility = !visibility
                 binding.expandableDetailLayout.visibility = if(visibility) View.VISIBLE else View.GONE
-                notifyItemChanged(position)
+//                notifyItemChanged(position)
             }
 
         }
