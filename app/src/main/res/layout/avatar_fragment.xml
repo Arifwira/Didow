@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".UI.profile.AvatarFragment">
 
     <LinearLayout
@@ -33,17 +34,21 @@
             android:id="@+id/changeAva"
             style="@style/ButtonGeneral"
             android:layout_gravity="center"
-            android:backgroundTint="@android:color/holo_orange_dark"
-            android:text="Ganti Avatar"
-            android:textColor="@color/white" />
+            android:backgroundTint="@color/black"
+            android:textColor="@color/white"
+            android:text="Ganti Avatar" />
 
         <Button
             android:id="@+id/simpanAva"
             style="@style/ButtonGeneral"
             android:layout_gravity="center"
-            android:backgroundTint="@android:color/holo_orange_dark"
+            android:backgroundTint="@color/orange_bg"
+            app:strokeColor="#393939"
+            app:strokeWidth="2dp"
+            android:stateListAnimator="@null"
+            android:textColor="@color/black"
             android:text="simpan"
-            android:textColor="@color/white" />
+            />
 
     </LinearLayout>
 

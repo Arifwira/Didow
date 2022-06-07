@@ -32,8 +32,8 @@
             android:layout_marginBottom="78dp"
             android:alpha="0"
             android:backgroundTint="@color/black"
-            android:text="mulai"
             android:textColor="@color/white"
+            android:text="mulai"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

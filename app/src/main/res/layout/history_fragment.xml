@@ -72,15 +72,13 @@
             app:layout_constraintTop_toBottomOf="@+id/recomContainer"
             android:background="@drawable/transparentbg">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <LinearLayout
                 android:id="@+id/datePickerContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:paddingTop="8dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/recomContainer">
+                android:weightSum="3">
 
                 <TextView
                     android:id="@+id/tvStartDate"
@@ -94,6 +92,7 @@
                     android:textColorHint="@android:color/darker_gray"
                     android:textColor="@color/black"
                     android:textSize="18sp"
+                    android:layout_weight="1"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -101,28 +100,35 @@
                     android:id="@+id/tvEndDate"
                     android:layout_width="140dp"
                     android:layout_height="48dp"
-                    android:layout_marginStart="5dp"
+                    android:layout_marginStart="8dp"
                     android:background="@drawable/date_background"
                     android:gravity="center_vertical"
                     android:hint="End date"
                     android:padding="12dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="1"
                     android:textColorHint="@android:color/darker_gray"
                     android:textColor="@color/black"
                     android:textSize="18sp"
                     app:layout_constraintStart_toEndOf="@id/tvStartDate"
                     app:layout_constraintTop_toTopOf="parent" />
-
+                <View
+                    android:layout_width="0dp"
+                    android:layout_weight="0.7"
+                    android:layout_height="match_parent"/>
                 <ImageButton
                     android:id="@+id/btnCalendar"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
+                    android:layout_marginStart="8dp"
                     android:layout_marginEnd="8dp"
+                    android:layout_weight="0.3"
                     android:background="@drawable/date_background"
                     android:src="@drawable/ic_baseline_calendar_month_24"
                     app:layout_constraintBottom_toBottomOf="@+id/tvEndDate"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/tvEndDate" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvHistory"

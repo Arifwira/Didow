@@ -120,22 +120,23 @@
         <Button
             android:id="@+id/lewati"
             style="@style/ButtonGeneral"
-            android:backgroundTint="@color/orange_bg"
             android:stateListAnimator="@null"
+            android:backgroundTint="@color/black"
+            android:textColor="@color/white"
             android:text="Lanjut ke asesmen"
-            android:textColor="@color/black"
             app:layout_constraintBottom_toTopOf="@+id/coba"
-            app:layout_constraintStart_toEndOf="parent"
-            app:strokeColor="#393939"
-            app:strokeWidth="2dp" />
+            app:layout_constraintStart_toEndOf="parent" />
 
         <Button
             android:id="@+id/coba"
             style="@style/ButtonGeneral"
             android:layout_marginBottom="32dp"
-            android:backgroundTint="@color/black"
             android:text="coba sampel"
-            android:textColor="@color/white"
+            android:backgroundTint="@color/orange_bg"
+            android:stateListAnimator="@null"
+            android:textColor="@color/black"
+            app:strokeColor="#393939"
+            app:strokeWidth="2dp"
             app:layout_constraintBottom_toTopOf="@+id/menu2"
             app:layout_constraintStart_toEndOf="parent" />
 

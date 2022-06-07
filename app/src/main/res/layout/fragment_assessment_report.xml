@@ -6,66 +6,56 @@
     android:layout_height="match_parent"
     tools:context=".UI.onBoarding.AssessmentReportFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <androidx.constraintlayout.widget.ConstraintLayout
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
 
         <TextView
             android:id="@+id/tvReportTitle"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="48dp"
             android:text="Hasil\nAsesmen Awal"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="36sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/tvReportScore"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
             android:text="123"
+            android:layout_marginTop="8dp"
+            android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="36sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@+id/tvReportTitle"
-            app:layout_constraintStart_toStartOf="@+id/tvReportTitle"
-            app:layout_constraintTop_toBottomOf="@+id/tvReportTitle" />
+            android:textStyle="bold"/>
 
         <com.github.mikephil.charting.charts.PieChart
             android:id="@+id/pchReport"
             android:layout_width="225dp"
             android:layout_height="225dp"
-            android:layout_marginTop="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvReportScore" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_marginTop="8dp"/>
+
+        <LinearLayout
             android:id="@+id/reportPilganContainer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
             android:padding="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/pchReport">
+            android:orientation="horizontal"
+
+            android:layout_marginTop="8dp">
 
             <ImageView
                 android:id="@+id/colorPilgan"
                 android:layout_width="10dp"
                 android:layout_height="10dp"
                 android:background="@drawable/color_multiple_choice"
-                android:src="@drawable/color_multiple_choice"
-                app:layout_constraintBottom_toBottomOf="@+id/tvPilgan"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/tvPilgan" />
+                android:src="@drawable/color_multiple_choice"/>
 
             <TextView
                 android:id="@+id/tvPilgan"
@@ -76,9 +66,7 @@
                 android:text="Pilihan Ganda"
                 android:textAllCaps="true"
                 android:textColor="@color/black"
-                android:textStyle="bold"
-                app:layout_constraintStart_toEndOf="@+id/colorPilgan"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/tvNilaiPilgan"
@@ -90,30 +78,21 @@
                 android:textAlignment="center"
                 android:textAllCaps="true"
                 android:textColor="@color/black"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/tvPilgan"
-                app:layout_constraintStart_toEndOf="@+id/tvPilgan"
-                app:layout_constraintTop_toTopOf="@+id/tvPilgan" />
+                android:textStyle="bold" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:id="@+id/reportSusunKataContainer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="8dp"
-            app:layout_constraintTop_toBottomOf="@id/reportPilganContainer"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            >
+            android:orientation="horizontal">
             <ImageView
                 android:id="@+id/colorSusunKata"
                 android:layout_width="10dp"
                 android:layout_height="10dp"
-                android:src="@drawable/color_word_scramble"
-                app:layout_constraintBottom_toBottomOf="@+id/tvSusunKata"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/tvSusunKata" />
+                android:src="@drawable/color_word_scramble" />
 
             <TextView
                 android:id="@+id/tvSusunKata"
@@ -124,9 +103,7 @@
                 android:textAllCaps="true"
                 android:textColor="@color/black"
                 android:textStyle="bold"
-                android:layout_marginStart="12dp"
-                app:layout_constraintStart_toEndOf="@+id/colorSusunKata"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:layout_marginStart="12dp" />
 
             <TextView
                 android:id="@+id/tvNilaiSusunKata"
@@ -138,85 +115,70 @@
                 android:text="nilai"
                 android:textAllCaps="true"
                 android:textColor="@color/black"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/tvSusunKata"
-                app:layout_constraintStart_toEndOf="@+id/tvSusunKata"
-                app:layout_constraintTop_toTopOf="@+id/tvSusunKata" />
+                android:textStyle="bold" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:id="@+id/reportHandWritingContainer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="8dp"
-            app:layout_constraintTop_toBottomOf="@id/reportSusunKataContainer"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            >
+            android:layout_marginBottom="16dp"
+            android:orientation="horizontal">
+
             <ImageView
                 android:id="@+id/colorHandWriting"
                 android:layout_width="10dp"
-                android:background="@drawable/color_hand_writing"
                 android:layout_height="10dp"
-                android:src="@drawable/color_hand_writing"
-                app:layout_constraintBottom_toBottomOf="@+id/tvHandWriting"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/tvHandWriting" />
+                android:background="@drawable/color_hand_writing"
+                android:src="@drawable/color_hand_writing"/>
 
             <TextView
                 android:id="@+id/tvHandWriting"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
                 android:letterSpacing="0.2"
                 android:text="Tulis Tangan"
                 android:textAllCaps="true"
                 android:textColor="@color/black"
-                android:textStyle="bold"
-                android:layout_marginStart="12dp"
-                app:layout_constraintStart_toEndOf="@+id/colorHandWriting"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/tvNilaiHandWriting"
-                android:textAlignment="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:letterSpacing="0.2"
                 android:text="nilai"
+                android:textAlignment="center"
                 android:textAllCaps="true"
                 android:textColor="@color/black"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/tvHandWriting"
-                app:layout_constraintStart_toEndOf="@+id/tvHandWriting"
-                app:layout_constraintTop_toTopOf="@+id/tvHandWriting" />
+                android:textStyle="bold"/>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <Button
-            android:id="@+id/keluar"
-            android:layout_width="240dp"
-            android:layout_height="48dp"
-            android:textStyle="bold"
-            android:backgroundTint="@android:color/holo_orange_dark"
-            android:text="keluar"
-            app:layout_constraintBottom_toTopOf="@+id/daftar"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.501"
-            app:layout_constraintStart_toStartOf="parent" />
+        </LinearLayout>
 
         <Button
             android:id="@+id/daftar"
-            android:layout_width="240dp"
-            android:layout_height="48dp"
-            android:layout_marginBottom="16dp"
-            android:backgroundTint="#FFBB37"
+            style="@style/ButtonGeneral"
             android:text="daftar"
-            android:textColor="@color/black"
+            android:layout_marginTop="8dp"
+            android:backgroundTint="@color/black"
+            android:textColor="@color/white"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/keluar"
+            style="@style/ButtonGeneral"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            android:backgroundTint="@color/orange_bg"
+            app:strokeColor="#393939"
+            app:strokeWidth="2dp"
+            android:stateListAnimator="@null"
+            android:textColor="@color/black"
+            android:text="keluar"
+            android:layout_marginBottom="16dp"
+            />
+    </LinearLayout>
 </FrameLayout>

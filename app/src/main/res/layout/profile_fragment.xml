@@ -35,17 +35,19 @@
             android:layout_marginBottom="10dp">
             <Button
                 android:id="@+id/editProfile"
-                android:layout_width="150dp"
-                android:layout_height="45dp"
+                style="@style/ButtonGeneral"
                 android:layout_marginEnd="10dp"
+                android:layout_width="150dp"
+                android:layout_height="50dp"
                 android:backgroundTint="@android:color/holo_orange_dark"
                 android:text="edit Profile"
                 android:textColor="@color/white"
                 app:cornerRadius="50dp" />
             <Button
                 android:id="@+id/changePassword"
+                style="@style/ButtonGeneral"
                 android:layout_width="150dp"
-                android:layout_height="45dp"
+                android:layout_height="50dp"
                 android:textColor="@color/white"
                 android:backgroundTint="@android:color/holo_orange_dark"
                 android:text="ubah sandi"
@@ -54,19 +56,21 @@
 
         <Button
             android:id="@+id/customization"
-            android:layout_width="200dp"
-            android:layout_height="60dp"
+            style="@style/ButtonGeneral"
             android:textColor="@color/white"
             android:backgroundTint="@android:color/holo_orange_dark"
             android:text="kustomisasi"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
             app:cornerRadius="50dp"
             android:layout_marginBottom="10dp"/>
 
 
         <Button
             android:id="@+id/logout"
-            android:layout_width="200dp"
-            android:layout_height="60dp"
+            style="@style/ButtonGeneral"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
             android:backgroundTint="@android:color/holo_red_dark"
             android:text="keluar"
             android:textColor="@color/white"

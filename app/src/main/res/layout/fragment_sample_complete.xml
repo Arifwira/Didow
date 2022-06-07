@@ -49,26 +49,27 @@
 
         <Button
             android:id="@+id/assessment"
-            android:layout_width="240dp"
-            android:layout_height="48dp"
-            android:layout_marginBottom="72dp"
-            android:backgroundTint="@android:color/holo_orange_dark"
+            style="@style/ButtonGeneral"
+            android:backgroundTint="@color/black"
             android:text="Lanjut Ke Assessmen"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/retry"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
         <Button
             android:id="@+id/retry"
-            android:layout_width="240dp"
-            android:layout_height="48dp"
-            android:backgroundTint="@android:color/holo_orange_dark"
+            style="@style/ButtonGeneral"
+            android:layout_marginBottom="72dp"
             android:text="Coba Lagi"
+            android:backgroundTint="@color/orange_bg"
+            app:strokeColor="#393939"
+            app:strokeWidth="2dp"
             android:textColor="@color/black"
+            android:stateListAnimator="@null"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/assessment"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>

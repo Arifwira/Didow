@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.capstone.didow.UI.OnBoarding
@@ -64,8 +65,6 @@ class MainActivity : AppCompatActivity() {
                     Log.w("NAMA", "Error getting documents.", exception)
                 }
         }
-
-        playMusic()
         setCurrentFragment(firstFragment)
 
 
@@ -89,13 +88,21 @@ class MainActivity : AppCompatActivity() {
         }
         playAnimation()
     }
-
+    override fun onBackPressed() {
+        super.onBackPressed()
+        Toast.makeText(this,"asdas", Toast.LENGTH_SHORT).show()
+    }
     override fun onPause() {
         super.onPause()
         if(musicPlayer != null){
             musicPlayer!!.release()
             musicPlayer = null
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        playMusic()
     }
 
     private fun setCurrentFragment(fragment: Fragment)=
