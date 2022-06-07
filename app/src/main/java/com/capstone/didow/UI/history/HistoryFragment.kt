@@ -83,6 +83,13 @@ class HistoryFragment : Fragment() {
                 }
             })
         })
+
+        binding.recomContainer.visibility = View.GONE
+
+        historyViewModel.suggestion.observe(viewLifecycleOwner, Observer { suggestion ->
+            binding.recomContainer.visibility = View.VISIBLE
+            binding.tvRekomendasi.text = suggestion!!
+        })
     }
 
     private fun showRecyclerViewHistory(){

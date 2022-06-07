@@ -21,7 +21,6 @@ class GuideHandWritingFragment: DialogFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = PanduanHandWritingBinding.inflate(inflater, container, false)
         return binding.root
-        
     }
 
     override fun getTheme(): Int {
@@ -30,5 +29,9 @@ class GuideHandWritingFragment: DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.btnDismiss.setOnClickListener {
+            dismiss()
+        }
     }
 }

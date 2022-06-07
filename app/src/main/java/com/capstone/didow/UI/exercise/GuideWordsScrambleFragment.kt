@@ -29,5 +29,9 @@ class GuideWordsScrambleFragment: DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.btnDismiss.setOnClickListener {
+            dismiss()
+        }
     }
 }
