@@ -49,21 +49,19 @@
 
         <Button
             android:id="@+id/assessment"
-            android:layout_width="240dp"
-            android:layout_height="48dp"
             android:layout_marginBottom="72dp"
             android:backgroundTint="@android:color/holo_orange_dark"
             android:text="Lanjut Ke Assessmen"
             android:textColor="@color/black"
             android:textStyle="bold"
+            style="@style/ButtonGeneral"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
         <Button
             android:id="@+id/retry"
-            android:layout_width="240dp"
-            android:layout_height="48dp"
+            style="@style/ButtonGeneral"
             android:backgroundTint="@android:color/holo_orange_dark"
             android:text="Coba Lagi"
             android:textColor="@color/black"
