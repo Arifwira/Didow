@@ -42,6 +42,69 @@ class ExerciseViewModel : ViewModel() {
     private val auth = Firebase.auth
     private var currentUser: FirebaseUser? = null
 
+    private suspend fun fetchQuestions(bundle: Bundle): QuestionsResponse? {
+        val category = bundle.getString("category")
+        val easy = bundle.getBoolean("easy")
+        val medium = bundle.getBoolean("medium")
+        val hard = bundle.getBoolean("hard")
+        val qty = bundle.getInt("qty")
+
+        val client = RetrofitInstance.getApiService()
+        var userInfo: GetUserResponse? = null
+        if (currentUser != null) {
+            val userToken = currentUser!!.getIdToken(true).await().token
+            userInfo = client.getUser(_userId.value!!, null, userToken!!)
+        }
+        var response: QuestionsResponse? = null
+
+        when (category) {
+            "auto" -> response = client.getQuestions("auto", userInfo!!.data?.weightPoint, null, null, null, null)
+            "assessment" -> response = client.getQuestions("assessment", null, null, null, null, null)
+            "custom" -> response = client.getQuestions("custom", null, qty, easy, medium, hard)
+            "sample" -> response = client.getQuestions("custom", null, 3, true, null, null)
+        }
+
+        return response
+    }
+
+    private fun makeQuestions(questionsResponse: QuestionsResponse): MutableList<Question> {
+        val data = questionsResponse.data
+        val questions = mutableListOf<Question>()
+        var questionNumber = 1
+        data?.forEach {
+            val type = it?.type
+            var question: Question? = null
+            when(type) {
+                "multipleChoice" -> question = QuestionMultipleChoice(
+                    it.word!!,
+                    it.syllables!!,
+                    it.hintImg!!,
+                    questionNumber,
+                    it.multipleChoice!!.choices!! as List<String>
+                )
+                "scrambleWords" -> question = QuestionScrambleWords(
+                    it.word!!,
+                    it.syllables!!,
+                    it.hintImg!!,
+                    questionNumber,
+                    it.scrambleWords!!.letters!! as List<String>,
+                    it.scrambleWords.hintHangman!! as List<String>
+                )
+                "handwriting" -> question = QuestionHandwriting(
+                    it.word!!,
+                    it.syllables!!,
+                    it.hintImg!!,
+                    questionNumber,
+                    it.handWriting!!.hintHangman!! as List<String>
+                )
+            }
+            questionNumber++
+            questions.add(question!!)
+        }
+
+        return questions
+    }
+
     fun init(bundle: Bundle, userId: String?) {
         val category = bundle.getString("category")
         val easy = bundle.getBoolean("easy")
@@ -54,58 +117,10 @@ class ExerciseViewModel : ViewModel() {
         if (currentUser != null) {
             _userId.value = currentUser!!.uid
         }
-//        if (userId != null) {
-//            _userId.value = userId!!
-//        }
-        val client = RetrofitInstance.getApiService()
+
         viewModelScope.launch {
-            var userInfo: GetUserResponse? = null
-            if (currentUser != null) {
-                val userToken = currentUser!!.getIdToken(true).await().token
-                userInfo = client.getUser(_userId.value!!, null, userToken!!)
-            }
-            var response: QuestionsResponse? = null
-
-            when (category) {
-                "auto" -> response = client.getQuestions(category, userInfo!!.data?.weightPoint, null, null, null, null)
-                "assessment" -> response = client.getQuestions(category, null, null, null, null, null)
-                "custom" -> response = client.getQuestions(category, null, qty, easy, medium, hard)
-                "sample" -> response = client.getQuestions("custom", null, 3, true, null, null)
-            }
-
-            val data = response?.data
-            val questions = mutableListOf<Question>()
-            var questionNumber = 1
-            data?.forEach {
-                val type = it?.type
-                var question: Question? = null
-                when(type) {
-                    "multipleChoice" -> question = QuestionMultipleChoice(
-                        it.word!!,
-                        it.syllables!!,
-                        it.hintImg!!,
-                        questionNumber,
-                        it.multipleChoice!!.choices!! as List<String>
-                    )
-                    "scrambleWords" -> question = QuestionScrambleWords(
-                        it.word!!,
-                        it.syllables!!,
-                        it.hintImg!!,
-                        questionNumber,
-                        it.scrambleWords!!.letters!! as List<String>,
-                        it.scrambleWords.hintHangman!! as List<String>
-                    )
-                    "handwriting" -> question = QuestionHandwriting(
-                        it.word!!,
-                        it.syllables!!,
-                        it.hintImg!!,
-                        questionNumber,
-                        it.handWriting!!.hintHangman!! as List<String>
-                    )
-                }
-                questionNumber++
-                questions.add(question!!)
-            }
+            val questionsResponse = fetchQuestions(bundle)
+            val questions = makeQuestions(questionsResponse!!)
             _exercise.value = Exercise(questions, category!!, allowRetry)
             _isLoaded.value = true
         }
