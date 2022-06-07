@@ -30,6 +30,7 @@ class ExerciseViewModel : ViewModel() {
     private val _isFinished = MutableLiveData(false)
     private val _userId = MutableLiveData<String>()
     private val _assessmentReport = MutableLiveData<AssessmentReport>()
+    private val _bundle = MutableLiveData<Bundle>()
 
     val exercise: LiveData<Exercise> = _exercise
     val currentQuestion: LiveData<Question> = _currentQuestion
@@ -38,6 +39,7 @@ class ExerciseViewModel : ViewModel() {
     val isRetry: LiveData<Boolean> = _isRetry
     val isFinished: LiveData<Boolean> = _isFinished
     val assessmentReport: LiveData<AssessmentReport> = _assessmentReport
+    val bundle: LiveData<Bundle> = _bundle
 
     private val auth = Firebase.auth
     private var currentUser: FirebaseUser? = null
@@ -107,11 +109,8 @@ class ExerciseViewModel : ViewModel() {
 
     fun init(bundle: Bundle, userId: String?) {
         val category = bundle.getString("category")
-        val easy = bundle.getBoolean("easy")
-        val medium = bundle.getBoolean("medium")
-        val hard = bundle.getBoolean("hard")
-        val qty = bundle.getInt("qty")
         val allowRetry = bundle.getBoolean("allowRetry")
+        _bundle.value = bundle
 
         currentUser = auth.currentUser
         if (currentUser != null) {
