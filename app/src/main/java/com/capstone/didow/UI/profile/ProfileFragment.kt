@@ -8,6 +8,8 @@ import android.content.SharedPreferences
 import android.graphics.drawable.AnimationDrawable
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -67,7 +69,6 @@ class ProfileFragment : Fragment() {
         sharedPreferences = requireActivity().getSharedPreferences(PREF, Context.MODE_PRIVATE)
         auth = Firebase.auth
         val uid = sharedPreferences.getString(UID, null)
-        binding.textView2.text = uid
         var anim = sharedPreferences.getString(ANIM, null).toString()
         Log.d("ANIM", sharedPreferences.getString(ANIM, null).toString())
         Log.d("ANIM", anim)
@@ -84,6 +85,8 @@ class ProfileFragment : Fragment() {
             viewModel.getUserNickname(uid)
             viewModel.nick.observe(viewLifecycleOwner, Observer {
                 binding.textView2.text = it
+                binding.textView2.visibility = View.VISIBLE
+                binding.nameload.visibility = View.GONE
             })
         }
 
