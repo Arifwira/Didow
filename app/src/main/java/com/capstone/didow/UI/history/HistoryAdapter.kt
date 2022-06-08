@@ -35,7 +35,7 @@ class HistoryAdapter(private val listHistory: List<History>) : RecyclerView.Adap
             val date = convertLongToTime(data.endTime)
             binding.tvDate.text = date
             binding.tvSukuKata.text = "${data.avgSyllables} Suku Kata"
-            binding.tvJenis.text = "Auto"
+            binding.tvJenis.text = "Normal"
         }
 
         holder.binding.historyOption.setOnClickListener {
