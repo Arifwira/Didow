@@ -1,7 +1,5 @@
 package com.capstone.didow.UI.profile
 
-import android.animation.AnimatorSet
-import android.animation.ObjectAnimator
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.lifecycle.ViewModelProvider
@@ -12,19 +10,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioButton
-import android.widget.RadioGroup
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import com.capstone.didow.R
 import com.capstone.didow.api.ApiService
 import com.capstone.didow.api.RetrofitInstance
 import com.capstone.didow.databinding.EditProfileFragmentBinding
-import com.capstone.didow.databinding.ProfileFragmentBinding
+import com.google.android.material.datepicker.MaterialDatePicker
 import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONObject
+import java.text.SimpleDateFormat
+import java.util.*
 
 class EditProfile : Fragment() {
 
@@ -64,6 +62,8 @@ class EditProfile : Fragment() {
         Log.d("EDITPROFILE","${sharedPreferences.getString(UID, null)}")
         client = RetrofitInstance.getApiService()
 
+        setDate()
+
         binding.apply {
             simpanProfile.setOnClickListener {
                 if (uid != null) {
@@ -76,6 +76,22 @@ class EditProfile : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         _binding =null
+    }
+
+    private fun setDate(){
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd")
+        val datePicker = MaterialDatePicker.Builder.datePicker().setTitleText("Select Birth Date").
+        setSelection(MaterialDatePicker.todayInUtcMilliseconds()).build()
+        binding.editTextDate.setOnClickListener {
+            datePicker.show(childFragmentManager, "Tag_picker")
+            datePicker.addOnPositiveButtonClickListener {
+                val datePicked = datePicker.selection
+                val dateString = dateFormat.format(Date(datePicked!!))
+                binding.editTextDate.setText(dateString)
+            }
+        }
+
+
     }
 
     private fun editProfile(id: String){
