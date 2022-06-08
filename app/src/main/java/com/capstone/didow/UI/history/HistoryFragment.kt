@@ -64,6 +64,10 @@ class HistoryFragment : Fragment() {
         datePicker(startDateTime, endDateTime)
         showRecyclerViewHistory()
 
+        historyViewModel.isLoading.observe(viewLifecycleOwner, Observer{
+            showLoading(it)
+        })
+
         historyViewModel.init(auth.currentUser?.uid!!, startDate.toString(), endDate.toString(), TIMEZONE)
 
         binding.rvHistory.setHasFixedSize(true)
@@ -133,6 +137,18 @@ class HistoryFragment : Fragment() {
         }
     }
 
+
+    private fun showLoading(isLoading: Boolean){
+        if (!isLoading) {
+            binding.darkBg.visibility = View.VISIBLE
+            binding.catHistory.visibility = View.VISIBLE
+            binding.historyContainer.visibility = View.GONE
+        } else {
+            binding.darkBg.visibility = View.INVISIBLE
+            binding.catHistory.visibility = View.GONE
+            binding.historyContainer.visibility = View.VISIBLE
+        }
+    }
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
