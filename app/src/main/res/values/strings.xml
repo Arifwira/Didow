@@ -24,4 +24,8 @@
     <string name="hint_jawaban_salah">Jika jawaban yang dipilih salah maka kamu dapat memperbaikinya nanti</string>
   
     <string name="kustom_description">Pada mode ini Anda dapat menyesuaikan jumlah dan tingkat kesulitan soal sesuai preferensi</string>
+
+    <string name="detail_report_rendah">Selamat kamu telah menyelesaikan asesmen awal! Tidak perlu berkecil hati, justru kamu harus semakin semangat agar dapat menguasai kosakata yang ada. Yuk daftar sekarang agar kamu bisa mulai latihan bersama Didow!</string>
+    <string name="detail_report_tinggi">Selamat kamu telah menyelesaikan asesmen awal! Kamu sudah cukup baik dalam kosakata dan menjawab pertanyaan yang ada. Eits! bukan berarti kamu tidak perlu meningkatkan kemampuanmu, Yuk daftar! Agar kamu semakin pandai dalam mengolah kata bersama Didow!</string>
+    <string name="detail_report_menengah">Selamat kamu telah menyelesaikan asesmen awal! Kamu sudah menguasai beberapa kosakata. Ada baiknya kamu terus belajar agar kamu bisa semakin pandai dalam mengolah kata. Yuk daftar dan mulai latihan sekarang bersama Didow!</string>
 </resources>

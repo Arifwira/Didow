@@ -1,8 +1,6 @@
 package com.capstone.didow.UI.onBoarding
 
 import android.content.Context
-import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,14 +8,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.capstone.didow.R
-import com.capstone.didow.UI.OnBoarding
 import com.capstone.didow.databinding.FragmentAssessmentReportBinding
 import com.github.mikephil.charting.animation.Easing
-import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
-import com.github.mikephil.charting.formatter.PercentFormatter
 import com.github.mikephil.charting.utils.ColorTemplate
 
 
@@ -29,6 +24,7 @@ class AssessmentReportFragment : Fragment() {
     private var percentSusunKata = 0F
     private var percentHandWriting = 0F
     private var percentKurang = 0F
+    private var percentTotal = 0F
 
 
     override fun onCreateView(
@@ -45,11 +41,13 @@ class AssessmentReportFragment : Fragment() {
         percentPilgan = sharedPref.getFloat("multipleChoice", 0F) * 100
         percentSusunKata = sharedPref.getFloat("scrambleWords", 0F) * 100
         percentHandWriting = sharedPref.getFloat("handwriting", 0F) * 100
-        percentKurang = 100F - (percentPilgan + percentSusunKata + percentHandWriting)
+        percentTotal = percentPilgan + percentSusunKata + percentHandWriting
+        percentKurang = 100F - percentTotal
 
         setupPieChart()
         addToPieChart()
         setupPercentage()
+        setupDescription(percentTotal)
         binding.apply {
             daftar.setOnClickListener{
                 findNavController().navigate(R.id.action_assessmentReportFragment2_to_registerFragment)
@@ -62,6 +60,14 @@ class AssessmentReportFragment : Fragment() {
 
     }
 
+    private fun setupDescription(total: Float){
+        when(total){
+            in 0F..30F -> binding.tvReportDesc.text = resources.getString(R.string.detail_report_rendah)
+            in 31F..70F -> binding.tvReportDesc.text = resources.getString(R.string.detail_report_menengah)
+            in 71F..100F -> binding.tvReportDesc.text = resources.getString(R.string.detail_report_tinggi)
+        }
+
+    }
     private fun setupPercentage(){
         binding.apply {
             tvNilaiPilgan.text = "$percentPilgan%"
@@ -95,13 +101,13 @@ class AssessmentReportFragment : Fragment() {
 //            pchReport.startAnimation()
 //        }
 
-        var entries = ArrayList<PieEntry>()
+        val entries = ArrayList<PieEntry>()
         entries.add(PieEntry(percentPilgan, "Pilgan"))
         entries.add(PieEntry(percentSusunKata, "Susun Kata"))
         entries.add(PieEntry(percentHandWriting, "Hand Writing"))
         entries.add(PieEntry(percentKurang, "Sisa Kurang"))
 
-        var colors = ArrayList<Int>()
+        val colors = ArrayList<Int>()
         colors.add(ColorTemplate.rgb("#F25738")) // Pilgan
         colors.add(ColorTemplate.rgb("#5BC3B8")) // Susun Kata
         colors.add(ColorTemplate.rgb("#FE9F45")) // Hand Writing
