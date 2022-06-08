@@ -55,8 +55,8 @@ class HistoryViewModel : ViewModel() {
                 var history = History(
                     it?.userId!!,
                     it?.endTime!!,
-                    it?.avgSyllables!!,
                     it?.questionsQty!!,
+                    it?.avgSyllables!!,
                     it?.wrongAnswers!!.map{ wrongAnswerData ->
                         var wrongAnswers = WrongAnswers(
                             wrongAnswerData?.number!!,
