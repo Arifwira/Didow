@@ -5,11 +5,38 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".UI.history.HistoryFragment">
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/catHistory"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:scaleType="fitCenter"
+        android:translationZ="90dp"
+        android:layout_gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:lottie_autoPlay="true"
+        app:lottie_speed="2"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/cat_loader" />
+    <ImageView
+        android:id="@+id/darkBg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:translationZ="80dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/screen_background_dark_transparent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/historyContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
         <TextView
             android:id="@+id/tvHistoryTitle"
             android:layout_width="wrap_content"
@@ -51,12 +78,11 @@
                 android:id="@+id/tvRekomendasi"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
                 android:layout_marginTop="8dp"
                 android:text="Lorem ipsum dolor sit amet,\nconsectetur adipiscing eit. Sed\nvitae laciania eros."
                 android:textColor="@android:color/black"
                 android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/tvRekomendasiTitle"
                 app:layout_constraintTop_toBottomOf="@+id/tvRekomendasiTitle" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -8,6 +8,11 @@
             <size android:height="176dp" android:width="176dp"/>
         </shape>
     </item>
-    <item android:drawable="@drawable/ic_baseline_volume_up" android:height="60dp"
+    <item android:drawable="@drawable/ic_baseline_volume_up" android:bottom="20dp" android:height="60dp"
         android:width="60dp" android:gravity="center"/>
+    <item android:top="100dp">
+        <bitmap
+            android:gravity="center"
+            android:src="@drawable/tekan_aku"/>
+    </item>
 </layer-list>

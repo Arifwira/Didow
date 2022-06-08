@@ -56,7 +56,6 @@ class ExerciseMultipleChoiceFragment : Fragment() {
 
         binding.rvPilgan.setHasFixedSize(true)
         showRecyclerViewList()
-        Glide.with(this).load(R.drawable.wiggle).into(binding.tekanAku)
         playSound()
         openGuide()
 //        binding.lanjut.setOnClickListener {

@@ -66,7 +66,6 @@ class ExerciseWordsScrambleFragment : Fragment() {
         showRecyclerViewList()
         showAnswerList()
         binding.rvWordScramble.setHasFixedSize(true)
-        Glide.with(this).load(R.drawable.wiggle).into(binding.tekanAku)
         playSound()
         openGuide()
         binding.lanjut.setOnClickListener {

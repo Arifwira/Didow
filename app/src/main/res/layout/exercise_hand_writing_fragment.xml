@@ -38,16 +38,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/tvNomorSoal" />
 
-        <ImageView
-            android:id="@+id/tekanAku"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toTopOf="@+id/btnPlay"
-            app:layout_constraintEnd_toEndOf="@+id/btnPlay"
-            app:layout_constraintStart_toStartOf="@+id/btnPlay"
-            tools:src="@tools:sample/avatars" />
-
         <com.capstone.didow.UI.custom.SpeakerButton
             android:id="@+id/btnPlay"
             android:layout_width="176dp"
@@ -67,12 +57,13 @@
             app:layout_constraintBottom_toTopOf="@+id/btnCamera"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnPlay" />
+            app:layout_constraintTop_toBottomOf="@+id/btnHint" />
 
         <Button
             android:id="@+id/btnHint"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
             android:layout_marginEnd="16dp"
             android:backgroundTint="@android:color/holo_orange_dark"
             android:padding="8dp"
@@ -80,9 +71,8 @@
             android:textColor="@color/black"
             android:textSize="18sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/btnPlay"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/btnPlay" />
+            app:layout_constraintTop_toBottomOf="@+id/btnPlay" />
 
         <Button
             android:id="@+id/btnCamera"

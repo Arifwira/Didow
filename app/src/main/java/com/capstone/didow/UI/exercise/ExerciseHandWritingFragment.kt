@@ -125,7 +125,6 @@ class ExerciseHandWritingFragment : Fragment() {
         }
 
 
-        Glide.with(this).load(R.drawable.wiggle).into(binding.tekanAku)
         playSound()
         useHint()
         openGuide()
@@ -390,7 +389,6 @@ class ExerciseHandWritingFragment : Fragment() {
         context?.let {
             CropImage.activity(uri)
                 .setGuidelines(CropImageView.Guidelines.ON)
-                .setAspectRatio(1920, 1080)
                 .setCropShape(CropImageView.CropShape.RECTANGLE) // default is rectangle
                 .start(it,this)
         }
