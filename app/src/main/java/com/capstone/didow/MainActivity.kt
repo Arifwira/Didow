@@ -23,6 +23,7 @@ import com.capstone.didow.api.RetrofitInstance
 import com.capstone.didow.databinding.ActivityMainBinding
 import com.capstone.didow.databinding.RegisterFragmentBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -105,8 +106,16 @@ class MainActivity : AppCompatActivity() {
         playAnimation()
     }
     override fun onBackPressed() {
-        super.onBackPressed()
-        Toast.makeText(this,"asdas", Toast.LENGTH_SHORT).show()
+        MaterialAlertDialogBuilder(this)
+            .setTitle("Tunggu")
+            .setMessage("Apakah kamu yakin ingin keluar?")
+            .setPositiveButton("Ya"){dialog,which->
+                super.onBackPressed()
+            }
+            .setNegativeButton("Tidak"){dialog,which->
+                Toast.makeText(this,"Silahkan lanjut belajar", Toast.LENGTH_SHORT).show()
+            }
+            .show()
     }
     override fun onPause() {
         super.onPause()
