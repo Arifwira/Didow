@@ -1,6 +1,6 @@
 # Didow
 Dyslexia: dIfferent DOesn’t mean Wrong. 
-
+![Logo](DidowLogo.png)
 
 ## About The Project
 
