@@ -14,7 +14,7 @@
     <string name="hint_panduan_add_hangman_description">Tekan tombol \"HINT\" untuk melihat bantuan gambar dan hangman</string>
     <string name="hint_memilih_description">Pilih salah satu pilihan jawaban sesuai kata yang terdengar</string>
     <string name="hint_susun_description">Susun kata dengan memilih huruf yg disediakan satu per satu</string>
-    <string name="hint_tulis_description">Tulis kata yang kamu dengar pada kertas</string>
+    <string name="hint_tulis_description">Tulis kata yang kamu dengar pada kertas. Untuk tulisan, Kamu lebih disarankan menggunakan <b>huruf kapital</b></string>
     <string name="hint_huruf_pilih_description">Huruf yang kamu pilih akan masuk ke dalam kotak jawaban</string>
     <string name="hint_tekan_huruf_hapus_description">Tekan huruf yang ada pada kotak jawaban untuk mengembalikan huruf</string>
     <string name="hint_tekan_kamera_gallery_description">Tekan tombol kamera atau galeri untuk mengambil foto tulisan kamu</string>
