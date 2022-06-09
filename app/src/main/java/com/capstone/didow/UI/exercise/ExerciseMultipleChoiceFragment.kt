@@ -77,7 +77,7 @@ class ExerciseMultipleChoiceFragment : Fragment() {
                     binding.tvNomorSoal.text = "$currentNumber/$totalNumber"
                     adapter.setOnItemClickCallback(object: ExerciseMultipleChoiceAdapter.OnItemClickCallback {
                         override fun onItemClicked(data: String) {
-                            val isCorrect = exerciseViewModel.answer(data)
+                            val isCorrect = exerciseViewModel.answer(data, null)
                             when(isCorrect.toString()){
                                 "true" -> {
                                     trueDialog()

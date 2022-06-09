@@ -141,7 +141,7 @@ class ExerciseWordsScrambleFragment : Fragment() {
             })
             val word = exerciseViewModel.currentQuestion.value?.word
             if (selectedLetters.size == word?.length) {
-                val isCorrect = exerciseViewModel.answer(answer)
+                val isCorrect = exerciseViewModel.answer(answer, null)
 
                 when(isCorrect.toString()){
                     "true" -> {

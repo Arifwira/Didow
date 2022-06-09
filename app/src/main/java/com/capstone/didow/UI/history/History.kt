@@ -23,5 +23,6 @@ open class WrongAnswers(
 @Parcelize
 open class WrongAttempts(
     val attemptNumber: Int,
-    val answer: String
+    val answer: String,
+    val isReversed: Boolean?
 ):Parcelable

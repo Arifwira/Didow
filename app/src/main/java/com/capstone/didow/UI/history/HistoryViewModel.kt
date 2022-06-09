@@ -65,7 +65,8 @@ class HistoryViewModel : ViewModel() {
                             wrongAnswerData.attempts!!.map{ attemptData ->
                                 val attempt = WrongAttempts(
                                     attemptData?.attemptNumber!!,
-                                    attemptData?.answer!!
+                                    attemptData.answer!!,
+                                    attemptData.isReversed,
                                 )
                                 attempt
                             }

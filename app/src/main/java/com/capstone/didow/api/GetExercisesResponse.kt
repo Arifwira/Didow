@@ -50,5 +50,8 @@ data class AttemptsItem(
 	val attemptNumber: Int? = null,
 
 	@field:SerializedName("answer")
-	val answer: String? = null
+	val answer: String? = null,
+
+	@field:SerializedName("isReversed")
+	val isReversed: Boolean? = null
 )

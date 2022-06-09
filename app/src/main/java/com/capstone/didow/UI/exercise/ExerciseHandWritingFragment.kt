@@ -158,7 +158,7 @@ class ExerciseHandWritingFragment : Fragment() {
                         try {
                             response = uploadImage()
                             Log.d("successUpload", response!!.data!!.predictedWord.toString())
-                            exerciseViewModel.answer(response.data!!.predictedWord.toString())
+                            exerciseViewModel.answer(response.data!!.predictedWord.toString(), response.data!!.dyslexia)
                             withContext(Dispatchers.Main) {
                                 if (response.data!!.isCorrect!!) {
                                     binding.apply {

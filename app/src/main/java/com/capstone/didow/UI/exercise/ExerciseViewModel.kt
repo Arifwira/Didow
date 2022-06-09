@@ -130,8 +130,8 @@ class ExerciseViewModel : ViewModel() {
         _currentAttempt.value = _exercise.value?.getCurentAttempt()
     }
 
-    fun answer(ans: String): Boolean {
-        return this.currentAttempt.value?.answer(this.currentQuestion.value!!, ans)!!
+    fun answer(ans: String, isReversed: Boolean?): Boolean {
+        return this.currentAttempt.value?.answer(this.currentQuestion.value!!, ans, isReversed)!!
     }
 
     fun nextQuestion() {
@@ -172,6 +172,13 @@ class ExerciseViewModel : ViewModel() {
                 wrongAnswerJson.put("word", wrongAnswer.question.word)
                 wrongAnswerJson.put("answer", wrongAnswer.answer)
                 wrongAnswerJson.put("type", questionType)
+
+                if (wrongAnswer.question is QuestionHandwriting) {
+
+                    val handwritingAnswer = wrongAnswer as HandwritingAnswer
+                    wrongAnswerJson.put("isReversed", handwritingAnswer.isReversed)
+                }
+
                 wrongAnswerJson
             }
             val attemptJson = JSONObject()
@@ -190,6 +197,7 @@ class ExerciseViewModel : ViewModel() {
         jsonRequestBody.put("avgSyllables", avgSyllables)
         jsonRequestBody.put("questionsQty", questions.size)
         jsonRequestBody.put("attempts", JSONArray(attemptsJson.toString()))
+        Log.d("createExercise", jsonRequestBody.toString())
         val requestBody = jsonRequestBody.toString().toRequestBody("application/json".toMediaTypeOrNull())
 
         val client = RetrofitInstance.getApiService()
