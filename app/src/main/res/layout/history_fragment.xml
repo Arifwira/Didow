@@ -106,11 +106,11 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:paddingTop="8dp"
-                android:weightSum="3">
+                android:weightSum="1">
 
                 <TextView
                     android:id="@+id/tvStartDate"
-                    android:layout_width="140dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="48dp"
                     android:layout_marginStart="8dp"
                     android:background="@drawable/date_background"
@@ -119,38 +119,34 @@
                     android:padding="12dp"
                     android:textColorHint="@android:color/darker_gray"
                     android:textColor="@color/black"
-                    android:textSize="18sp"
-                    android:layout_weight="1"
+                    android:textSize="16sp"
+                    android:layout_weight="0.4"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/tvEndDate"
-                    android:layout_width="140dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="48dp"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginStart="4dp"
                     android:background="@drawable/date_background"
                     android:gravity="center_vertical"
                     android:hint="End date"
+                    android:layout_weight="0.4"
                     android:padding="12dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_weight="1"
+                    android:layout_marginEnd="4dp"
                     android:textColorHint="@android:color/darker_gray"
                     android:textColor="@color/black"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     app:layout_constraintStart_toEndOf="@id/tvStartDate"
                     app:layout_constraintTop_toTopOf="parent" />
-                <View
-                    android:layout_width="0dp"
-                    android:layout_weight="0.7"
-                    android:layout_height="match_parent"/>
+
                 <ImageButton
                     android:id="@+id/btnCalendar"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
-                    android:layout_marginStart="8dp"
                     android:layout_marginEnd="8dp"
-                    android:layout_weight="0.3"
+                    android:layout_weight="0.2"
                     android:background="@drawable/date_background"
                     android:src="@drawable/ic_baseline_calendar_month_24"
                     app:layout_constraintBottom_toBottomOf="@+id/tvEndDate"

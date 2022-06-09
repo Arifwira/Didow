@@ -2,7 +2,9 @@ package com.capstone.didow
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -10,11 +12,14 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import com.capstone.didow.UI.OnBoarding
 import com.capstone.didow.UI.history.HistoryFragment
 import com.capstone.didow.UI.home.HomeFragment
 import com.capstone.didow.UI.profile.ProfileFragment
+import com.capstone.didow.api.GetUserResponse
+import com.capstone.didow.api.RetrofitInstance
 import com.capstone.didow.databinding.ActivityMainBinding
 import com.capstone.didow.databinding.RegisterFragmentBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -23,6 +28,8 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 
 class MainActivity : AppCompatActivity() {
 
@@ -31,6 +38,10 @@ class MainActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var data: FirebaseFirestore
     private var musicPlayer: MediaPlayer? = null
+    val PREF = "SharedPreference"
+    val UID = "userID"
+    val ANIM = "1"
+    lateinit var  sharedPreferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +49,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 //        startActivity(Intent(this, OnBoarding::class.java))
 //        finish()
+        sharedPreferences = getSharedPreferences(PREF, Context.MODE_PRIVATE)
         auth = Firebase.auth
         val currentUser = auth.currentUser
         if (currentUser == null) {
@@ -45,6 +57,7 @@ class MainActivity : AppCompatActivity() {
             finish()
         }
         val uid = auth.currentUser?.uid
+        sharedPreferences.edit().putString(UID,"$uid").apply()
         data = Firebase.firestore
 
         val firstFragment=HomeFragment()
@@ -52,18 +65,21 @@ class MainActivity : AppCompatActivity() {
         val thirdFragment=ProfileFragment()
 
         if (uid != null) {
-            data.collection("users").document(uid)
-                .get()
-                .addOnSuccessListener { result ->
-                    Log.d("NAMA", "${result.id} => ${result.data?.get("nickname")}")
+            lifecycleScope.launch {
+                val client = RetrofitInstance.getApiService()
+                var userInfo: GetUserResponse? = null
+                if (auth.currentUser != null) {
+                    val userToken = auth.currentUser!!.getIdToken(true).await().token
+                    userInfo = client.getUser(uid,null, userToken!!)
+                    Log.d("TOKEN", "${userToken}")
                     val bundle = Bundle().apply {
-                        putString("NAMA","${result.data?.get("nickname")}")
+                        putString("ID","$uid")
+                        putString("NAMA","${userInfo.data?.nickname}")
                     }
                     thirdFragment.arguments = bundle
                 }
-                .addOnFailureListener { exception ->
-                    Log.w("NAMA", "Error getting documents.", exception)
-                }
+                Log.d("NICKNAME", "${userInfo?.data?.nickname}")
+            }
         }
         setCurrentFragment(firstFragment)
 

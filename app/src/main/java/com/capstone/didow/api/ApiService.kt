@@ -29,6 +29,12 @@ interface ApiService {
     @POST("users")
     suspend fun createUser(@Body requestBody: RequestBody): CreateUserResponse
 
+    @PUT("users/{id}")
+    suspend fun editUser(
+        @Path("id") id: String,
+        @Body requestBody: RequestBody
+    ): EditUserResponse
+
     @GET("exercises")
     suspend fun getExercises(
         @Query("userId") userId: String?,

@@ -6,179 +6,199 @@
     android:layout_height="match_parent"
     tools:context=".UI.onBoarding.AssessmentReportFragment">
 
-
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:gravity="center">
-
-        <TextView
-            android:id="@+id/tvReportTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Hasil\nAsesmen Awal"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textSize="36sp"
-            android:textStyle="bold"/>
-
-        <TextView
-            android:id="@+id/tvReportScore"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="123"
-            android:layout_marginTop="8dp"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textSize="36sp"
-            android:textStyle="bold"/>
-
-        <com.github.mikephil.charting.charts.PieChart
-            android:id="@+id/pchReport"
-            android:layout_width="225dp"
-            android:layout_height="225dp"
-
-            android:layout_marginTop="8dp"/>
-
+        android:layout_gravity="center">
         <LinearLayout
-            android:id="@+id/reportPilganContainer"
-            android:layout_width="wrap_content"
+            android:layout_marginTop="48dp"
+            android:layout_marginBottom="64dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:orientation="horizontal"
-
-            android:layout_marginTop="8dp">
-
-            <ImageView
-                android:id="@+id/colorPilgan"
-                android:layout_width="10dp"
-                android:layout_height="10dp"
-                android:background="@drawable/color_multiple_choice"
-                android:src="@drawable/color_multiple_choice"/>
+            android:orientation="vertical"
+            android:gravity="center">
 
             <TextView
-                android:id="@+id/tvPilgan"
-                android:layout_width="200dp"
+                android:id="@+id/tvReportTitle"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:letterSpacing="0.2"
-                android:text="Pilihan Ganda"
-                android:textAllCaps="true"
+                android:text="Hasil\nAsesmen Awal"
+                android:textAlignment="center"
                 android:textColor="@color/black"
+                android:textSize="36sp"
                 android:textStyle="bold"/>
 
             <TextView
-                android:id="@+id/tvNilaiPilgan"
-                android:layout_width="wrap_content"
+                android:id="@+id/tvReportDesc"
+                android:layout_width="match_parent"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:letterSpacing="0.2"
-                android:text="nilai"
-                android:textAlignment="center"
-                android:textAllCaps="true"
-                android:textColor="@color/black"
-                android:textStyle="bold" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/reportSusunKataContainer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:orientation="horizontal">
-            <ImageView
-                android:id="@+id/colorSusunKata"
-                android:layout_width="10dp"
-                android:layout_height="10dp"
-                android:src="@drawable/color_word_scramble" />
+                android:text="Detail Report will be here"
+                android:textSize="16sp"
+                android:padding="16dp"
+                android:background="@drawable/transparentbg"
+                android:textColor="@color/black"/>
 
             <TextView
-                android:id="@+id/tvSusunKata"
-                android:layout_width="200dp"
+                android:id="@+id/tvReportScore"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:letterSpacing="0.2"
-                android:text="Susun Kata"
-                android:textAllCaps="true"
+                android:text="123"
+                android:layout_marginTop="8dp"
+                android:textAlignment="center"
                 android:textColor="@color/black"
+                android:textSize="36sp"
+                android:textStyle="bold"/>
+
+            <com.github.mikephil.charting.charts.PieChart
+                android:id="@+id/pchReport"
+                android:layout_width="225dp"
+                android:layout_height="225dp"
+
+                android:layout_marginTop="8dp"/>
+
+            <LinearLayout
+                android:id="@+id/reportPilganContainer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:orientation="horizontal"
+
+                android:layout_marginTop="8dp">
+
+                <ImageView
+                    android:id="@+id/colorPilgan"
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:background="@drawable/color_multiple_choice"
+                    android:src="@drawable/color_multiple_choice"/>
+
+                <TextView
+                    android:id="@+id/tvPilgan"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:letterSpacing="0.2"
+                    android:text="Pilihan Ganda"
+                    android:textAllCaps="true"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/tvNilaiPilgan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:letterSpacing="0.2"
+                    android:text="nilai"
+                    android:textAlignment="center"
+                    android:textAllCaps="true"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/reportSusunKataContainer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:orientation="horizontal">
+                <ImageView
+                    android:id="@+id/colorSusunKata"
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:src="@drawable/color_word_scramble" />
+
+                <TextView
+                    android:id="@+id/tvSusunKata"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:letterSpacing="0.2"
+                    android:text="Susun Kata"
+                    android:textAllCaps="true"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:layout_marginStart="12dp" />
+
+                <TextView
+                    android:id="@+id/tvNilaiSusunKata"
+                    android:textAlignment="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:letterSpacing="0.2"
+                    android:text="nilai"
+                    android:textAllCaps="true"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/reportHandWritingContainer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:layout_marginBottom="16dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/colorHandWriting"
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:background="@drawable/color_hand_writing"
+                    android:src="@drawable/color_hand_writing"/>
+
+                <TextView
+                    android:id="@+id/tvHandWriting"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:letterSpacing="0.2"
+                    android:text="Tulis Tangan"
+                    android:textAllCaps="true"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/tvNilaiHandWriting"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:letterSpacing="0.2"
+                    android:text="nilai"
+                    android:textAlignment="center"
+                    android:textAllCaps="true"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"/>
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/daftar"
+                style="@style/ButtonGeneral"
+                android:text="daftar"
+                android:layout_marginTop="8dp"
+                android:backgroundTint="@color/black"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/keluar"
+                style="@style/ButtonGeneral"
                 android:textStyle="bold"
-                android:layout_marginStart="12dp" />
-
-            <TextView
-                android:id="@+id/tvNilaiSusunKata"
-                android:textAlignment="center"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:letterSpacing="0.2"
-                android:text="nilai"
-                android:textAllCaps="true"
+                android:backgroundTint="@color/orange_bg"
+                app:strokeColor="#393939"
+                app:strokeWidth="2dp"
+                android:stateListAnimator="@null"
                 android:textColor="@color/black"
-                android:textStyle="bold" />
-
+                android:text="keluar"
+                android:layout_marginBottom="64dp"
+                />
         </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/reportHandWritingContainer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:layout_marginBottom="16dp"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:id="@+id/colorHandWriting"
-                android:layout_width="10dp"
-                android:layout_height="10dp"
-                android:background="@drawable/color_hand_writing"
-                android:src="@drawable/color_hand_writing"/>
-
-            <TextView
-                android:id="@+id/tvHandWriting"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:letterSpacing="0.2"
-                android:text="Tulis Tangan"
-                android:textAllCaps="true"
-                android:textColor="@color/black"
-                android:textStyle="bold"/>
-
-            <TextView
-                android:id="@+id/tvNilaiHandWriting"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:letterSpacing="0.2"
-                android:text="nilai"
-                android:textAlignment="center"
-                android:textAllCaps="true"
-                android:textColor="@color/black"
-                android:textStyle="bold"/>
-
-        </LinearLayout>
-
-        <Button
-            android:id="@+id/daftar"
-            style="@style/ButtonGeneral"
-            android:text="daftar"
-            android:layout_marginTop="8dp"
-            android:backgroundTint="@color/black"
-            android:textColor="@color/white"
-            android:textStyle="bold" />
-
-        <Button
-            android:id="@+id/keluar"
-            style="@style/ButtonGeneral"
-            android:textStyle="bold"
-            android:backgroundTint="@color/orange_bg"
-            app:strokeColor="#393939"
-            app:strokeWidth="2dp"
-            android:stateListAnimator="@null"
-            android:textColor="@color/black"
-            android:text="keluar"
-            android:layout_marginBottom="16dp"
-            />
-    </LinearLayout>
+    </ScrollView>
 </FrameLayout>

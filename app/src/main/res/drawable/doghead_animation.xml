@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/doghead1" android:duration="50" />
+    <item android:drawable="@drawable/doghead2" android:duration="50"/>
+    <item android:drawable="@drawable/doghead3" android:duration="50"/>
+    <item android:drawable="@drawable/doghead4" android:duration="50"/>
+    <item android:drawable="@drawable/doghead5" android:duration="50"/>
+    <item android:drawable="@drawable/doghead6" android:duration="50"/>
+    <item android:drawable="@drawable/doghead7" android:duration="50"/>
+    <item android:drawable="@drawable/doghead8" android:duration="50"/>
+    <item android:drawable="@drawable/doghead9" android:duration="50"/>
+    <item android:drawable="@drawable/doghead10" android:duration="50"/>
+</animation-list>
