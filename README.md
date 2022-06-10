@@ -69,9 +69,6 @@ Quick view on our app.
 <img src="https://github.com/Arifwira/Didow/blob/master/ss/onBoarding.png" height="500"/>
 <img src="https://github.com/Arifwira/Didow/blob/master/ss/login.png" height="500"/>
 <img src="https://github.com/Arifwira/Didow/blob/master/ss/home.png" height="500"/>
-.
-
-.
 <img src="https://github.com/Arifwira/Didow/blob/master/ss/history.png" height="500"/>
 <img src="https://github.com/Arifwira/Didow/blob/master/ss/multi.png" height="500"/>
 .
