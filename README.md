@@ -79,3 +79,12 @@ Quick view on our app.
 <p align="center">
   <img src="https://github.com/Arifwira/Didow/blob/master/app/src/main/res/drawable/didowlogo.gif" />
 </p>
+
+## Assets
+This repository is a part of our Didow Project
+
+Other related repositories:
+
+  * [Didow API](https://github.com/hendrawanap/didow-api)
+  * [Didow ML](https://github.com/MRifqiFz/DidowML)
+  * [Didow ML API](https://github.com/hendrawanap/didow-ml-api)
