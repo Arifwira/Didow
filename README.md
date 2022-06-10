@@ -73,14 +73,8 @@ Quick view on our app.
 <img src="https://github.com/Arifwira/Didow/blob/master/ss/multi.png" height="500"/>
 .
 <br></br>
-<br></br>
 
-
-<p align="center">
-  <img src="https://github.com/Arifwira/Didow/blob/master/app/src/main/res/drawable/didowlogo.gif" />
-</p>
-
-## Assets
+## Notes
 This repository is a part of our Didow Project
 
 Other related repositories:
@@ -88,3 +82,8 @@ Other related repositories:
   * [Didow API](https://github.com/hendrawanap/didow-api)
   * [Didow ML](https://github.com/MRifqiFz/DidowML)
   * [Didow ML API](https://github.com/hendrawanap/didow-ml-api)
+<br></br>
+
+<p align="center">
+  <img src="https://github.com/Arifwira/Didow/blob/master/app/src/main/res/drawable/didowlogo.gif" />
+</p>
